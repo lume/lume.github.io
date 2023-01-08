@@ -24,6 +24,7 @@
 		"vue": "^2.6.10"
 	},
 	"devDependencies": {
+		"@lume/cli": "^0.9.3",
 		"readem": "^0.2.7",
 		"regexr": "^1.5.1",
 		"rimraf": "^3.0.2"
