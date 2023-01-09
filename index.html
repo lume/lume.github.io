@@ -14,6 +14,34 @@
 			}
 		</script>
 
+		<!-- Start Single Page Apps for GitHub Pages -->
+		<!-- Copied/adapted as instructed from https://github.com/rafgraph/spa-github-pages. -->
+		<script type="text/javascript">
+			// Single Page Apps for GitHub Pages
+			// MIT License
+			// https://github.com/rafgraph/spa-github-pages
+			// This script checks to see if a redirect is present in the query string,
+			// converts it back into the correct url and adds it to the
+			// browser's history using window.history.replaceState(...),
+			// which won't cause the browser to attempt to load the new url.
+			// When the single page app is loaded further down in this file,
+			// the correct url will be waiting in the browser's history for
+			// the single page app to route accordingly.
+			;(function (l) {
+				if (l.search[1] === '/') {
+					var decoded = l.search
+						.slice(1)
+						.split('&')
+						.map(function (s) {
+							return s.replace(/~and~/g, '&')
+						})
+						.join('?')
+					window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash)
+				}
+			})(window.location)
+		</script>
+		<!-- End Single Page Apps for GitHub Pages -->
+
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="description" content="A CSS3D/WebGL UI library." />
 		<meta
@@ -21,47 +49,47 @@
 			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
 		/>
 
-		<link rel="stylesheet" href="./node_modules/docsify-themeable/dist/css/theme-simple.css" />
-		<link rel="stylesheet" href="./node_modules/@lume/live-code/dist/live-code.css" />
-		<link rel="stylesheet" href="./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css" />
+		<link rel="stylesheet" href="/node_modules/docsify-themeable/dist/css/theme-simple.css" />
+		<link rel="stylesheet" href="/node_modules/@lume/live-code/dist/live-code.css" />
+		<link rel="stylesheet" href="/node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css" />
 
-		<link rel="stylesheet" href="./styles/index.css" />
+		<link rel="stylesheet" href="/styles/index.css" />
 	</head>
 	<body class="line-numbers">
 		<div id="app"></div>
 
 		<!-- This loads the global version of the lib. -->
-		<script src="./global.js"></script>
+		<script src="/global.js"></script>
 		<script>
 			LUME.defineElements()
 		</script>
 
-		<script src="./node_modules/babel-standalone/babel.min.js"></script>
+		<script src="/node_modules/babel-standalone/babel.min.js"></script>
 
-		<script src="./node_modules/vue/dist/vue.min.js"></script>
-		<script src="./node_modules/@lume/live-code/dist/live-code.umd.min.js"></script>
+		<script src="/node_modules/vue/dist/vue.min.js"></script>
+		<script src="/node_modules/@lume/live-code/dist/live-code.umd.min.js"></script>
 
-		<script src="./docsify.config.js"></script>
+		<script src="/docsify.config.js"></script>
 
 		<!-- TODO: Rename '@lume/docsify' to 'docsify' -->
-		<script src="./node_modules/@lume/docsify/lib/docsify.min.js"></script>
+		<script src="/node_modules/@lume/docsify/lib/docsify.min.js"></script>
 		<!-- TODO FIXME emoji plugin doesn't seem to do anything. -->
-		<!-- <script src="./node_modules/@lume/docsify/lib/plugins/emoji.min.js"></script> -->
-		<script src="./node_modules/@lume/docsify/lib/plugins/search.min.js"></script>
+		<!-- <script src="/node_modules/@lume/docsify/lib/plugins/emoji.min.js"></script> -->
+		<script src="/node_modules/@lume/docsify/lib/plugins/search.min.js"></script>
 
 		<!-- TODO Prism line numbers don't work, using vue-prism-editor numbers for now (do the Prism ones work with live editing?) -->
-		<script src="./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
-		<script src="./node_modules/prismjs/components/prism-bash.min.js"></script>
-		<script src="./node_modules/prismjs/components/prism-jsx.min.js"></script>
-		<script src="./node_modules/prismjs/components/prism-typescript.min.js"></script>
-		<script src="./node_modules/prismjs/components/prism-tsx.min.js"></script>
+		<script src="/node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+		<script src="/node_modules/prismjs/components/prism-bash.min.js"></script>
+		<script src="/node_modules/prismjs/components/prism-jsx.min.js"></script>
+		<script src="/node_modules/prismjs/components/prism-typescript.min.js"></script>
+		<script src="/node_modules/prismjs/components/prism-tsx.min.js"></script>
 
-		<script src="./node_modules/docsify-themeable/dist/js/docsify-themeable.min.js"></script>
-		<script src="./node_modules/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
-		<script src="./node_modules/docsify-pagination/dist/docsify-pagination.min.js"></script>
-		<script src="./node_modules/docsify-plugin-flexible-alerts/dist/docsify-plugin-flexible-alerts.min.js"></script>
-		<script src="./node_modules/docsify-tabs/dist/docsify-tabs.min.js"></script>
+		<script src="/node_modules/docsify-themeable/dist/js/docsify-themeable.min.js"></script>
+		<script src="/node_modules/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+		<script src="/node_modules/docsify-pagination/dist/docsify-pagination.min.js"></script>
+		<script src="/node_modules/docsify-plugin-flexible-alerts/dist/docsify-plugin-flexible-alerts.min.js"></script>
+		<script src="/node_modules/docsify-tabs/dist/docsify-tabs.min.js"></script>
 
-		<script src="./js/utils.js"></script>
+		<script src="/js/utils.js"></script>
 	</body>
 </html>

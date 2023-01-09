@@ -13,7 +13,7 @@
   Model from https://github.com/nasa/astrobee_media/tree/master/astrobee_freeflyer/meshes.
 -->
 
-<script src="${location.origin+location.pathname}global.js"><\/script>
+<script src="${host}global.js"><\/script>
 
 <style>
   html,
@@ -33,13 +33,13 @@
 <script>
   const {defineElements, booleanAttribute, Element, element, attribute, html} = LUME
 
-  const bodyModelUrl = '${location.origin+location.pathname}examples/nasa-astrobee-robot/astrobee/body.dae'
-  const pmcModelUrl = '${location.origin+location.pathname}examples/nasa-astrobee-robot/astrobee/pmc.dae'
-  const pmcSkinModelUrl = '${location.origin+location.pathname}examples/nasa-astrobee-robot/astrobee/pmc_skin_.dae'
-  const pmcBumperModelUrl = '${location.origin+location.pathname}examples/nasa-astrobee-robot/astrobee/pmc_bumper.dae'
+  const bodyModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/body.dae'
+  const pmcModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/pmc.dae'
+  const pmcSkinModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/pmc_skin_.dae'
+  const pmcBumperModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/pmc_bumper.dae'
 
   // Find more at https://blog.kuula.co/360-images-ruben-frosali
-  const lunaStation = '${location.origin+location.pathname}examples/nasa-astrobee-robot/luna-station.jpg'
+  const lunaStation = '${host}examples/nasa-astrobee-robot/luna-station.jpg'
 
   // Registers the LUME elements with their default tag names.
   defineElements()

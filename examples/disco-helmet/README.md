@@ -30,7 +30,7 @@
   .hidden { visibility: hidden; }
 </style>
 
-<script src="${location.origin+location.pathname}global.js"><\/script>
+<script src="${host}global.js"><\/script>
 
 <!-- See src/examples/LoadingIcon.ts -->
 <loading-icon id="loading"></loading-icon>
@@ -44,7 +44,7 @@
 
     <lume-gltf-model
     	id="model"
-    	src="${location.origin+location.pathname}examples/disco-helmet/DamagedHelmet.glb"
+    	src="${host}examples/disco-helmet/DamagedHelmet.glb"
     	rotation="0 45 0"
     	size="2 2 0"
     	mount-point="0.5 0.5 0.5"

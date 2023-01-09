@@ -2,12 +2,15 @@
 	"name": "docs",
 	"private": true,
 	"scripts": {
-		"build": "npm run clean && npm run copy && node --input-type module < ./build-docs.js",
-		"copy": "npm run copy:readmes && npm run copy:lume",
-		"copy:readmes": "cp node_modules/element-behaviors/README.md ./guide/includes/lume-element-behaviors.md && cp node_modules/@lume/element/README.md ./guide/includes/lume-element.md && cp node_modules/@lume/variable/README.md ./guide/includes/lume-variable.md && cp node_modules/@lume/autolayout/README.md ./guide/includes/lume-autolayout.md",
-		"copy:lume": "cp node_modules/lume/dist/global.js ./global.js && cp node_modules/lume/dist/global.js.map ./global.js.map",
-		"clean": "rimraf ./global.js && rimraf ./global.js.map && rimraf ./api/ && rimraf ./guide/includes/lume-*",
-		"serve": "live-server --host=0.0.0.0 --port=54321 --watch=global.js,./ --cors ./"
+		"// The site is static, hosted on GitHub, and we don't run a server in production, so we only have a dev command for serving locally.": "",
+		"start": "npm run build && npm run dev",
+		"dev": "node --experimental-import-meta-resolve ./dev-server.mjs",
+		"build": "npm run clean && npm run copy-project && cd dist && npm ci && npm run dist:copy && node ./build-docs.mjs",
+		"clean": "npx --yes rimraf dist/",
+		"copy-project": "npx --yes mkdirp dist && npx --yes cpr ./ dist/ --filter='dist|node_modules|.git'",
+		"dist:copy": "npm run dist:copy:readmes && npm run dist:copy:lume",
+		"dist:copy:readmes": "cp node_modules/element-behaviors/README.md ./guide/includes/lume-element-behaviors.md && cp node_modules/@lume/element/README.md ./guide/includes/lume-element.md && cp node_modules/@lume/variable/README.md ./guide/includes/lume-variable.md && cp node_modules/@lume/autolayout/README.md ./guide/includes/lume-autolayout.md",
+		"dist:copy:lume": "cp node_modules/lume/dist/global.js ./global.js && cp node_modules/lume/dist/global.js.map ./global.js.map"
 	},
 	"dependencies": {
 		"@lume/docsify": "^4.9.4-1d3246a2.0",
@@ -25,6 +28,9 @@
 	},
 	"devDependencies": {
 		"@lume/cli": "^0.9.3",
+		"browser-sync": "^2.27.11",
+		"cpr": "^3.0.1",
+		"mkdirp": "^1.0.4",
 		"readem": "^0.2.7",
 		"regexr": "^1.5.1",
 		"rimraf": "^3.0.2"

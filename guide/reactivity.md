@@ -16,7 +16,7 @@ value changes.
     data: {
       code:
 `
-<script src="${location.origin+location.pathname}global.js"><\/script>
+<script src="${host}global.js"><\/script>
 
 <body>
 

@@ -3,9 +3,6 @@ import '../global.js'
 LUME.defineElements()
 const {html, Element, element, attribute} = LUME
 
-const host = location.origin + '/'
-// const host = location.origin + '/examples/'
-
 export const PictureFrameScene = element('picture-frame-scene')(
 	class PictureFrameScene extends Element {
 		static observedAttributes = {

@@ -9,7 +9,7 @@
     data: {
       code:
 `
-<script src="${location.origin+location.pathname}global.js"><\/script>
+<script src="${host}global.js"><\/script>
 
 <!-- Do you see the Moon's shadow on Earth's surface when it passes in front of the sun? -->
 
@@ -22,7 +22,7 @@
   <!-- Stars -->
   <lume-sphere
     id="stars"
-    texture="${location.origin+location.pathname}examples/hello-world/galaxy_starfield.png"
+    texture="${host}examples/hello-world/galaxy_starfield.png"
     receive-shadow="false"
     has="basic-material"
     sidedness="back"
@@ -51,16 +51,16 @@
     <lume-element3d rotation="0 180 0">
       <lume-sphere
         id="earth"
-        texture="${location.origin+location.pathname}examples/hello-world/earthmap1k.jpg"
-        bump-map="${location.origin+location.pathname}examples/hello-world/earthbump1k.jpg"
-        specular-map="${location.origin+location.pathname}examples/hello-world/earthspec1k.jpg"
+        texture="${host}examples/hello-world/earthmap1k.jpg"
+        bump-map="${host}examples/hello-world/earthbump1k.jpg"
+        specular-map="${host}examples/hello-world/earthspec1k.jpg"
         size="120 120 120"
         mount-point="0.5 0.5 0.5"
         color="white"
       >
         <lume-sphere
           id="clouds"
-          texture="${location.origin+location.pathname}examples/hello-world/earthclouds.png"
+          texture="${host}examples/hello-world/earthclouds.png"
           opacity="0.7"
           size="125 125 125"
           mount-point="0.5 0.5 0.5"
@@ -73,7 +73,7 @@
       <lume-element3d id="moonRotator" rotation="0 0 110">
         <lume-sphere
           id="moon"
-          texture="${location.origin+location.pathname}examples/hello-world/moon.jpg"
+          texture="${host}examples/hello-world/moon.jpg"
           position="250"
           size="5 5 5"
           mount-point="0.5 0.5 0.5"

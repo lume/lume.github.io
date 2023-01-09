@@ -126,7 +126,7 @@ of its parent.
 		template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
 		data: {
 			code: stripIndent(`
-				<script src="${location.origin+location.pathname}global.js"><\/script>
+				<script src="${host}global.js"><\/script>
 
 				<lume-scene>
 					<lume-element3d id="one" position="50 50" size="10 10" rotation="0 0 10">

@@ -26,7 +26,7 @@ behavior and a material behavior.
     data: {
       code:
 `
-<script src="${location.origin+location.pathname}global.js"><\/script>
+<script src="${host}global.js"><\/script>
 <!-- pep.js provides the pointer events (pointermove, pointerdown, etc) -->
 <script src="https://code.jquery.com/pep/0.4.3/pep.js"><\/script>
 
@@ -79,8 +79,8 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
             size="0 0 0 "
             scale="200 200 200"
             position="0 -30 100"
-            obj="${location.origin + location.pathname}models/spaceship/ship.obj"
-            mtl="${location.origin + location.pathname}models/spaceship/ship.mtl"
+            obj="${host}models/spaceship/ship.obj"
+            mtl="${host}models/spaceship/ship.mtl"
         >
         </lume-element3d>
     </lume-element3d>
@@ -93,7 +93,7 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
             size="0 0 0"
             scale="200 200 200"
             position="0 30 210"
-            obj="${location.origin+location.pathname}models/spaceship/ship.obj"
+            obj="${host}models/spaceship/ship.obj"
         >
         </lume-obj-model>
     </lume-element3d>
@@ -175,13 +175,13 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
     objToggle.addEventListener('click', () => {
         objBehavior = ship1.behaviors.get('obj-model')
         if (objBehavior.obj) objBehavior.obj = ''
-        else objBehavior.obj = '${location.origin + location.pathname}models/spaceship/ship.obj'
+        else objBehavior.obj = '${host}models/spaceship/ship.obj'
     })
 
     matToggle.addEventListener('click', () => {
         objBehavior = ship2.behaviors.get('obj-model')
         if (objBehavior.mtl) objBehavior.mtl = ''
-        else objBehavior.mtl = '${location.origin + location.pathname}models/spaceship/ship.mtl'
+        else objBehavior.mtl = '${host}models/spaceship/ship.mtl'
     })
 <\/script>
 
@@ -199,7 +199,7 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
 `
 <body touch-action="none">
 
-<script src="${location.origin+location.pathname}global.js"><\/script>
+<script src="${host}global.js"><\/script>
 <!-- pep.js provides the pointer events (pointermove, pointerdown, etc) -->
 <script src="https://code.jquery.com/pep/0.4.3/pep.js"><\/script>
 
@@ -238,7 +238,7 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
         mount-point="0.5 0.5 0.5"
         size="100 100 100"
         color="white"
-        texture="${location.origin+location.pathname}textures/cement.jpg"
+        texture="${host}textures/cement.jpg"
     >
     </lume-box>
 </lume-scene>
@@ -305,7 +305,7 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
     sizeZ.addEventListener('change', event => el.behaviors.get('box-geometry').size = {z: event.target.value})
 
     enableTex.addEventListener('click', event => {
-      el.setAttribute('texture', el.getAttribute('texture') ? '' : '${location.origin+location.pathname}textures/cement.jpg')
+      el.setAttribute('texture', el.getAttribute('texture') ? '' : '${host}textures/cement.jpg')
     })
 
     perspectiveVal.innerHTML = '('+scene.perspective.toString().padStart(3).replace(' ', '&nbsp;')+'px)'

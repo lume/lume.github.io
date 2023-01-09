@@ -38,7 +38,7 @@
     data: {
       code:
 `
-<script src="${location.origin+location.pathname}global.js"><\/script>
+<script src="${host}global.js"><\/script>
 
 <lume-scene>
   <lume-element3d

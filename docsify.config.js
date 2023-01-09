@@ -11,6 +11,7 @@
 		return {
 			name: 'LUME',
 			nameLink: '//lume.io',
+			routerMode: 'history',
 			// replaces site `name` in sidebar with an image.
 			logo: './images/logo-and-word.svg',
 			// basePath: 'https://unpkg.com/lume@0.0.0-rc.0/docs/', // TODO host on unpkg, with versioned docs?

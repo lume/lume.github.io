@@ -8,7 +8,7 @@
     template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="200" />',
     data: {
       code: stripIndent(`
-        <script src="${location.origin+location.pathname}global.js"><\/script>
+        <script src="${host}global.js"><\/script>
 
         <lume-scene webgl vr>
           <lume-box
