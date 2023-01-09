@@ -2171,6 +2171,7 @@ const pictureFrameExample = stripIndent(html`
 		// Make sure a global LUME object is in place before importing global.js as an ES module.
 		// TODO this shouldn't be necessary.
 		var LUME = {}
+		const host = '${host}'
 
 		import('${host}js/PictureFrameScene.js')
 	</script>
