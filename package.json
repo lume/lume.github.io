@@ -3,6 +3,7 @@
 	"private": true,
 	"scripts": {
 		"// The site is static, hosted on GitHub, and we don't run a server in production, so we only have a dev command for serving locally.": "",
+		"// Deploy happens when we push to origin/main, the build.yml file deploys to GitHub Pages.": "",
 		"start": "npm run build && npm run dev",
 		"dev": "node --experimental-import-meta-resolve ./dev-server.mjs",
 		"build": "npm run clean && npm run copy-project && cd dist && npm ci && npm run dist:copy && node ./build-docs.mjs",
