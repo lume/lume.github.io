@@ -44,6 +44,13 @@
 						return editTop + content + editBottom
 					})
 				},
+
+				// plugin to add target=_self behavior to the LUME logo until docsify#1803 is fixed.
+				hook =>
+					hook.mounted(() => {
+						const link = document.querySelector('.app-name-link')
+						link.addEventListener('click', () => (globalThis.location = link.href))
+					}),
 			]),
 
 			markdown: {
