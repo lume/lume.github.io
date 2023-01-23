@@ -16,6 +16,7 @@
 				// We're using `routerMode: 'history'`, make sure we load the
 				// same sidebar no matter which path we're on.
 				'/.*/_sidebar.md': '/_sidebar.md',
+				'/.*/_navbar.md': '/_navbar.md',
 			},
 			// replaces site `name` in sidebar with an image.
 			logo: '/images/logo-and-word.svg',
