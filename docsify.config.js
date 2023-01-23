@@ -12,6 +12,11 @@
 			name: 'LUME',
 			nameLink: '//lume.io',
 			routerMode: 'history',
+			alias: {
+				// We're using `routerMode: 'history'`, make sure we load the
+				// same sidebar no matter which path we're on.
+				'/.*/_sidebar.md': '/_sidebar.md',
+			},
 			// replaces site `name` in sidebar with an image.
 			logo: '/images/logo-and-word.svg',
 			// basePath: 'https://unpkg.com/lume@0.0.0-rc.0/docs/', // TODO host on unpkg, with versioned docs?
