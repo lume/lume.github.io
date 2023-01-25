@@ -1,3 +1,6 @@
 {
-	"rewrites": [{"source": "/(.*)", "destination": "/index.html"}]
+	"rewrites": [
+		{"source": "/three-meshline/:match*", "destination": "https://lume.github.io/three-meshline/:match*"},
+		{"source": "/((?!three-meshline).*)", "destination": "/index.html"}
+	]
 }
