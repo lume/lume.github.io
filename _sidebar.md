@@ -10,9 +10,7 @@
   - [Reactivity](/guide/reactivity)
   - [Cameras](/guide/cameras)
   - [External Assets](/guide/external-assets)
-  - [Element Behaviors](/guide/includes/lume-element-behaviors)
   - [Making Elements](/guide/making-elements)
-  - [Layouts with Autolayout](/guide/layouts-with-autolayout)
   - [Compatibility](/guide/compatibility)
   - [Contributing](/guide/contributing)
 
@@ -36,6 +34,12 @@
     <!-- Uncomment these for testing. -->
     <!-- - [Shadow DOM](/examples/shadow-dom.md ':class=no-sublist') -->
     <!-- - [Shadow DOM](/examples/shadow-dom-2.md ':class=no-sublist') -->
+
+- **Libs**
+
+  - [element-behaviors](/guide/includes/lume-element-behaviors)
+  - [@lume/autolayout](/guide/layouts-with-autolayout)
+  - [@lume/three-meshline](/three-meshline/ ':class=no-sublist')
 
 - **API Reference**
 
