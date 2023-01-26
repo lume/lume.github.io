@@ -35,11 +35,11 @@
     <!-- - [Shadow DOM](/examples/shadow-dom.md ':class=no-sublist') -->
     <!-- - [Shadow DOM](/examples/shadow-dom-2.md ':class=no-sublist') -->
 
-- **Libs**
+- **Packages**
 
   - [element-behaviors](/guide/includes/lume-element-behaviors)
   - [@lume/autolayout](/guide/layouts-with-autolayout)
-  - [@lume/three-meshline](//lume.github.io/three-meshline/)
+  - [@lume/three-meshline](/three-meshline)
 
 - **API Reference**
 

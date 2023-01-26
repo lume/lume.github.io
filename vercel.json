@@ -1,7 +1,8 @@
 {
 	"rewrites": [
-		{"source": "/three-meshline", "destination": "https://lume.github.io/three-meshline/"},
-		{"source": "/three-meshline/:match*", "destination": "https://lume.github.io/three-meshline/:match*"},
-		{"source": "/((?!three-meshline).*)", "destination": "/index.html"}
+		{"source": "/three-meshline", "destination": "https://lume.github.io/three-meshline/README.md"},
+		{"source": "/three-meshline/:path*", "destination": "https://lume.github.io/three-meshline/:path"},
+		{"source": "/:path*(\\.md)", "destination": "/:path"},
+		{"source": "/(.*)", "destination": "/index.html"}
 	]
 }
