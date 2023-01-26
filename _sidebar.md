@@ -39,7 +39,7 @@
 
   - [element-behaviors](/guide/includes/lume-element-behaviors)
   - [@lume/autolayout](/guide/layouts-with-autolayout)
-  - [@lume/three-meshline](/three-meshline)
+  - [@lume/three-meshline](/three-meshline/)
 
 - **API Reference**
 
