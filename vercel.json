@@ -2,7 +2,7 @@
 	"rewrites": [
 		{"source": "/three-meshline.md", "destination": "https://lume.github.io/three-meshline/README.md"},
 		{"source": "/three-meshline/:path*", "destination": "https://lume.github.io/three-meshline/:path"},
-		{"source": "/:path*(\\.md)", "destination": "/:path"},
+		{"source": "/:path*(\\.md)", "destination": "/:path*"},
 		{"source": "/(.*)", "destination": "/index.html"}
 	]
 }
