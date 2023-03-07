@@ -70,39 +70,43 @@ First install needed system dependencies.
 
 #### Local Dependencies
 
-Now install the local project dependencies:
+If you've cloned the repo fresh, run:
 
 ```bash
-npm install
+npm run fresh
 ```
 
-This will install dependencies at the root of the repo, and also install
-dependencies for the projects in the `apps/` and `packages/` folders. It will
-then symlink all projects to each other, so that if a project at `packages/A`
-(for example) depends on a project at `packages/B` (for example), then
-project A will contain a symlink `packages/A/node_modules/B` that
-links to project B.
+This will do the following:
 
-The symlinking is useful because it makes it so we can make changes in one
-project which is a dependency of another project, and see what the changes
-look like in the dependent project.
+1. Recursively clone all git submodules inside of `packages/` and `apps/` folders.
+2. Install top-level repo dependencies with `npm install`.
+3. Bootstrap packages and apps with [Lerna](https://lerna.js.org) which will
+   install dependencies for the projects in the `apps/` and `packages/` folders,
+   and will symlink any projects to dependent projects, so that if a project at
+   `packages/A` (for example) depends on a project at `packages/B` (for example),
+   then `packages/A` will contain a symlink `packages/A/node_modules/B` that links
+   to `packages/B`.
 
-After the installation of dependencies and symlinking of projects, the
-install process will build all projects one time initially so that any
-project can be executed after the installtion process is finished (meaning we
-can run tests for any project, or run applications such as examples or
-websites for any project because the dependencies are symlinked with build
-output files present and therefore consumable).
+   The symlinking is useful because it makes it so we can make
+   changes in one project which is a dependency of another project, and see what
+   the changes look like in the dependent project.
+4. After the installation of dependencies and symlinking of projects, the
+   install process will build all projects one time initially so that any
+   project can be executed after the installtion process is finished (meaning we
+   can run tests for any project, or run applications such as examples or
+   websites for any project because the dependencies are symlinked with build
+   output files present and therefore consumable).
 
 ### Reset and re-install
 
-If at any point there appears to be something not working right (like
-something is linked but not built do to some manual handling gone wrong), run
-the following to "refresh" the project.
+If at any point there appears to be something not working right (like something
+is linked but not built do to some manual handling gone wrong), run the
+following to "refresh" the project. It is similar to `npm run fresh`, except it
+will not re-install top-level dependencies and will not update git submodules.
 
-The following will delete all dependencies (`node_modules` folders), delete
-all build outputs, re-install all dependencies, re-link all projects, and finally
-re-build all projects:
+The following will delete all dependencies (`node_modules` folders), delete all
+build outputs, re-install all project dependencies in `packages/` and `apps/`,
+re-link all projects, and finally re-build all projects:
 
 ```bash
 npm run refresh
