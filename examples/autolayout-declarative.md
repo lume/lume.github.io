@@ -48,7 +48,7 @@
                       mount-point="0.5 0.5 0.5"
                       style="pointer-events: none"
                       >
-                  </lume-sphere>
+                  </lume-mesh>
               </lume-point-light>
               <lume-autolayout-node
                   id="layout"
