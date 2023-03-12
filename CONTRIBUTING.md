@@ -9,7 +9,11 @@ npm run build
 
 # Publishing
 
-Get permissiong to push to https://github.com/lume-vercel/docs, then simply push
+First get permission to push to https://github.com/lume-vercel/docs.
+
+## Option 1: `git push`
+
+Now simply push
 to the `main` branch there and [Vercel](https://vercel.com) will automatically pull and publish
 the site to https://docs.lume.io.
 
@@ -23,6 +27,10 @@ or
 git remote add lume-vercel git@github.com:lume-vercel/docs.git
 git push lume-vercel
 ```
+
+## Option 2: Sync in GitHub UI
+
+Alternatively, just go to https://github.com/lume-vercel/docs and his the `Sync fork` button.
 
 # Accounts
 
