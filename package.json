@@ -9,6 +9,7 @@
 		"build": "npm run clean && npm run copy-project && cd dist && npm ci && npm run dist:copy && node ./build-docs.mjs",
 		"clean": "rimraf dist/",
 		"copy-project": "mkdirp dist && bash -O extglob -c 'cp -r !(node_modules|.git|dist) dist/'",
+		"publish": "git push git@github.com:lume-vercel/docs.git",
 		"dist:copy": "npm run dist:copy:readmes && npm run dist:copy:lume",
 		"dist:copy:readmes": "cp node_modules/element-behaviors/README.md ./guide/includes/lume-element-behaviors.md && cp node_modules/@lume/element/README.md ./guide/includes/lume-element.md && cp node_modules/@lume/variable/README.md ./guide/includes/lume-variable.md && cp node_modules/@lume/autolayout/README.md ./guide/includes/lume-autolayout.md",
 		"dist:copy:lume": "cp node_modules/lume/dist/global.js ./global.js && cp node_modules/lume/dist/global.js.map ./global.js.map"
