@@ -1,3 +1,7 @@
+> **Note** This is the guide for contributing to the docs, while
+> [./guide/contributing.md](./guide/contributing.md) is the guide for contributing
+> to Lume as a whole.
+
 # Building the docs:
 
 The following copies some source files from node_modules to build API docs from,

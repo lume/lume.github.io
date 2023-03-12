@@ -4,7 +4,7 @@ Join the effort in making an amazing application development toolkit!
 
 ## Development workflow
 
-> **TIP:** If you're not familiar with [`git`](https://git-scm.com),
+> **Note** If you're not familiar with [`git`](https://git-scm.com),
 > [GitHub](https://github.com/), and how to make code change proposals (pull
 > requests), start with the [GitHub Hello World
 > tutorial](https://guides.github.com/activities/hello-world).
@@ -33,7 +33,7 @@ have [added an SSH
 key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
 to your account.
 
-> **TIP:** To make an SSH key, simply run the `ssh-keygen` command and hit
+> **Note** To make an SSH key, simply run the `ssh-keygen` command and hit
 > enter to accept default values at each prompt.
 
 Alternatively, you can also edit code directly on GitHub without having to
@@ -58,6 +58,11 @@ cd lume
 
 #### System Dependencies
 
+Only macOS and Linux are officially supported for development, for now. In
+Windows you can use [Windows Subsystem for Linux
+(WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) to run Linux
+inside Windows in an official way provided by Microsoft.
+
 First install needed system dependencies.
 
 1. Install [Node.js](https://nodejs.org), which comes with the
@@ -65,8 +70,17 @@ First install needed system dependencies.
    world of JavaScript for installing JavaScript depedencies into a JavaScript-
    (or TypeScript-) based projects.
 2. If you are in `macOS`, you will need to install `libpng` and `pkg-config` or
-   will face an [error saying `pngquant pre-build test failed`](https://github.com/gatsbyjs/gatsby/issues/20389). First install
-   [Homebrew](https://brew.sh), then run `brew install libpng pkg-config`.
+   will face an [error saying `pngquant pre-build test failed`](https://github.com/gatsbyjs/gatsby/issues/20389).
+   - First install
+     [Homebrew](https://brew.sh)
+   - then run `brew install libpng pkg-config`.
+3. Install `xvfb` which includes the command `xvfb-run` for running Linux windows headlessly during testing.
+   - In Linux (and WSL), the package is usually has the name `xvfb` in it.
+     - f.e. in Ubuntu: `sudo apt install xvfb`
+     - and in Arch Linux `pacman -S xorg-server-xvfb`.
+   - In macOS
+     - you can install it from https://www.xquartz.org/
+     - or use Homebrew: `brew install XQuartz`
 
 #### Local Dependencies
 
@@ -90,6 +104,7 @@ This will do the following:
    The symlinking is useful because it makes it so we can make
    changes in one project which is a dependency of another project, and see what
    the changes look like in the dependent project.
+
 4. After the installation of dependencies and symlinking of projects, the
    install process will build all projects one time initially so that any
    project can be executed after the installtion process is finished (meaning we
@@ -138,7 +153,10 @@ when any source files in the project have changed. Source files are by
 convention in the project's `src/` folder. If the umbrella repo contains any
 forks of third-party dependencies, this convention may not apply to those.
 
-> **TIP:** A good way to discover what to run in a project is by peeking at the
+> **Note** Most packages have a `dev` script, but some don't, namely forked
+> 3rd-party packages.
+
+> **Note** A good way to discover what to run in a project is by peeking at the
 > `scripts` section of a project's `package.json` file. Run any script you see
 > listed with `npm run <script-name>`.
 
@@ -148,34 +166,46 @@ After making code changes, you'll need to add new tests for any new features.
 Then you'll want to run the project's tests to ensure the new features work
 and that existing features haven't broken.
 
-Any files ending with `.test.js` or `.test.ts` anywhere in the `tests/` or
-`src/` folders (by convention, although forked third-party projects may not
-always follow the same convention) are test files that will be executed by
+Typically any files ending with `.test.js` or `.test.ts` anywhere in the `tests/` or
+`src/` folders are test files that will be executed by
 the [Karma](https://karma-runner.github.io/latest/index.html) test runner
 (specifically [our fork](https://github.com/lume/karma) due to [this
 issue](https://github.com/karma-runner/karma/issues/3329)).
 
-To run the tests, run
+> **Note** We'd like to migrate to [Web Test
+> Runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner)
+> for a smoother testing experience.
+
+To run the tests for the top level `lume` package only, run
 
 ```bash
 npm test
 ```
 
-To debug tests, we can open a visible [Electron](https://electronjs.org)
-window in which Karma is running tests, and use Chrome's
-[devtools](https://developers.google.com/web/tools/chrome-devtools) (because
-Electron is built on Chrome's renderer) for debugging (f.e. stepping through
-the test code). To do so, run:
+To run tests for most packages in the repo, run
 
 ```bash
-npm run test-debug
+npm run test:all
+```
+
+To debug tests any any of the projects, we can open a visible
+[Electron](https://electronjs.org) window in which Karma is running tests, and
+use Chrome's [devtools](https://developers.google.com/web/tools/chrome-devtools)
+(because Electron is built on Chrome's renderer) for debugging (f.e. stepping
+through the test code). To do so, run the following in any project (except for
+forked libs, in that case see their package.json for alternatives):
+
+```bash
+npm run test:debug
 ```
 
 Click the button to start the tests. Right click anywhere in the window that
 opens after clicking the button, and hit "Inspect" to open the devtools. This
 is useful for seeing console output to aid in debugging failed or new tests.
 
-If the test pass, now you should also run the tests for all of the projects to make sure the no other projects broke. To run tests for all projects, go back into the parent folder so you are outside of a project, then run tests:
+If the test pass, now you should also run the tests for all of the projects to
+make sure the no other projects broke. To run tests for all projects, go back
+into the parent folder so you are outside of a project, then run tests:
 
 ```bash
 cd ../ # Back out of a project, back into the main repo.
@@ -184,7 +214,7 @@ npm test # This runs tests for all projects.
 
 #### Test format
 
-The tests use the APIs provided by the [Jasmine testing
+The tests (in non-forked libs) use the APIs provided by the [Jasmine testing
 framework](https://github.com/karma-runner/karma/issues/3329), which provides
 the `describe()`/`it()` functions to describe unit tests, and provides the
 `expect()` function for writing meaningful assertions.
@@ -217,14 +247,17 @@ describe('something we want to test', {
 
 ### Code format and style
 
-Code files are generally written in either JavaScript or TypeScript, and end
-in either `.js` or `.ts` respectively.
+Most source files are written in TypeScript, and end in `.ts` respectively.
 
 Please make sure your editor obeys the rules set forth by `.editorconfig` and
 `.prettierrc.js`. There are [EditorConfig](https://editorconfig.org) and
 [Prettier](https://prettier.io) plugins for just about every text editor out
 there. Please install the plugins for your editor to make sure your editor
 automatically follows the code formatting rules.
+
+Typically IDEs have a format-on-save option that can run Prettier any time you save a file.
+
+> **Note** If you forget to format, a pull request check will let you know checks failed.
 
 Even if you don't have the editor plugins, you can automatically format all
 the code in a project to satisfy the requirements by running the following within a project:
@@ -235,64 +268,28 @@ npm run prettier
 
 ### Submitting code changes
 
-Once you are statisfied with your code changes and have tested them and all
-tests pass, you'll need to push the changes to a branch in your fork of the
-code repo on GitHub (besides the [GitHub Hello World
+Once you are statisfied with your code changes (which may span across multiple projects/submodules) and have tested them and all
+tests pass, you'll need to push the changes to a branch in your fork(s) of the
+code repo(s) on GitHub (besides the [GitHub Hello World
 tutorial](https://guides.github.com/activities/hello-world) see also the
 GitHub guide on [pull
 requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)
 if needed).
 
-You'll need [to
-fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
-the main repo ([github.com/lume/lume](//github.com/lume/lume)) to your own
-GitHub account.
-
-Once you've made the fork, add your forked GitHub repo to the list of remote
-repos in your local copy so that `git` will know where to push your code
-changes to. Run the following within the umbrella repo but _not_ within a sub
-project:
-
-```bash
-# If needed, back out of a sub project and into the main repo.
-cd ../
-
-# Tell git where your remote repo is located.
-git remote add my-fork git@github.com:<username>/lume.git
-```
-
-where `<username>` is your GitHub username.
-
-Now make a commit with your changes on a new branch. Run the following in the
-main repo but _not_ in a sub project:
-
-```bash
-# Make a new branch.
-git checkout -b my-changes
-
-# Add all your changes (or just add some of them if you know how to use git).
-git add .
-
-# Commit the changes into your local copy of he repo with a helpful description (up to you).
-git commit -m "put a small description of the changes here"
-
-# Upload the changes to your remote fork on GitHub:
-git push my-fork my-changes
-```
-
-If the project whose code you modified is a git submodule in the umbrella
-repo, you'll need to fork that repo to your GitHub account too, and also push
+If the project whose code you modified is a git submodule in the main repo,
+you'll need to
+[fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
+that repo to your GitHub account, and push
 a branch to with your changes to that fork. For example, if you edited code
-inside of `packages/element/`, then the project's code repo is at most likely
-at https://github.com/lume/element and you can go there to hit the "Fork"
+inside of `packages/element/`, then the project's code repo is most likely at
+https://github.com/lume/element and you can go there to hit the "Fork"
 button to fork the repo to your GitHub account.
 
 > **TIP:** Run `git remote -v` within a project to see the project's remote
 > code repo URLs. You'll see something like `origin git@github.com:lume/element.git (fetch)` in which case you can infer that the
 > page you should visit is at https://github.com/lume/element.
 
-Similarly as with the main repo, now commit changes in the sub project repo
-(git submodule):
+Now commit changes in the sub project repo (git submodule):
 
 ```bash
 # If you're not in the project folder, go back in, for example.
@@ -315,19 +312,58 @@ git commit -m "put a small description of the changes here"
 git push my-fork my-changes
 ```
 
+where `<username>` is your GitHub username.
+
+You'll need to fork
+the main repo ([github.com/lume/lume](//github.com/lume/lume)) to your own
+GitHub account too.
+
+Once you've made the fork, add your forked GitHub repo to the list of remote
+repos in your local copy so that `git` will know where to push your code
+changes to. Run the following within the umbrella repo but _not_ within a sub
+project:
+
+```bash
+# If needed, back out of a sub project and into the main repo.
+cd ../
+
+# Tell git where your remote repo is located.
+git remote add my-fork git@github.com:<username>/lume.git
+```
+
+where `<username>` is your GitHub username.
+
+Now make a commit with your changes on a new branch of the top level repo. Run
+the following in the main repo, but _not_ in a sub project, to add the changes
+including any commits you made in the sub projects (git submodules):
+
+```bash
+# Make a new branch.
+git checkout -b my-changes
+
+# Add all your changes (or just add some of them if you know how to use git).
+git add .
+
+# Commit the changes into your local copy of he repo with a helpful description (up to you).
+git commit -m "put a small description of the changes here"
+
+# Upload the changes to your remote fork on GitHub:
+git push my-fork my-changes
+```
+
 Finally, open a pull request over at https://github.com/lume/lume/pulls, and
 if you modified a sub project that is also a git submodule, then also open a
 pull request for that project (for example at
 https://github.com/lume/element/pulls).
 
-> **NOTE!** If you made changes to multiple sub projects that are git
+> **Note** If you made changes to multiple sub projects that are git
 > submodules, you'll need to make a new branch and commit the changes for
 > each of those sub projects individually, and push the changes to each
 > project's repo.
 
 ### Code review
 
-Once you've opened pull requests tests will run automatically and you can see
+Once you've opened pull requests, tests will run automatically and you can see
 their status at the bottom of the pull request page. A pull request can only
 be merged if all tests have passed and your pull request has been approved by
 reviewer(s).
@@ -335,9 +371,9 @@ reviewer(s).
 Note, for each git submodule (sub project) that you make a pull request for,
 the tests for that individual project will be ran. Additionally, any pull
 request for the main repo will run all the tests of all projects to make sure
-everything works.
+everything works when things are all symlinked together.
 
-> **IMPORTANT!** If reviewers do not request any changes and all tests have
+> **Warning** If reviewers do not request any more changes and all tests have
 > passed in both the sub project(s) pull request(s) and the main repo pull
 > request, then first merge the pull request(s) for the sub project(s) so that
 > the commit is available in LUME's copy of the project repo(s), then merge the
@@ -386,5 +422,5 @@ Any of the three `release:*` scripts will:
 If something goes wrong (f.e. an error during the build or test process), fear not, the package will
 not be published. Fix the failing tests or errors, and try again.
 
-> **Note!** After a failure in publishing, any changes that were stashed
+> **Note** After a failure in publishing, any changes that were stashed
 > during the publish process will remain stashed.
