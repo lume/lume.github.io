@@ -1002,6 +1002,60 @@ function perspectiveLayeredImage({bg, fg, bgPosition = {x: 0, y: 0}, fgPosition 
 	`)
 }
 
+const lineExample = stripIndent(html`
+	<script src="${host}global.js"></script>
+
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			background: #111;
+			touch-action: none;
+		}
+	</style>
+
+	<lume-scene id="scene" perspective="800" webgl>
+		<lume-point-light intensity="0.4" color="white" position="300 400 500"></lume-point-light>
+		<lume-ambient-light intensity="0.5" color="white" position="300 400 500"></lume-ambient-light>
+
+		<lume-camera-rig active initial-distance="1000" max-distance="6000" min-distance="10"></lume-camera-rig>
+
+		<lume-line id="line" has="line-geometry line-material" color="deeppink" points=""></lume-line>
+	</lume-scene>
+
+	<script type="module">
+		// Define all the LUME elements with their default names.
+		LUME.defineElements()
+
+		// FIXME We currently need to skip a turn or else setting the points below
+		// will be overwritten by the empty points attribute.
+		await new Promise(r => setTimeout(r))
+
+		// Generate points for a spiral-shaped line.
+		const points = []
+		let angle = 0
+		let distance = 0
+		let z = 0
+		for (const _ of Array(300).map((_, i) => i)) {
+			const x = distance * Math.cos(angle)
+			const y = distance * Math.sin(angle)
+			points.push(x, y, 400 * Math.sin(z))
+
+			angle += Math.PI / 16
+			distance += 10
+			z += Math.PI / 5
+		}
+
+		line.points = points
+
+		// Give the spiral some rotation around Z.
+		line.rotation = (x, y, z) => [x, y, z - 1]
+	</script>
+`)
+
 // Make SVG path strings at https://yqnn.github.io/svg-path-editor/
 const starPath =
 	'M5.605 12.784c-.294-.052-.556-.222-.718-.466-.098-.147-.08-.095-.455-1.303-.077-.247-.188-.603-.246-.79-.058-.187-.168-.54-.244-.785l-.138-.444-.12-.037c-.137-.043-.721-.224-1.059-.329-.126-.04-.3-.094-.385-.12-1.613-.501-1.572-.487-1.679-.548-.393-.221-.611-.658-.55-1.098.034-.249.148-.468.335-.644.055-.052.488-.363 1.397-1.005l1.318-.93-.006-.255c-.01-.461-.027-2.045-.029-2.58-.001-.552-.001-.55.046-.7.031-.1.111-.246.181-.335.313-.396.86-.525 1.312-.311.117.055.101.044.64.446.248.185.822.613 1.277.953l.826.617.179-.061c.098-.034.324-.11.503-.171.516-.175.807-.273 1.395-.473.94-.319 1.012-.343 1.107-.359.515-.089 1.026.211 1.202.705.064.179.081.368.05.55-.011.064-.074.264-.196.624-.195.574-.322.95-.477 1.407-.054.161-.165.486-.245.721l-.145.429.616.826c.34.455.779 1.043.976 1.307.299.4.367.498.413.59.183.372.14.81-.112 1.141-.155.204-.371.339-.644.406-.043.01-.175.013-.595.012-.53-.002-2.032-.019-2.555-.029l-.265-.005-.93 1.316c-.511.724-.951 1.34-.977 1.37-.25.286-.636.423-1.003.358z'
