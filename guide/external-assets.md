@@ -27,8 +27,6 @@ behavior and a material behavior.
       code:
 `
 <script src="${host}global.js"><\/script>
-<!-- pep.js provides the pointer events (pointermove, pointerdown, etc) -->
-<script src="https://code.jquery.com/pep/0.4.3/pep.js"><\/script>
 
 <style>
     body, html {
@@ -46,7 +44,7 @@ behavior and a material behavior.
     lume-element3d { padding: 15px; pointer-events: all; }
 </style>
 
-<body touch-action="none">
+<body>
 
 <!-- Use the enable-css attribute to disable CSS rendering so that only WebGL
 rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
@@ -197,11 +195,9 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
     data: {
       code:
 `
-<body touch-action="none">
+<body>
 
 <script src="${host}global.js"><\/script>
-<!-- pep.js provides the pointer events (pointermove, pointerdown, etc) -->
-<script src="https://code.jquery.com/pep/0.4.3/pep.js"><\/script>
 
 <style>
     body, html {

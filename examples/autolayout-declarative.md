@@ -8,10 +8,8 @@
     template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="1000" />',
     data: {
       code: stripIndent(`
-        <body touch-action="none">
+        <body>
           <script src="${host}global.js"><\/script>
-          <!-- pep.js provides the pointer events (pointermove, pointerdown, etc) -->
-          <script src="https://code.jquery.com/pep/0.4.3/pep.js"><\/script>
 
           <style>
               body, html {

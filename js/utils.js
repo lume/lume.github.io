@@ -169,8 +169,6 @@ const buttonsWithShadowExample = stripIndent(html`
 	<script src="${host}node_modules/vue/dist/vue.js"></script>
 	<!-- Tween.js is a lib for animating numbers based on "easing curves". -->
 	<script src="${host}node_modules/tween.js/src/Tween.js"></script>
-	<!-- pep.js provides the pointer events (pointermove, pointerdown, etc) -->
-	<script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
 
 	<script>
 		LUME.defineElements()
@@ -221,7 +219,6 @@ const buttonsWithShadowExample = stripIndent(html`
 			perspective="800"
 			shadowmap-type="pcfsoft"
 			NOTE="one of basic, pcf, pcfsoft"
-			touch-action="none"
 		>
 			<lume-ambient-light color="#ffffff" intensity="0"></lume-ambient-light>
 			<lume-mixed-plane ref="plane" id="bg" size-mode="proportional proportional" size="1 1 0" color="#444" dithering>
@@ -925,7 +922,7 @@ function perspectiveLayeredImage({bg, fg, bgPosition = {x: 0, y: 0}, fgPosition 
 	return stripIndent(html`
 		<script src="${host}global.js"></script>
 
-		<lume-scene id="scene" touch-action="none" webgl>
+		<lume-scene id="scene" webgl>
 			<lume-point-light
 				align-point="0.5 0.5"
 				position="0 0 500"
@@ -1542,7 +1539,7 @@ const instancedMeshExample = stripIndent(html`
 `)
 
 const originExample = stripIndent(html`
-	<body touch-action="none">
+	<body>
 		<script src="${host}global.js"></script>
 
 		<style>
@@ -1795,10 +1792,8 @@ const morphingSpiralExample = stripIndent(html`
 `)
 
 const perspectiveCameraExample = stripIndent(html`
-	<body touch-action="none">
+	<body>
 		<script src="${host}global.js"></script>
-		<!-- pep.js provides the pointer events (pointermove, pointerdown, etc) -->
-		<script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
 
 		<style>
 			body,
@@ -1838,7 +1833,7 @@ const perspectiveCameraExample = stripIndent(html`
 			LUME.defineElements()
 		</script>
 
-		<lume-scene id="scene" webgl perspective="800" touch-action="none">
+		<lume-scene id="scene" webgl perspective="800">
 			<!-- This node visualizes the size of the default viewing area. -->
 			<lume-element3d
 				size-mode="proportional proportional"
@@ -1954,10 +1949,8 @@ const perspectiveCameraExample = stripIndent(html`
 `)
 
 const cameraRigExample = stripIndent(html`
-	<body touch-action="none">
+	<body>
 		<script src="${host}global.js"></script>
-		<!-- pep.js provides the pointer events (pointermove, pointerdown, etc) -->
-		<script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
 
 		<style>
 			body,
@@ -1994,7 +1987,7 @@ const cameraRigExample = stripIndent(html`
 			LUME.defineElements()
 		</script>
 
-		<lume-scene id="scene" webgl perspective="800" touch-action="none">
+		<lume-scene id="scene" webgl perspective="800">
 			<!-- This node visualizes the size of the default viewing area. -->
 			<lume-element3d
 				size-mode="proportional proportional"

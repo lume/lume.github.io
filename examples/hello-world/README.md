@@ -13,11 +13,8 @@
 
 <!-- Do you see the Moon's shadow on Earth's surface when it passes in front of the sun? -->
 
-<!-- Polyfill for Pointer Events (boo Safari) -->
-<script src="https://code.jquery.com/pep/0.4.3/pep.js"><\/script>
-
 <!-- By default a <lume-scene> fills the space of it's parent, in this case the <body>. -->
-<lume-scene id="scene" webgl touch-action="none">
+<lume-scene id="scene" webgl>
   <lume-camera-rig initial-polar-angle="0" min-distance="90" max-distance="1000" initial-distance="200"></lume-camera-rig>
   <!-- Stars -->
   <lume-sphere

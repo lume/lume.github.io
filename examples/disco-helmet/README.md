@@ -35,7 +35,7 @@
 <!-- See src/examples/LoadingIcon.ts -->
 <loading-icon id="loading"></loading-icon>
 
-<lume-scene id="scene" perspective="800" class="hidden" webgl enable-css="false" shadowmap-type="pcfsoft" touch-action="none">
+<lume-scene id="scene" perspective="800" class="hidden" webgl enable-css="false" shadowmap-type="pcfsoft">
     <lume-camera-rig active id="rig" rotation="0 30 0" min-polar-angle="-11"></lume-camera-rig>
     <lume-perspective-camera active id="cam" position="0 0 1000"></lume-perspective-camera>
 
