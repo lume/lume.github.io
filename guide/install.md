@@ -51,7 +51,7 @@ it. You should see the same visual as in the following example:
 Let's go over what this does. The first line,
 
 ```html
-<script src="https://unpkg.com/lume@0.3.0-alpha.9/dist/global.js"></script>
+<script src="https://unpkg.com/lume@0.3.0-alpha.27/dist/global.js"></script>
 ```
 
 is an HTML `<script>` element that tells the browser where to get LUME code from.
@@ -235,7 +235,7 @@ new Vue({
   template: '<live-code :template="code" :autorun="true" mode="html>iframe" />',
   data: {
     code:
-`<script src="https://unpkg.com/lume@0.3.0-alpha.9/dist/global.js"><\/script>
+`<script src="https://unpkg.com/lume@0.3.0-alpha.27/dist/global.js"><\/script>
 
 <script type=module>
     LUME.defineElements()
@@ -248,7 +248,7 @@ cube in the middle of the view: -->
 	<lume-point-light color="white" align-point="0.5 0.5" position="0 0 300" size="0 0 0" cast-shadow="true" intensity="0.65">
 	</lume-point-light>
 
-	<lume-box id="box" size="100 100 100" align-point="0.5 0.5 0.5" mount-point="0.5 0.5 0.5"> </lume-box>
+	<lume-box id="box" size="100 100 100" align-point="0.5 0.5 0.5" mount-point="0.5 0.5 0.5" color="cornflowerblue"> </lume-box>
 </lume-scene>
 
 <!-- Now we give the cube a basic rotation around the Y axis: -->
@@ -274,9 +274,6 @@ cube in the middle of the view: -->
 		 */
 		padding: 0;
 		margin: 0;
-
-		/* Let's set the background color of the web site using a hex code: */
-		background: #62b997;
 	}
 </style>`
 
@@ -288,7 +285,7 @@ el: '#defaultNamesImperative',
 template: '<live-code :template="code" :autorun="true" mode="html>iframe" />',
 data: {
 code:
-`<script src="https://unpkg.com/lume@0.3.0-alpha.9/dist/global.js"><\/script>
+`<script src="https://unpkg.com/lume@0.3.0-alpha.27/dist/global.js"><\/script>
 
 <script type=module>
   LUME.defineElements()
@@ -326,7 +323,7 @@ el: '#defaultNamesDeclarative',
 template: '<live-code :template="code" :autorun="true" mode="html>iframe" />',
 data: {
 code:
-`<script src="https://unpkg.com/lume@0.3.0-alpha.9/dist/global.js"><\/script>
+`<script src="https://unpkg.com/lume@0.3.0-alpha.27/dist/global.js"><\/script>
 
 <lume-scene>
   <lume-element3d id="node" position="50 50" size="100 100"></lume-element3d>
@@ -350,7 +347,7 @@ el: '#customNamesImperative',
 template: '<live-code :template="code" :autorun="true" mode="html>iframe" />',
 data: {
 code:
-`<script src="https://unpkg.com/lume@0.3.0-alpha.9/dist/global.js"><\/script>
+`<script src="https://unpkg.com/lume@0.3.0-alpha.27/dist/global.js"><\/script>
 
 <script type=module>
   const {Scene, Node} = LUME
@@ -391,7 +388,7 @@ el: '#customNamesDeclarative',
 template: '<live-code :template="code" :autorun="true" mode="html>iframe" />',
 data: {
 code:
-`<script src="https://unpkg.com/lume@0.3.0-alpha.9/dist/global.js"><\/script>
+`<script src="https://unpkg.com/lume@0.3.0-alpha.27/dist/global.js"><\/script>
 
 <x-scene>
   <x-node id="node" position="50 50" size="100 100"></x-node>

@@ -20,10 +20,6 @@
               }
           <\/style>
 
-          <!-- In general it is always better to ensure custom elements are defined before using them. -->
-          <!-- FIXME: If we move this script to after the scene's markup, then the last item in the layout never becomes visible for some reason. -->
-          <script> LUME.defineElements() <\/script>
-
           <lume-scene id="scene" webgl>
               <lume-ambient-light intensity="0.1"></lume-ambient-light>
               <lume-point-light

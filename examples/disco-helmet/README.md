@@ -37,7 +37,7 @@
 
 <lume-scene id="scene" perspective="800" class="hidden" webgl enable-css="false" shadowmap-type="pcfsoft">
     <lume-camera-rig active id="rig" rotation="0 30 0" min-polar-angle="-11"></lume-camera-rig>
-    <lume-perspective-camera active id="cam" position="0 0 1000"></lume-perspective-camera>
+    <lume-perspective-camera id="cam" position="0 0 1000"></lume-perspective-camera>
 
     <!-- See src/examples/FlickeringOrbs.ts -->
     <flickering-orbs id="lights" rotation="0 30 0"></flickering-orbs>
@@ -91,6 +91,7 @@
   rigActive.addEventListener('input', () => {
     // Toggle between the rig being active or not.
     rig.active = rigActive.checked
+    cam.active = !rigActive.checked
   })
 
   // Custom handling of the underlying Three.js tree.
