@@ -28,9 +28,13 @@
 		"vue": "^2.6.10"
 	},
 	"devDependencies": {
+		"@lume/autolayout": "^0.9.0",
 		"@lume/cli": "^0.9.3",
+		"@lume/element": "^0.8.1",
+		"@lume/variable": "^0.8.0",
 		"browser-sync": "^2.27.11",
 		"cpr": "^3.0.1",
+		"element-behaviors": "^3.1.0",
 		"mkdirp": "^1.0.4",
 		"readem": "^0.2.7",
 		"regexr": "^1.5.1",
