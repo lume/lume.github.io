@@ -1,2 +1,9 @@
-dist/
 node_modules
+# Generated from _sidebar.src.md
+/_sidebar.md
+# Copied from `lume`.
+/global.js*
+# Contains markdown files generated from JSDoc comments in `lume` source.
+/api/
+# Contains markdown files copied from `@lume/` packages.
+/guide/includes/

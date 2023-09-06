@@ -1,23 +1,18 @@
 import fs from 'fs'
 import {create} from 'browser-sync'
+import {fileURLToPath} from 'url'
 
-const path_404 = (await import.meta.resolve('./404.html')).replace('file://', '')
+const path_404 = fileURLToPath(await import.meta.resolve('./404.html'))
 const content_404 = fs.readFileSync(path_404)
 const browserSync = create()
 
 browserSync.init(
 	{
 		port: 54321,
-		ui: {
-			port: 54322,
-		},
+		ui: {port: 54322},
 		cors: true,
 		watch: true,
-		// files: ['dist'],
-		server: {
-			baseDir: 'dist',
-		},
-		// middleware
+		server: {baseDir: '.'},
 	},
 	(err, bs) => {
 		bs.addMiddleware('*', (req, res) => {
