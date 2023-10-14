@@ -54,7 +54,7 @@ ReactDOM.render(<MyReactComponent />, document.body)
 - Due to the previous bullet point, this has a (usually insignificant) performance implication.
   - Because React always passes prop values to custom elements as strings, LUME will always be converting the strings into number values.
   - _In most cases, this will not result in a noticeable performance hit._ But if you do run into a case where things slow down due to this, this is good to keep in mind.
-  - Workaround: Modifying an element reference directly like `nodeRef.current.position.x = xPosition` will always be faster than `` <lume-element3d position={`0 ${xPosition} 0`} /> ``. In the former, the number will be passed directly to the element without any coercion.
+  - Workaround: Modifying an element reference directly like `nodeRef.current.position.x = xPosition` will always be faster than ``<lume-element3d position={`0 ${xPosition} 0`} />``. In the former, the number will be passed directly to the element without any coercion.
 
 ### Example
 
