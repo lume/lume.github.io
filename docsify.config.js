@@ -30,6 +30,17 @@
 			auto2top: true,
 			relativePath: true,
 
+			'flexible-alerts': {
+				style: 'callout',
+
+				// Alias [!Important] (GitHub's feature) to [!Attention] (flexible-alerts's feature)
+				important: {
+					label: 'Important',
+					icon: 'icon icon-attention',
+					className: 'attention',
+				},
+			},
+
 			plugins: ((window.$docsify && window.$docsify.plugins) || []).concat([
 				function (hook, vm) {
 					hook.afterEach(content => {

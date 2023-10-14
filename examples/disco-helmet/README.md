@@ -30,9 +30,10 @@
   .hidden { visibility: hidden; }
 </style>
 
-<script src="${host}global.js"><\/script>
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <!-- See src/examples/LoadingIcon.ts -->
+
 <loading-icon id="loading"></loading-icon>
 
 <lume-scene id="scene" perspective="800" class="hidden" webgl enable-css="false" shadowmap-type="pcfsoft">
@@ -58,6 +59,7 @@
     	mount-point="0.5 0.5 0.5"
     	position="0 300 0"
     ></lume-plane>
+
 </lume-scene>
 
 <div ui>
@@ -81,8 +83,8 @@
   legend {color: yellow}
 </style>
 
-<script>
-  LUME.defineElements()
+<script type="module">
+  import 'lume'
 
   lights.rotation = (x, y, z, t) => [x, y + 0.2, z]
 

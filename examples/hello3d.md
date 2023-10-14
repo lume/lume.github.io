@@ -1,35 +1,5 @@
 # Hello 3D
 
-<!-- <live-code class="full" :options="{theme: 'base16-light'}" template="#rotating-square" :autorun="true" />
-<script type="text/x-template" id="rotating-square"><template>
-  <lume-scene>
-    <lume-element3d ref="node"
-      size="100 100"
-      align-point="0.5 0.5 0.5"
-      mount-point="0.5 0.5 0.5"
-    >
-      Hello 3D
-    </lume-element3d>
-  </lume-scene>
-</template>
-
-<style>
-  lume-element3d {
-    background: deeppink;
-  }
-</style>
-
-<script>
-  LUME.defineElements()
-
-  export default {
-    mounted() {
-      const node = this.$refs.node
-      node.rotation = (x, y, z) => [x, ++y, z]
-    },
-  }
-&lt;/script></script> -->
-
 <div id="example"></div>
 <script type="application/javascript">
   new Vue({
@@ -38,7 +8,7 @@
     data: {
       code:
 `
-<script src="${host}global.js"><\/script>
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <lume-scene>
   <lume-element3d
@@ -67,8 +37,8 @@
   }
 </style>
 
-<script>
-  LUME.defineElements()
+<script type="module">
+  import 'lume'
   node.rotation = (x, y, z) => [x, ++y, z]
 <\/script>
 

@@ -15,15 +15,13 @@ value changes.
     template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
     data: {
       code:
-`
-<script src="${host}global.js"><\/script>
+/*html*/`
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <body>
 
-  <script>
-    LUME.defineElements()
-
-    const {variable, html, Motor} = LUME
+  <script type="module">
+    import {variable, html, Motor} from 'lume'
 
     const count = variable(0)
     const incrementCount = () => count(count() + 1)

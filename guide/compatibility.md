@@ -9,6 +9,8 @@ We recommend trying out [LUME Element](https://github.com/lume/element), LUME's 
 To import and use LUME elements in your (JavaScript) React project, enable the LUME elements with
 their default element names.
 
+// CONTINUE defineElements not needed by default now, remove from here.
+
 ```tsx
 import {defineElements} from 'lume'
 defineElements()

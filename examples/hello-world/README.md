@@ -7,9 +7,8 @@
     el: '#example',
     template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="200" />',
     data: {
-      code:
-`
-<script src="${host}global.js"><\/script>
+      code: /*html*/`
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <!-- Do you see the Moon's shadow on Earth's surface when it passes in front of the sun? -->
 
@@ -101,9 +100,8 @@
   }
 </style>
 
-<script>
-  // Define LUME's HTML elements with their default names.
-  LUME.defineElements();
+<script type="module">
+  import 'lume';
 
   // We wrote the rotation function this way so that it would always start
   // at the angle defined in the HTML.

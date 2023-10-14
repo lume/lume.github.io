@@ -99,11 +99,14 @@ of its parent.
 
 <div id="parentTransforms"></div>
 
-<script type="application/javascript">
-	// LUME.defineElements()
+<!-- prettier-ignore -->
+<script>
+  // Note, Docsify does not currently support script type="module", so we use
+  // the import() function instead of regular import syntax.
+	import('lume').then(Lume => {
 
 	document.querySelectorAll('lume-scene *').forEach(n => {
-		if (n instanceof LUME.Node) {
+		if (n instanceof Lume.Element3D) {
 			// FIXME temporary hack to trigger a re-render because transforms are not
 			// updated on the initial paint.
 			n.rotation.y += 0.000000001
@@ -125,8 +128,9 @@ of its parent.
 		el: '#parentTransforms',
 		template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
 		data: {
-			code: stripIndent(`
-				<script src="${host}global.js"><\/script>
+			code: stripIndent(/*html*/`
+				<base href="${host}" />
+				<script src="./importmap.js"><\/script>
 
 				<lume-scene>
 					<lume-element3d id="one" position="50 50" size="10 10" rotation="0 0 10">
@@ -153,8 +157,9 @@ of its parent.
 					#four { background: royalblue; }
 				</style>
 
-    			<script>
-    				LUME.defineElements()
+    			<script type="module">
+    				import 'lume'
+
     				const rotationFunction = (x, y, z, t) => [x, y, 10 * Math.sin(t * 0.002)]
 
     				// Give all nodes the same rotation. Note that each node rotates "inside" of the parent space.
@@ -163,8 +168,9 @@ of its parent.
     				three.rotation = rotationFunction
     				three.rotation = rotationFunction
     			<\/script>
-    		`).trim()
-    	},
-    })
+      `).trim(),
+    },
 
+})
+})
 </script>

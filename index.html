@@ -49,14 +49,6 @@
 	<body class="line-numbers">
 		<div id="app"></div>
 
-		<!-- This loads the global version of the lib. -->
-		<script src="/global.js"></script>
-		<script>
-			LUME.defineElements()
-		</script>
-
-		<script src="/node_modules/babel-standalone/babel.min.js"></script>
-
 		<script src="/node_modules/vue/dist/vue.min.js"></script>
 		<script src="/node_modules/@lume/live-code/dist/live-code.umd.min.js"></script>
 
@@ -82,5 +74,13 @@
 		<script src="/node_modules/docsify-tabs/dist/docsify-tabs.min.js"></script>
 
 		<script src="/js/utils.js"></script>
+
+		<script>
+			document.write(/*html*/ `<base href="${location.origin}" />`)
+		</script>
+		<script src="./importmap.js"></script>
+		<script type="module">
+			import 'lume'
+		</script>
 	</body>
 </html>

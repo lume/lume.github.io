@@ -13,7 +13,7 @@
   Model from https://github.com/nasa/astrobee_media/tree/master/astrobee_freeflyer/meshes.
 -->
 
-<script src="${host}global.js"><\/script>
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <style>
   html,
@@ -30,8 +30,8 @@
 
 <astrobee-app id="astrobee">
 
-<script>
-  const {defineElements, booleanAttribute, Element, element, attribute, html} = LUME
+<script type="module">
+  import {defineElements, booleanAttribute, Element, element, attribute, html} from 'lume'
 
   const bodyModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/body.dae'
   const pmcModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/pmc.dae'

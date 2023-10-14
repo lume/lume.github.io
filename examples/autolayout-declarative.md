@@ -7,9 +7,9 @@
     el: '#example',
     template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="1000" />',
     data: {
-      code: stripIndent(`
+      code: stripIndent(/*html*/`
         <body>
-          <script src="${host}global.js"><\/script>
+          <base href="${host}" /><script src="./importmap.js"><\/script>
 
           <style>
               body, html {
@@ -20,7 +20,7 @@
               }
           <\/style>
 
-          <lume-scene id="scene" webgl>
+          <lume-scene id="scene" webgl style="display: none">
               <lume-ambient-light intensity="0.1"></lume-ambient-light>
               <lume-point-light
                   id="light"
@@ -67,7 +67,12 @@
               </lume-autolayout-node>
           </lume-scene>
 
-          <script>
+          <script type="module">
+              import 'lume'
+
+              // unhide the scene once we've loaded Lume
+              scene.removeAttribute('style')
+
               const layout = document.querySelector('#layout')
               layout.size = (x,y,z,t) => [600+200*Math.sin(t/1000),400+200*Math.sin(t/1000),z]
 

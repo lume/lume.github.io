@@ -25,8 +25,8 @@ behavior and a material behavior.
     template: '<live-code :template="code" mode="html>iframe" :debounce="1000" />',
     data: {
       code:
-`
-<script src="${host}global.js"><\/script>
+/*html*/`
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <style>
     body, html {
@@ -51,6 +51,16 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
 -->
 <lume-scene id="scene" webgl enable-css="false">
     <lume-ambient-light intensity="0.1"></lume-ambient-light>
+    <lume-sphere
+      id="stars"
+      texture="${host}examples/hello-world/galaxy_starfield.png"
+      receive-shadow="false"
+      has="basic-material"
+      sidedness="back"
+      size="4000 4000 4000"
+      mount-point="0.5 0.5 0.5"
+      color="white"
+    ></lume-sphere>
     <lume-point-light
         id="light"
         color="#ffe9ab"
@@ -92,6 +102,7 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
             scale="200 200 200"
             position="0 30 210"
             obj="${host}models/spaceship/ship.obj"
+            mtl="${host}models/spaceship/ship.mtl"
         >
         </lume-obj-model>
     </lume-element3d>
@@ -103,13 +114,12 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
     <lume-element3d size-mode="proportional literal" size="1 80">
         <!-- FIXME When toggling these too fast, the toggling breaks. Three.js Loader problem? -->
         <label><input id="objToggle" type="checkbox" checked /> Enable model on first ship.</label>
-        <label><input id="matToggle" type="checkbox" /> Enable material on second ship.</label>
+        <label><input id="matToggle" type="checkbox" checked /> Enable material on second ship.</label>
     </lume-element3d>
 </lume-scene>
 
-<script>
-    // defines the default names for the HTML elements
-    LUME.defineElements()
+<script type="module">
+    import { Motor, Events } from 'lume'
 
     document.addEventListener('pointermove', function(e) {
         e.preventDefault()
@@ -120,15 +130,12 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
     smooth(ship1)
     smooth(ship2)
 
-    const { Motor } = LUME
     Motor.addRenderTask(() => {
         ship1Rotator.rotation.y -= 0.1
         ship2Rotator.rotation.y -= 0.4
     })
 
     function smooth(objModelElement) {
-        const {Events} = LUME
-
         // Use the 'MODEL_LOAD' event to work with the 'model' once loaded, if
         // needed. 'model' is an instance of THREE.Group containing THREE.Mesh
         // objects
@@ -157,10 +164,10 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
                 // make it look smooth. See https://discourse.threejs.org/t/5531
                 // TODO, when we upgrade to Three.js r125 or higher, use this
                 // approach instead: https://discourse.threejs.org/t/5531/10
-                // const tempGeometry = new LUME.THREE.Geometry().fromBufferGeometry( node.geometry );
+                // const tempGeometry = new THREE.Geometry().fromBufferGeometry( node.geometry );
                 // tempGeometry.mergeVertices();
                 // tempGeometry.computeVertexNormals();
-                // node.geometry = new LUME.THREE.BufferGeometry().fromGeometry( tempGeometry );
+                // node.geometry = new THREE.BufferGeometry().fromGeometry( tempGeometry );
 
                 // IDEA: perhaps scale the geometry so it fits within the \`size\` of the node.
 
@@ -171,13 +178,13 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
     }
 
     objToggle.addEventListener('click', () => {
-        objBehavior = ship1.behaviors.get('obj-model')
+        const objBehavior = ship1.behaviors.get('obj-model')
         if (objBehavior.obj) objBehavior.obj = ''
         else objBehavior.obj = '${host}models/spaceship/ship.obj'
     })
 
     matToggle.addEventListener('click', () => {
-        objBehavior = ship2.behaviors.get('obj-model')
+        const objBehavior = ship2.behaviors.get('obj-model')
         if (objBehavior.mtl) objBehavior.mtl = ''
         else objBehavior.mtl = '${host}models/spaceship/ship.mtl'
     })
@@ -197,7 +204,7 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
 `
 <body>
 
-<script src="${host}global.js"><\/script>
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <style>
     body, html {
@@ -278,9 +285,8 @@ rendering is enabled (this saves CPU/Memory if you don't need CSS rendering).
     </lume-element3d>
 </lume-scene>
 
-<script>
-    // defines the default names for the HTML elements
-    LUME.defineElements()
+<script type="module">
+    import 'lume'
 
     const light = document.querySelector('#light')
 

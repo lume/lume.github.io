@@ -8,7 +8,7 @@
     data: {
       code:
 `
-<script src="${host}global.js"><\/script>
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <style>
   html, body {
@@ -27,8 +27,8 @@
   }
 </style>
 
-<script>
-  LUME.defineElements()
+<script type="module">
+  import 'lume'
 <\/script>
 
 <!--

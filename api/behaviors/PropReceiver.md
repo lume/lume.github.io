@@ -15,7 +15,7 @@ listed in the `static receivedProperties` array, or the ones decorated with
 
 ### <code>.<b>observedObject</b></code> :id=observedObject
 
-`protected` `readonly`
+`abstract` `protected` `readonly`
 
 A subclass should specify the object to observe by defining a `get observedObject` getter.
         

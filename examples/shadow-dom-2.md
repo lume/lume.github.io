@@ -8,7 +8,7 @@
     data: {
       code:
 `
-<script src="${host}global.js"><\/script>
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <div id="div">
 	<lume-point-light intensity="0.6"></lume-point-light>
@@ -37,8 +37,8 @@
 	}
 </style>
 
-<script>
-	LUME.defineElements()
+<script type="module">
+	import 'lume'
 	node.rotation = (x, y, z) => [x, ++y, z]
 	const root = div.attachShadow({
 		mode: 'open'

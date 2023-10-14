@@ -7,9 +7,9 @@
     el: '#example',
     template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="200" />',
     data: {
-      code: stripIndent(`
+      code: stripIndent(/*html*/`
         <body>
-          <script src="${host}global.js"><\/script>
+          <base href="${host}" /><script src="./importmap.js"><\/script>
 
           <style>
               body, html {
@@ -21,16 +21,14 @@
           <\/style>
 
           <script type="module">
-              const {
+              import {
                   AutoLayoutNode,
                   Scene,
                   AmbientLight,
                   PointLight,
                   MixedPlane,
                   Sphere
-              } = LUME
-
-              LUME.defineElements()
+              } from 'lume'
 
               const scene = new Scene().set({
                   webgl: true,

@@ -8,7 +8,7 @@
     data: {
       code:
 `
-<script src="${host}global.js"><\/script>
+<base href="${host}" /><script src="./importmap.js"><\/script>
 
 <style>
     body, html {
@@ -65,9 +65,8 @@
 
 </lume-scene>
 
-<script>
-    // defines the default names for the HTML elements
-    LUME.defineElements()
+<script type="module">
+    import 'lume'
 
     const light = document.querySelector('#light')
 

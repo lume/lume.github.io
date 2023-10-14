@@ -9,14 +9,12 @@
 		"build": "npm run clean && npm run dist:copy && node ./build-api-docs.mjs",
 		"clean": "rimraf _sidebar.md \"global.js*\" \"./api/**/!(.gitkeep)\" \"./guide/includes/**/!(.gitkeep)\"",
 		"publish": "git push git@github.com:lume-vercel/docs.git",
-		"dist:copy": "npm run dist:copy:readmes && npm run dist:copy:lume",
-		"dist:copy:readmes": "cpr node_modules/element-behaviors/README.md ./guide/includes/lume-element-behaviors.md --overwrite && cpr node_modules/@lume/element/README.md ./guide/includes/lume-element.md --overwrite && cpr node_modules/@lume/variable/README.md ./guide/includes/lume-variable.md --overwrite && cpr node_modules/@lume/autolayout/README.md ./guide/includes/lume-autolayout.md --overwrite",
-		"dist:copy:lume": "cpr node_modules/lume/dist/global.js ./global.js --overwrite && cpr node_modules/lume/dist/global.js.map ./global.js.map --overwrite"
+		"dist:copy": "npm run dist:copy:readmes",
+		"dist:copy:readmes": "cpr node_modules/element-behaviors/README.md ./guide/includes/lume-element-behaviors.md --overwrite && cpr node_modules/@lume/element/README.md ./guide/includes/lume-element.md --overwrite && cpr node_modules/@lume/variable/README.md ./guide/includes/lume-variable.md --overwrite && cpr node_modules/@lume/autolayout/README.md ./guide/includes/lume-autolayout.md --overwrite"
 	},
 	"dependencies": {
 		"@lume/docsify": "^4.9.4-1d3246a2.0",
 		"@lume/live-code": "^0.4.0",
-		"babel-standalone": "^6.26.0",
 		"docsify-copy-code": "^2.1.0",
 		"docsify-pagination": "^2.4.0",
 		"docsify-plugin-flexible-alerts": "^1.0.3",
@@ -30,14 +28,22 @@
 	"devDependencies": {
 		"@lume/autolayout": "^0.9.0",
 		"@lume/cli": "^0.9.3",
-		"@lume/element": "^0.8.1",
-		"@lume/variable": "^0.8.0",
+		"@lume/custom-attributes": "^0.1.7",
+		"@lume/element": "^0.9.0",
+		"@lume/eventful": "^0.2.5",
+		"@lume/kiwi": "^0.3.4",
+		"@lume/three-projected-material": "^0.2.5",
+		"@lume/variable": "^0.9.0",
 		"browser-sync": "^2.27.11",
 		"cpr": "^3.0.1",
-		"element-behaviors": "^3.1.0",
+		"element-behaviors": "^4.0.0",
+		"james-bond": "^0.6.0",
+		"lowclass": "^5.0.1",
 		"mkdirp": "^1.0.4",
 		"readem": "^0.2.7",
-		"regexr": "^1.5.1",
-		"rimraf": "^3.0.2"
+		"regexr": "^2.0.0",
+		"rimraf": "^3.0.2",
+		"solid-js": "<1.5.0",
+		"three": "^0.139.0"
 	}
 }

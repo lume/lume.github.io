@@ -8,7 +8,7 @@
     template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="200" />',
     data: {
       code: stripIndent(`
-        <script src="${host}global.js"><\/script>
+        <base href="${host}" /><script src="./importmap.js"><\/script>
 
         <lume-scene webgl vr>
           <lume-box
@@ -39,8 +39,8 @@
           }
         <\/style>
 
-        <script>
-          LUME.defineElements()
+        <script type="module">
+          import 'lume'
           node.rotation = (x, y, z) => [x, ++y, z]
         <\/script>
       `)

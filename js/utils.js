@@ -52,15 +52,15 @@ const projectedTextureExample = stripIndent(html`
 		lume-element3d {
 			padding: 15px;
 		}
+		.hidden {
+			display: none;
+		}
 	</style>
 
-	<script src="${host}global.js"></script>
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
 
-	<script>
-		LUME.defineElements()
-	</script>
-
-	<lume-scene id="scene" perspective="800" webgl shadowmap-type="pcfsoft">
+	<lume-scene id="scene" perspective="800" webgl shadowmap-type="pcfsoft" class="hidden">
 		<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
 
 		<lume-camera-rig active initial-polar-angle="30" initial-distance="400" max-distance="7000" min-distance="100">
@@ -130,7 +130,7 @@ const projectedTextureExample = stripIndent(html`
 		></lume-plane>
 	</lume-scene>
 
-	<lume-scene id="ui">
+	<lume-scene id="ui" class="hidden">
 		<lume-element3d size-mode="proportional literal" size="1 80">
 			<label>
 				Projected texture enabled on box:
@@ -156,25 +156,25 @@ const projectedTextureExample = stripIndent(html`
 		</lume-element3d>
 	</lume-scene>
 
-	<script>
-		// LUME.defineElements()
+	<script type="module">
+		// CONTINUE FIXME, If you change this line to 'import('lume')', rotation below
+		// stops working because it has an issue handling pre-upgrade function
+		// values assigned to the elements before Lume is loaded.
+		// This is niche, always load Lume first before manipulating the
+		// elements.
+		import 'lume'
 
-		box.rotation = (x, y, z) => [x + 0.3, y + 0.3, z]
+		scene.classList.remove('hidden')
+		ui.classList.remove('hidden')
+
+		box.rotation = (x, y, z) => [x, y + 0.3, z]
 		textureRotator.rotation = (x, y, z) => [x, y + 0.1, z]
 	</script>
 `)
 
-const buttonsWithShadowExample = stripIndent(html`
-	<script src="${host}global.js"></script>
-	<script src="${host}node_modules/vue/dist/vue.js"></script>
-	<!-- Tween.js is a lib for animating numbers based on "easing curves". -->
-	<script src="${host}node_modules/tween.js/src/Tween.js"></script>
-
-	<script>
-		LUME.defineElements()
-	</script>
-
+const traditionalButtonExample = stripIndent(html`
 	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 		body,
 		html {
 			width: 100%;
@@ -183,167 +183,278 @@ const buttonsWithShadowExample = stripIndent(html`
 			padding: 0;
 			overflow: hidden;
 			font-family: sans-serif;
+			background: #79b59e;
+			background: url(https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_layers_02/concrete_layers_02_diff_2k.jpg);
+			background-size: cover;
+			filter: brightness(1.1);
+		}
+		div {
+			display: flex;
+			gap: 28px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
+		button {
+			width: 120px;
+			height: 38px;
+			box-shadow: 10px 10px 2px rgba(0, 0, 0, 0.3);
+			transition: all 75ms;
+			white-space: nowrap;
+			border-radius: 10px;
+			border: none;
+			background: #808284;
+			color: #ccc;
+			outline: none;
+			font-family: 'Poppins', sans-serif;
+			font-weight: bold;
+			font-size: 16px;
+		}
+		button:focus,
+		button:hover {
+			background: #8da1b8;
+		}
+
+		button:active {
+			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+			transform: scale(0.95);
+		}
+	</style>
+
+	<form style="display: contents" onsubmit="console.log('Native form submission!'); event.preventDefault()">
+		<div style="width: 100%; height: 100%;">
+			<div>
+				<button>🏖 Have Fun</button>
+				<button>😊 Smi)e</button>
+				<button>🛠 Create</button>
+				<button>♥️ Give Love</button>
+			</div>
+		</div>
+	</form>
+`)
+
+const buttonsWithShadowExample = stripIndent(html`
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
+	<script src="${host}node_modules/vue/dist/vue.js"></script>
+	<!-- Tween.js is a lib for animating numbers based on "easing curves". -->
+	<script src="${host}node_modules/tween.js/src/Tween.js"></script>
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+		body,
+		html {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
 			touch-action: none;
+			background: black;
 		}
 		lume-element3d {
 			text-align: center;
-		}
-		#bg {
-			background: #62b997;
 		}
 		button {
 			width: 100%;
 			height: 100%;
 			white-space: nowrap;
-			border-radius: 0px;
-			border: 1px solid #494455;
-			background: #e96699;
-			color: #494455;
+			border-radius: 10px;
+			border: none;
+			background: #595c5e;
+			color: #ccc;
 			outline: none;
+			font-family: 'Poppins', sans-serif;
+			font-weight: bold;
+			font-size: 16px;
 		}
 		button:focus,
 		button:hover {
-			background: #eb4b89;
-			color: #0a3359;
-			border-color: #0a3359;
+			background: #617e9f;
 		}
 	</style>
 
 	<template vue>
-		<!-- Lights and shadows are powered by WebGL, but written with HTML: -->
-		<lume-scene
-			webgl="true"
-			id="scene"
-			background-color="black"
-			background-opacity="0"
-			perspective="800"
-			shadowmap-type="pcfsoft"
-			NOTE="one of basic, pcf, pcfsoft"
-		>
-			<lume-ambient-light color="#ffffff" intensity="0"></lume-ambient-light>
-			<lume-mixed-plane ref="plane" id="bg" size-mode="proportional proportional" size="1 1 0" color="#444" dithering>
-				<lume-element3d
-					id="button-container"
-					position="0 0 20"
-					size="600 31 0"
-					align-point="0.5 0.5 0"
-					mount-point="0.5 0.5 0"
+		<form style="display: contents" onsubmit="console.log('Native form submission!'); event.preventDefault()">
+			<div style="width: 100%; height: 100%;">
+				<!-- Lights and shadows are powered by WebGL, but written with HTML: -->
+				<lume-scene
+					webgl="true"
+					id="scene"
+					background-color="black"
+					background-opacity="0"
+					perspective="600"
+					shadowmap-type="pcfsoft"
+					NOTE="one of basic, pcf, pcfsoft"
+					touch-action="none"
+					@pointermove="onmove"
+					@pointerdown="ondown"
+					@pointerup="onup"
+					physically-correct-lights
 				>
-					<lume-mixed-plane
-						v-for="n in [0,1,2,3,4]"
-						ref="btn"
-						:key="n"
-						size-mode="literal proportional"
-						size="100 1 0"
-						:align-point="\`\${n*0.25} 0 0\`"
-						:mount-point="\`\${n*0.25} 0 0\`"
-						color="#444"
-					>
-						<button>button {{n+1}}</button>
-					</lume-mixed-plane>
-				</lume-element3d>
-				<lume-element3d id="lightContainer" size="0 0 0" position="0 0 300">
-					<lume-point-light
-						id="light"
+					<lume-ambient-light color="#ffffff" intensity="2"></lume-ambient-light>
+
+					<lume-plane
+						ref="plane"
+						id="background"
+						size-mode="literal literal"
+						size="300 300 0"
+						align-point="0.5 0.5"
+						mount-point="0.5 0.5"
+						has="phong-material"
 						color="white"
-						size="0 0 0"
-						cast-shadow="true"
-						intensity="0.8"
-						shadow-map-width="2048"
-						shadow-map-height="2048"
-						shadow-radius="2"
-						distance="800"
-						shadow-bias="-0.001"
+						dithering
+						color="white"
+						comment="free texture from https://polyhaven.com/a/concrete_layers_02"
+						texture="${host}textures/cement-wall/diff_2k.jpg"
+						bump-map="${host}textures/cement-wall/disp_2k.jpg"
+						bump-scale="8"
+						shininess="200"
+						specular="#222"
 					>
-						<lume-mesh
-							has="sphere-geometry basic-material"
-							size="10 10 10"
-							align-point="0.5 0.5 0.5"
-							mount-point="0.5 0.5 0.5"
-							color="white"
-							receive-shadow="false"
-							cast-shadow="false"
-							style="pointer-events: none"
+						<lume-element3d
+							id="button-container"
+							position="0 0 20"
+							size="520 38 0"
+							align-point="0.5 0.5 0"
+							mount-point="0.5 0.5 0"
 						>
-						</lume-mesh>
-					</lume-point-light>
-				</lume-element3d>
-			</lume-mixed-plane>
-		</lume-scene>
+							<lume-mixed-plane
+								v-for="(item, i) in buttons"
+								ref="btn"
+								:key="i"
+								size-mode="literal proportional"
+								size="120 1 0"
+								:align-point="\`\${i*0.333} 0 0\`"
+								:mount-point="\`\${i*0.333} 0 0\`"
+								color="#444"
+								has="rounded-rectangle-geometry"
+								corner-radius="10"
+								thickness="1"
+								quadratic-corners="false"
+								roughness="0.48"
+							>
+								<!-- Native button elements! -->
+								<button>{{item}}</button>
+							</lume-mixed-plane>
+						</lume-element3d>
+					</lume-plane>
+
+					<lume-element3d id="lightContainer" size="0 0 0" position="0 0 300">
+						<lume-point-light
+							id="light"
+							color="white"
+							size="0 0 0"
+							position="-50 -50"
+							intensity="1000"
+							shadow-map-width="2048"
+							shadow-map-height="2048"
+							shadow-radius="10"
+							distance="800"
+							shadow-bias="-0.001"
+						>
+							<lume-mesh
+								id="bulb"
+								has="sphere-geometry basic-material"
+								size="10 10 10"
+								mount-point="0.5 0.5 0.5"
+								color="white"
+								receive-shadow="false"
+								cast-shadow="false"
+								style="pointer-events: none"
+							></lume-mesh>
+						</lume-point-light>
+					</lume-element3d>
+				</lume-scene>
+			</div>
+		</form>
 	</template>
 
 	<div id="buttonsRoot"></div>
 
-	<script>
+	<script type="module">
+		import {Motor, Events} from 'lume'
+
 		new Vue({
 			el: '#buttonsRoot',
 			template: document.querySelector('[vue]').innerHTML,
-			mounted() {
-				const {Motor, Events} = LUME
-				const scene = document.querySelector('#scene')
-				const lightContainer = document.querySelector('#lightContainer')
-				const light = document.querySelector('#light')
-				const targetPosition = {x: window.innerWidth / 2, y: window.innerHeight / 2}
 
-				document.addEventListener('pointermove', e => {
-					e.preventDefault()
-					targetPosition.x = e.clientX
-					targetPosition.y = e.clientY
-				})
+			data: () => ({
+				buttons: ['🏖️ Have Fun', '😊 Smi)e', '🛠️ Create', '♥️ With Love'],
+			}),
+
+			mounted() {
+				const lightContainer = document.querySelector('#lightContainer')
+				const bulb = document.querySelector('#bulb')
+				const plane = this.$refs.plane
+				this.targetPosition = {x: window.innerWidth / 2, y: window.innerHeight / 2}
 
 				Motor.addRenderTask(time => {
-					lightContainer.position.x += (targetPosition.x - lightContainer.position.x) * 0.05
-					lightContainer.position.y += (targetPosition.y - lightContainer.position.y) * 0.05
+					lightContainer.position.x += (this.targetPosition.x - lightContainer.position.x) * 0.05
+					lightContainer.position.y += (this.targetPosition.y - lightContainer.position.y) * 0.05
+					plane.rotation.y = 10 * (lightContainer.position.x / window.innerWidth) - 5
+					plane.rotation.x = -(10 * (lightContainer.position.y / window.innerHeight) - 5)
 				})
 
-				let downTween, upTween, pressedButton
+				window.addEventListener('resize', resize)
+				resize()
+				function resize() {
+					const winAspect = window.innerWidth / window.innerHeight
+					if (winAspect < 1) plane.size = [window.innerHeight * 1.3, window.innerHeight * 1.3]
+					else plane.size = [window.innerWidth * 1.3, window.innerWidth * 1.3]
+				}
+			},
 
-				// On mouse down animate the button downward
-				document.addEventListener('pointerdown', e => {
-					if (is(e.target, 'button')) {
-						pressedButton = e.target
+			methods: {
+				onmove(e) {
+					e.preventDefault()
+					this.targetPosition.x = e.clientX
+					this.targetPosition.y = e.clientY
+				},
 
-						if (upTween) {
-							upTween.stop()
-							upTween = null
+				// On mouse down animate the button downward using Tween.js
+				// https://github.com/tweenjs/tween.js
+				ondown(e) {
+					if (e.target.matches('button')) {
+						this.pressedButton = e.target
+
+						if (this.upTween) {
+							this.upTween.stop()
+							this.upTween = null
 						}
 
-						downTween = new TWEEN.Tween(e.target.parentNode.position)
-							.to({z: -20}, 75)
+						this.downTween = new TWEEN.Tween(e.target.parentNode.position)
+							.to({z: -16}, 75)
 							.start()
-							.onComplete(() => (downTween = null))
+							.onComplete(() => (this.downTween = null))
 
 						Motor.addRenderTask(time => {
-							if (!downTween) return false
-							downTween.update(time)
+							if (!this.downTween) return false
+							this.downTween.update(time)
 						})
 					}
-				})
+				},
 
-				// On mouse up animate the button upward
-				document.addEventListener('pointerup', e => {
-					if (pressedButton) {
-						if (downTween) {
-							downTween.stop()
-							downTween = null
+				// On mouse up animate the button upward using Tween.js
+				onup() {
+					if (this.pressedButton) {
+						if (this.downTween) {
+							this.downTween.stop()
+							this.downTween = null
 						}
 
-						upTween = new TWEEN.Tween(pressedButton.parentNode.position)
+						this.upTween = new TWEEN.Tween(this.pressedButton.parentNode.position)
 							.to({z: 0}, 75)
 							.start()
-							.onComplete(() => (upTween = null))
+							.onComplete(() => (this.upTween = null))
 
 						Motor.addRenderTask(time => {
-							if (!upTween) return false
-							upTween.update(time)
+							if (!this.upTween) return false
+							this.upTween.update(time)
 						})
 					}
-				})
-
-				function is(el, selector) {
-					if ([].includes.call(document.querySelectorAll(selector), el)) return true
-					return false
-				}
+				},
 			},
 		})
 	</script>
@@ -351,13 +462,6 @@ const buttonsWithShadowExample = stripIndent(html`
 
 function meshExample({geometry = 'box', material = 'phong', color = ''} = {}) {
 	return stripIndent(html`
-		<script src="${host}global.js"></script>
-		${
-			'' /*
-			TODO: The behaviors don't load if the global script is loaded after the
-			scene markup instead of before and there is more than one behavior specified with has="".
-			*/
-		}
 		<style>
 			html,
 			body {
@@ -369,6 +473,9 @@ function meshExample({geometry = 'box', material = 'phong', color = ''} = {}) {
 				touch-action: none;
 			}
 		</style>
+
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<lume-scene id="scene" perspective="800" webgl>
 			<lume-point-light position="200 -200 200" intensity="0.6" color="white"></lume-point-light>
@@ -385,8 +492,8 @@ function meshExample({geometry = 'box', material = 'phong', color = ''} = {}) {
 			></lume-mesh>
 		</lume-scene>
 
-		<script>
-			LUME.defineElements()
+		<script type="module">
+			import 'lume'
 
 			mesh.rotation = (x, y, z) => [++x, ++y, z]
 		</script>
@@ -395,7 +502,8 @@ function meshExample({geometry = 'box', material = 'phong', color = ''} = {}) {
 
 function miniGalaxyDemo() {
 	return stripIndent(html`
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<lume-scene id="scene">
 			<lume-element3d id="container" size="78 78" align-point="0.5 0.5" mount-point="0.5 0.5">
@@ -584,8 +692,8 @@ function miniGalaxyDemo() {
 			}
 		</style>
 
-		<script>
-			LUME.defineElements()
+		<script type="module">
+			import 'lume'
 
 			document.querySelectorAll('.A, .A .rotator').forEach(n => {
 				n.rotation = (x, y, z, t) => [-65 * Math.sin(t * 0.0005), y, -65 * Math.sin(t * 0.0005)]
@@ -599,7 +707,6 @@ function miniGalaxyDemo() {
 
 			// Add some interaction so we can see the shine from the light!
 			scene.addEventListener('pointermove', event => {
-				// Rotate the image a little bit too.
 				container.rotation.y = (event.clientX / scene.calculatedSize.x) * (rotationAmount * 2) - rotationAmount
 				container.rotation.x = -((event.clientY / scene.calculatedSize.y) * (rotationAmount * 2) - rotationAmount)
 			})
@@ -609,7 +716,8 @@ function miniGalaxyDemo() {
 
 function sceneExample() {
 	return stripIndent(html`
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<lume-scene id="scene">
 			<lume-element3d size="100 100" align-point="0.5 0.5" mount-point="0.5 0.5" rotation="0 30 0">
@@ -631,15 +739,16 @@ function sceneExample() {
 			}
 		</style>
 
-		<script>
-			LUME.defineElements()
+		<script type="module">
+			import 'lume'
 		</script>
 	`)
 }
 
 function pointLightExample() {
 	return stripIndent(html`
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<lume-scene webgl shadowmap-type="soft">
 			<lume-ambient-light color="white" intensity="0.7"></lume-ambient-light>
@@ -681,8 +790,8 @@ function pointLightExample() {
 			}
 		</style>
 
-		<script>
-			LUME.defineElements()
+		<script type="module">
+			import 'lume'
 
 			box.rotation = (x, y, z) => [x, y, ++z]
 		</script>
@@ -691,7 +800,8 @@ function pointLightExample() {
 
 function directionalLightExample() {
 	return stripIndent(html`
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<lume-scene webgl shadowmap-type="soft">
 			<lume-ambient-light color="white" intensity="0.7"></lume-ambient-light>
@@ -739,8 +849,8 @@ function directionalLightExample() {
 			}
 		</style>
 
-		<script>
-			LUME.defineElements()
+		<script type="module">
+			import 'lume'
 
 			box.rotation = (x, y, z) => [x, y, ++z]
 		</script>
@@ -749,7 +859,8 @@ function directionalLightExample() {
 
 function spotLightExample() {
 	return stripIndent(html`
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/tweakpane@3.1.0/dist/tweakpane.js"></script>
 
 		<lume-scene webgl shadowmap-type="soft">
@@ -871,8 +982,8 @@ function spotLightExample() {
 			}
 		</style>
 
-		<script>
-			LUME.defineElements()
+		<script type="module">
+			import {autorun} from 'lume'
 
 			const pane = new Tweakpane.Pane()
 			const folder = pane.addFolder({title: 'play with options', expanded: false})
@@ -895,7 +1006,7 @@ function spotLightExample() {
 				})
 				.on('change', event => (light2.target = event.value))
 
-			LUME.autorun(() => {
+			autorun(() => {
 				light2.debug = light1.debug
 				light2.penumbra = light1.penumbra
 				light2.angle = light1.angle
@@ -920,7 +1031,8 @@ function spotLightExample() {
 
 function perspectiveLayeredImage({bg, fg, bgPosition = {x: 0, y: 0}, fgPosition = {}}) {
 	return stripIndent(html`
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<lume-scene id="scene" webgl>
 			<lume-point-light
@@ -972,8 +1084,8 @@ function perspectiveLayeredImage({bg, fg, bgPosition = {x: 0, y: 0}, fgPosition 
 			}
 		</style>
 
-		<script>
-			LUME.defineElements()
+		<script type="module">
+			import {Motor} from 'lume'
 
 			const rotationAmount = 10
 			const targetRotation = {
@@ -991,7 +1103,7 @@ function perspectiveLayeredImage({bg, fg, bgPosition = {x: 0, y: 0}, fgPosition 
 			scene.addEventListener('pointerdown', setTargetRotation)
 
 			// Rotate the container towards the targetRotation over time to make it smooth.
-			LUME.Motor.addRenderTask(() => {
+			Motor.addRenderTask(() => {
 				container.rotation.x += (targetRotation.x - container.rotation.x) * 0.05
 				container.rotation.y += (targetRotation.y - container.rotation.y) * 0.05
 			})
@@ -1000,7 +1112,8 @@ function perspectiveLayeredImage({bg, fg, bgPosition = {x: 0, y: 0}, fgPosition 
 }
 
 const lineExample = stripIndent(html`
-	<script src="${host}global.js"></script>
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
 
 	<style>
 		html,
@@ -1024,8 +1137,7 @@ const lineExample = stripIndent(html`
 	</lume-scene>
 
 	<script type="module">
-		// Define all the LUME elements with their default names.
-		LUME.defineElements()
+		import 'lume'
 
 		// FIXME We currently need to skip a turn or else setting the points below
 		// will be overwritten by the empty points attribute.
@@ -1058,7 +1170,8 @@ const starPath =
 	'M5.605 12.784c-.294-.052-.556-.222-.718-.466-.098-.147-.08-.095-.455-1.303-.077-.247-.188-.603-.246-.79-.058-.187-.168-.54-.244-.785l-.138-.444-.12-.037c-.137-.043-.721-.224-1.059-.329-.126-.04-.3-.094-.385-.12-1.613-.501-1.572-.487-1.679-.548-.393-.221-.611-.658-.55-1.098.034-.249.148-.468.335-.644.055-.052.488-.363 1.397-1.005l1.318-.93-.006-.255c-.01-.461-.027-2.045-.029-2.58-.001-.552-.001-.55.046-.7.031-.1.111-.246.181-.335.313-.396.86-.525 1.312-.311.117.055.101.044.64.446.248.185.822.613 1.277.953l.826.617.179-.061c.098-.034.324-.11.503-.171.516-.175.807-.273 1.395-.473.94-.319 1.012-.343 1.107-.359.515-.089 1.026.211 1.202.705.064.179.081.368.05.55-.011.064-.074.264-.196.624-.195.574-.322.95-.477 1.407-.054.161-.165.486-.245.721l-.145.429.616.826c.34.455.779 1.043.976 1.307.299.4.367.498.413.59.183.372.14.81-.112 1.141-.155.204-.371.339-.644.406-.043.01-.175.013-.595.012-.53-.002-2.032-.019-2.555-.029l-.265-.005-.93 1.316c-.511.724-.951 1.34-.977 1.37-.25.286-.636.423-1.003.358z'
 
 const shapesExample = stripIndent(html`
-	<script src="${host}global.js"></script>
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
 
 	<style>
 		html,
@@ -1342,16 +1455,15 @@ const shapesExample = stripIndent(html`
 		</lume-element3d>
 	</lume-scene>
 
-	<script>
-		// Define all the LUME elements with their default names.
-		LUME.defineElements()
+	<script type="module">
+		import {Motor} from 'lume'
 
 		// Dolly the camera towards the hearts for intro animation.
 
 		const camTargetDistance = 0
 		let camDistance = 700
 
-		LUME.Motor.addRenderTask((t, dt) => {
+		Motor.addRenderTask((t, dt) => {
 			if (camDistance <= 1) {
 				return false
 			}
@@ -1365,7 +1477,7 @@ const shapesExample = stripIndent(html`
 	<div class="ui">
 		<fieldset>
 			<legend>Options</legend>
-			<label> <input type="checkbox" onchange="updateSize()" />&nbsp; Show size boundaries </label>
+			<label> <input type="checkbox" onchange="updateShowSize()" />&nbsp; Show size boundaries </label>
 			<br />
 			<label> <input type="checkbox" onchange="updateBevel()" />&nbsp; Bevel </label>
 			<fieldset>
@@ -1387,11 +1499,13 @@ const shapesExample = stripIndent(html`
 		</fieldset>
 	</div>
 
-	<script>
+	<script type="module">
+		import * as THREE from 'three'
+
 		let showSize = false
 		const boxes = Array.from(document.querySelectorAll('lume-box'))
 
-		function updateSize() {
+		globalThis.updateShowSize = () => {
 			showSize = !showSize
 			for (const box of boxes) box.visible = showSize
 		}
@@ -1400,14 +1514,14 @@ const shapesExample = stripIndent(html`
 
 		let bevel = false
 
-		function updateBevel() {
+		globalThis.updateBevel = () => {
 			bevel = !bevel
 			for (const shape of shapes) {
 				shape.bevel = bevel
 			}
 		}
 
-		function updateShape(event) {
+		globalThis.updateShape = event => {
 			const input = event.target
 
 			// react only to the newly checked radio
@@ -1415,15 +1529,16 @@ const shapesExample = stripIndent(html`
 
 			for (const shape of shapes) {
 				if (input.value === 'triangles') {
-					// Set a Shape instance
-					// TODO convert to global THREE.* API after finishing externalization in the externalize-THREE branch.
-					//shape.shape = new LUME.THREE.Shape([
-					//new LUME.THREE.Vector2(-12, 0),
-					//new LUME.THREE.Vector2(12, 0),
-					//new LUME.THREE.Vector2(0, 12),
-					//new LUME.THREE.Vector2(-12, 0),
-					//])
-					shape.shape = '-12, 0 12, 0 0, 12 -12, 0'
+					// Use a list of points,
+					// shape.shape = '-12 0, 12 0, 0 12, -12 0'
+
+					// or, set a THREE.Shape instance.
+					shape.shape = new THREE.Shape([
+						new THREE.Vector2(-12, 0),
+						new THREE.Vector2(12, 0),
+						new THREE.Vector2(0, 12),
+						new THREE.Vector2(-12, 0),
+					])
 				} else if (input.value === 'trapezoids') {
 					// Set the 'shape' attribute with a list of points
 					shape.setAttribute('shape', '-5 0, 2 -13,  13 -13,  20 0,  0 0')
@@ -1500,16 +1615,15 @@ const instancedMeshExample = stripIndent(html`
 		<!-- <lume-mesh has="sphere-geometry phong-material" size="30 30 30"></lume-mesh> -->
 	</lume-scene>
 
-	<script src="${host}global.js"></script>
-	<script>
-		// Define all the LUME elements with their default names.
-		LUME.defineElements()
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
+	<script type="module">
+		import {html, Motor} from 'lume'
 
 		const numberOfObjects = 10000
 
-		scene.append(LUME.html\`
-			<lume-instanced-mesh id="mesh" color="white" count=\${numberOfObjects} size="30 30 30">
-			</lume-instanced-mesh>
+		scene.append(html\`
+			<lume-instanced-mesh id="mesh" color="white" count=\${numberOfObjects} size="30 30 30"> </lume-instanced-mesh>
 		\`)
 
 		mesh.rotations = Array.from({length: numberOfObjects * 3}).map(() => Math.random())
@@ -1517,7 +1631,7 @@ const instancedMeshExample = stripIndent(html`
 		mesh.scales = Array.from({length: numberOfObjects * 3}).map(() => Math.random())
 		mesh.colors = Array.from({length: numberOfObjects * 3}).map(() => Math.random())
 
-		LUME.Motor.addRenderTask(() => {
+		Motor.addRenderTask(() => {
 			let i = 0
 			const a = mesh.rotations
 
@@ -1540,7 +1654,8 @@ const instancedMeshExample = stripIndent(html`
 
 const originExample = stripIndent(html`
 	<body>
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<style>
 			html,
@@ -1612,10 +1727,8 @@ const originExample = stripIndent(html`
 			</lume-element3d>
 		</lume-scene>
 
-		<script>
-			LUME.defineElements()
-
-			const {html} = LUME
+		<script type="module">
+			import {html} from 'lume'
 
 			// the following values of origin allow the boxes to rotate around one of
 			// their corners.
@@ -1681,8 +1794,9 @@ const originExample = stripIndent(html`
 `)
 
 const morphingSpiralExample = stripIndent(html`
-	<script src="${host}global.js"></script>
-	<script src="${host}node_modules/vue/dist/vue.js"></script>
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
+	<script src="./node_modules/vue/dist/vue.js"></script>
 
 	<body>
 		<template>
@@ -1775,8 +1889,9 @@ const morphingSpiralExample = stripIndent(html`
 			}
 		</style>
 
-		<script>
-			LUME.defineElements()
+		<script type="module">
+			import 'lume'
+
 			var template = document.querySelector('template')
 
 			new Vue({
@@ -1793,7 +1908,8 @@ const morphingSpiralExample = stripIndent(html`
 
 const perspectiveCameraExample = stripIndent(html`
 	<body>
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<style>
 			body,
@@ -1825,15 +1941,12 @@ const perspectiveCameraExample = stripIndent(html`
 			label {
 				padding-right: 10px;
 			}
+			.hidden {
+				display: none;
+			}
 		</style>
 
-		<!-- FIXME: Move this script tag below the UI, and initial values stop working, so the UI is squished. -->
-		<script>
-			// defines the default names for the HTML elements
-			LUME.defineElements()
-		</script>
-
-		<lume-scene id="scene" webgl perspective="800">
+		<lume-scene id="scene" webgl perspective="800" class="hidden">
 			<!-- This node visualizes the size of the default viewing area. -->
 			<lume-element3d
 				size-mode="proportional proportional"
@@ -1868,7 +1981,7 @@ const perspectiveCameraExample = stripIndent(html`
 			</lume-mesh>
 		</lume-scene>
 
-		<lume-scene id="scene2">
+		<lume-scene id="scene2" class="hidden">
 			<lume-element3d size-mode="proportional literal" size="1 80">
 				<label>
 					Camera active:
@@ -1934,7 +2047,12 @@ const perspectiveCameraExample = stripIndent(html`
 			</lume-element3d>
 		</lume-scene>
 
-		<script>
+		<script type="module">
+			import 'lume'
+
+			scene.classList.remove('hidden')
+			scene2.classList.remove('hidden')
+
 			document.addEventListener('pointermove', event => {
 				event.preventDefault()
 				light.position.x = event.clientX
@@ -1950,7 +2068,8 @@ const perspectiveCameraExample = stripIndent(html`
 
 const cameraRigExample = stripIndent(html`
 	<body>
-		<script src="${host}global.js"></script>
+		<base href="${host}" />
+		<script src="./importmap.js"></script>
 
 		<style>
 			body,
@@ -1979,15 +2098,12 @@ const cameraRigExample = stripIndent(html`
 			lume-element3d {
 				padding: 15px;
 			}
+			.hidden {
+				display: none;
+			}
 		</style>
 
-		<!-- FIXME: Move this script tag below the UI, and initial values stop working, so the UI is squished. -->
-		<script>
-			// defines the default names for the HTML elements
-			LUME.defineElements()
-		</script>
-
-		<lume-scene id="scene" webgl perspective="800">
+		<lume-scene id="scene" webgl perspective="800" class="hidden">
 			<!-- This node visualizes the size of the default viewing area. -->
 			<lume-element3d
 				size-mode="proportional proportional"
@@ -2026,7 +2142,7 @@ const cameraRigExample = stripIndent(html`
 			></lume-box>
 		</lume-scene>
 
-		<lume-scene id="ui">
+		<lume-scene id="ui" class="hidden">
 			<lume-element3d size-mode="proportional literal" size="1 80">
 				<label>
 					Camera rig active:
@@ -2035,7 +2151,12 @@ const cameraRigExample = stripIndent(html`
 			</lume-element3d>
 		</lume-scene>
 
-		<script>
+		<script type="module">
+			import 'lume'
+
+			scene.classList.remove('hidden')
+			ui.classList.remove('hidden')
+
 			document.addEventListener('pointermove', event => {
 				event.preventDefault()
 				light.position.x = event.clientX
@@ -2050,9 +2171,10 @@ const cameraRigExample = stripIndent(html`
 `)
 
 const cameraRigVerticalRotationExample = stripIndent(html`
-	<script src="${host}global.js"></script>
-	<script>
-		LUME.defineElements()
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
+	<script type="module">
+		import 'lume'
 	</script>
 
 	<lume-scene webgl style="background: #444">
@@ -2101,11 +2223,8 @@ const clipPlaneExample = stripIndent(html`
 		}
 	</style>
 
-	<script src="${host}global.js"></script>
-
-	<script>
-		LUME.defineElements()
-	</script>
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
 
 	<lume-scene id="scene" perspective="800" webgl shadowmap-type="pcfsoft">
 		<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
@@ -2190,8 +2309,8 @@ const clipPlaneExample = stripIndent(html`
 		</lume-element3d>
 	</lume-scene>
 
-	<script>
-		// LUME.defineElements()
+	<script type="module">
+		import 'lume'
 
 		// Other ways to set the clip planes:
 		// box.setAttribute('clip-planes', '#clipPlane')
@@ -2202,6 +2321,9 @@ const clipPlaneExample = stripIndent(html`
 `)
 
 const pictureFrameExample = stripIndent(html`
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
+
 	<style>
 		html,
 		body {
@@ -2215,17 +2337,226 @@ const pictureFrameExample = stripIndent(html`
 	</style>
 
 	<script>
-		// Make sure a global LUME object is in place before importing global.js as an ES module.
-		// TODO this shouldn't be necessary.
-		var LUME = {}
 		const host = '${host}'
 
-		import('${host}js/PictureFrameScene.js')
+		// See ${host}js/PictureFrameScene.js
+		import('./js/PictureFrameScene.js')
 	</script>
 
+	<!--
+		The vampire picture is from
+		https://mythical-creatures.com/glossary/unknown/vampire/
+		https://mythical-creatures.com/wp-content/uploads/2023/03/Satijn_vampire_with_fangs_452dda35-0cf4-4f8d-b456-63e069ecdf09.png
+	-->
 	<picture-frame-scene
 		picture="${host}images/monalisa-2.jpg"
+		xpicture="${host}images/satijn_vampire.png"
 		frame-texture="${host}images/wood.jpg"
 		frame-shape="m16.1 345c217.1-.3 328.7-.3 335 0 6.3-.3 10-6.3 11-18 3.6-50.8 5.3-78.8 5-84 .3-5.2 1.9-7.9 5-8 27.3.8 42.6 1.2 46 1 3.2.2 5.5-2.5 7.1-8v-23l-27-1c-23.2-22.7-28.2-15.4-28-22-.1-4.9-1.1-9.3-3-13h-31c.1 6.1-1.6 10.4-5 13-5.2 2.7-27.8 3.6-53 0-28.2-5-54.6-21.7-60-24-37.7-18.6-78.3-65.9-106-137-1.2-2.8-3.9-5.1-8-7-3.3-.2-4.9-.9-5-2 .1-.9-.4-8.5-1-9-.7-1.3-2.3-2.3-5-3h-56c.2 10 .2 14.7 0 14 .2-1.1-5.4-1.1-17 0 .2 9 .2 16 0 21-.8 10.4-.4 33.3 2 37 20.5 30.1 24.2 84.5 15 132-4.2 20.1-15.9 48.4-35 85-2.6 20.8-3 34.8-1.1 42 1.6 7.5 6.6 12.2 15 14z"
 	></picture-frame-scene>
+`)
+
+const introExample = stripIndent(html`
+	<base href="${host}" />
+	<script src="./importmap.js"></script>
+
+	<lume-scene
+		id="scene"
+		webgl
+		environment="./examples/nasa-astrobee-robot/luna-station.jpg"
+		background="./examples/nasa-astrobee-robot/luna-station.jpg"
+		equirectangular-background="true"
+	>
+		<lume-ambient-light color="white" intensity="0.3"></lume-ambient-light>
+
+		<lume-camera-rig align-point="0.5 0.5 0.5" max-distance="3000" initial-distance="1500">
+			<lume-point-light slot="camera-child" position="500 500 200" intensity="0.4"></lume-point-light>
+		</lume-camera-rig>
+
+		<lume-element3d align-point="0.5 0.5 0.5">
+			<!-- Load a 3D model from an FBX file. We make it have a metallic look down below. -->
+			<lume-fbx-model
+				id="mando"
+				rotation="0 0 0"
+				size="40 40 40"
+				scale="10 10 10"
+				src="./models/mando-helmet.fbx"
+				center-geometry
+			></lume-fbx-model>
+
+			<!-- A sphere with a frosty surface. -->
+			<lume-sphere
+				id="sphere"
+				mount-point="0.5 0.5 0.5"
+				position="-500"
+				has="physical-material"
+				receive-shadow="false"
+				size="400 400 400"
+				sidedness="double"
+				opacity="1"
+				color="white"
+				clearcoat="1"
+				transmission="1"
+				metalness="0.0"
+				roughness="0.55"
+			>
+				<!-- An inner sphere to make the outer sphere seem to glow from inside, using a shader-material for a custom shader. -->
+				<lume-sphere
+					id="innerSphere"
+					align-point="0.5 0.5 0.5"
+					mount-point="0.5 0.5 0.5"
+					has="shader-material"
+					receive-shadow="false"
+					size="360 360 360"
+					sidedness="double"
+					uniforms='{
+						"iTime": { "value": 0 },
+						"iResolution": { "value": {"x": 1, "y": 1, "z": 1} }
+					}'
+				></lume-sphere>
+			</lume-sphere>
+
+			<!-- A star shape, with a shader-material to make its shader be custom. -->
+			<lume-shape
+				id="shape"
+				shape="${starPath}"
+				size="300 300 300"
+				position="500"
+				align-point="0.5 0.5 0.5"
+				mount-point="0.5 0.5 0.5"
+				sidedness="double"
+				receive-shadow="false"
+				color="red"
+				fitment="cover"
+				bevel
+				bevel-thickness="1"
+				has="shader-material"
+				uniforms='{
+					"iTime": { "value": 0 },
+					"iResolution": { "value": {"x": 1, "y": 1, "z": 1} }
+				}'
+			></lume-shape>
+		</lume-element3d>
+	</lume-scene>
+
+	<script type="module">
+		import {html, autorun, Motor} from 'lume'
+		import {MeshPhysicalMaterial} from 'three/src/materials/MeshPhysicalMaterial.js'
+		import {toCreasedNormals} from 'three/examples/jsm/utils/BufferGeometryUtils.js'
+
+		const vertexShader = \`
+			varying vec2 vUv;
+
+			void main() {
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+			}
+		\`
+
+		const fragmentShader = \`
+			#include <common>
+
+			uniform vec3 iResolution;
+			uniform float iTime;
+
+			// The following is the default shader when you start a new shadertoy example.
+			// By iq: https://www.shadertoy.com/user/iq
+			// license: Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+			// BEGIN SHADERTOY CODE {
+
+			void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
+				// Normalized pixel coordinates (from 0 to 1)
+				vec2 uv = fragCoord/iResolution.xy;
+
+				// Time varying pixel color
+				vec3 col = 0.5 + 0.5*cos(iTime+uv.xyx+vec3(0,2,4));
+
+				// Output to screen
+				fragColor = vec4(col,1.0);
+				//fragColor = vec4(1.0, 0.3, 0.1, 1.0);
+			}
+
+			// END SHADERTOY CODE }
+
+			varying vec2 vUv;
+
+			void main() {
+				mainImage(gl_FragColor, vUv / 2.0 * gl_FragCoord.xy);
+			}
+		\`
+
+		// Apply a custom shader to the inner glowing sphere, and the star shape.
+		innerSphere.vertexShader = vertexShader
+		innerSphere.fragmentShader = fragmentShader
+		shape.vertexShader = vertexShader
+		shape.fragmentShader = fragmentShader
+
+		animateShader(innerSphere)
+		animateShader(shape, 2000)
+
+		// Animates
+		async function animateShader(targetBox, timeOffset = 0) {
+			autorun(() => {
+				const mat = targetBox.behaviors.get('shader-material')
+
+				if (!mat?.meshComponent) return
+
+				mat.uniforms.iResolution.value.x = targetBox.calculatedSize.x * 10
+				mat.uniforms.iResolution.value.y = targetBox.calculatedSize.y * 10
+
+				targetBox.needsUpdate()
+			})
+
+			Motor.addRenderTask(t => {
+				const mat = targetBox.behaviors.get('shader-material')
+
+				if (!mat?.meshComponent) return
+
+				mat.uniforms.iTime.value = (t + timeOffset) * 0.001
+				targetBox.needsUpdate()
+			})
+		}
+
+		tiltOnPointerMove(scene, sphere)
+		tiltOnPointerMove(scene, mando)
+		tiltOnPointerMove(scene, shape)
+
+		function tiltOnPointerMove(pointerContext, rotationTarget, rotationAmount = 15) {
+			// Slightly rotate the given element based on pointer movement.
+			pointerContext.addEventListener('pointermove', event => {
+				rotationTarget.rotation.y = (event.clientX / pointerContext.offsetWidth) * (rotationAmount * 2) - rotationAmount
+				rotationTarget.rotation.x = -(
+					(event.clientY / pointerContext.offsetHeight) * (rotationAmount * 2) -
+					rotationAmount
+				)
+			})
+		}
+
+		// Wait for the model to be loaded so we can style metal parts of the
+		// helmet with a metallic material, and the visor with a black
+		// plastic-like material.
+		mando.on('MODEL_LOAD', () => {
+			// Once loaded, let's traverse the tree to visit all the mesh parts.
+			mando.three.traverse(obj => {
+				// Skip non-mesh nodes.
+				if (obj.isMesh) {
+					// Make the parts of the helmet look metallic or plastic.
+					if (obj.material.name.startsWith('Chrome') || obj.material.name.startsWith('Steel')) {
+						// metal
+						obj.material = new MeshPhysicalMaterial({color: 'white', metalness: 1, roughness: 0.15})
+					} else {
+						// black plastic visor
+						obj.material = new MeshPhysicalMaterial({
+							color: '#111111',
+							metalness: 0.2,
+							roughness: 0.2,
+							clearcoat: 1,
+						})
+						obj.geometry = toCreasedNormals(obj.geometry, 360) // smooth out the visor normals (the imported model had strange normals)
+					}
+				}
+			})
+		})
+	</script>
 `)

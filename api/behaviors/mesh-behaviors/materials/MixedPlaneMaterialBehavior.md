@@ -1,5 +1,5 @@
 
-# <code>class <b>MixedPlaneMaterialBehavior</b> extends [MaterialBehavior](MaterialBehavior.md)</code> :id=MixedPlaneMaterialBehavior
+# <code>class <b>MixedPlaneMaterialBehavior</b> extends [PhysicalMaterialBehavior](PhysicalMaterialBehavior.md)</code> :id=MixedPlaneMaterialBehavior
 
 Used as the material for [`<lume-mixed-plane>`](../../../meshes/MixedPlane) elements.
 
@@ -11,7 +11,7 @@ Used as the material for [`<lume-mixed-plane>`](../../../meshes/MixedPlane) elem
 
 ## Properties
 
-Inherits properties from [MaterialBehavior](MaterialBehavior.md).
+Inherits properties from [PhysicalMaterialBehavior](PhysicalMaterialBehavior.md).
 
 
 ### <code>.<b>materialOpacity</b></code> :id=materialOpacity
@@ -20,14 +20,14 @@ Inherits properties from [MaterialBehavior](MaterialBehavior.md).
 
 Default: `0.3`
 
-Overrides [`MaterialBehavior.color`](./MaterialBehavior#color) to
+Overrides [`PhysicalMaterialBehavior.color`](./PhysicalMaterialBehavior#color) to
 give mixed planes a default tinted transparent surface over regular
 DOM content, on which light effects can be drawn.
         
 
 
 
-Inherits methods from [MaterialBehavior](MaterialBehavior.md).
+Inherits methods from [PhysicalMaterialBehavior](PhysicalMaterialBehavior.md).
 
 
         

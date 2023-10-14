@@ -8,7 +8,7 @@
     data: {
       code:
 `
-<script src="${host}global.js"><\/script>
+<base href="${host}" /><script src="./importmap.js"><\/script>
 <script src="${host}node_modules/tinycolor2/tinycolor.js"><\/script>
 <script src="${host}node_modules/tween.js/src/Tween.js"><\/script>
 
@@ -21,9 +21,8 @@
 <body>
 
 <script type="module">
-  LUME.defineElements()
+  import {Motor, Scene, Node} from 'lume'
 
-  const {Motor, Scene, Node} = LUME
   const {Tween, Easing} = TWEEN
   const color = tinycolor
 
