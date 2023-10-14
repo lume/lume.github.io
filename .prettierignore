@@ -1,5 +1,8 @@
 node_modules/
 .vscode
 
-# ignore output
-dist/
+# ignore build output
+api/
+_sidebar.md
+
+google*.html

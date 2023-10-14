@@ -8,6 +8,9 @@
 		"dev": "node --experimental-import-meta-resolve ./dev-server.mjs",
 		"build": "npm run clean && npm run dist:copy && node ./build-api-docs.mjs",
 		"clean": "rimraf _sidebar.md \"global.js*\" \"./api/**/!(.gitkeep)\" \"./guide/includes/**/!(.gitkeep)\"",
+		"test": "npm run prettier:check",
+		"prettier": "prettier . --write",
+		"prettier:check": "prettier . --check",
 		"publish": "git push git@github.com:lume-vercel/docs.git",
 		"dist:copy": "npm run dist:copy:readmes",
 		"dist:copy:readmes": "cpr node_modules/element-behaviors/README.md ./guide/includes/lume-element-behaviors.md --overwrite && cpr node_modules/@lume/element/README.md ./guide/includes/lume-element.md --overwrite && cpr node_modules/@lume/variable/README.md ./guide/includes/lume-variable.md --overwrite && cpr node_modules/@lume/autolayout/README.md ./guide/includes/lume-autolayout.md --overwrite"
@@ -40,6 +43,7 @@
 		"james-bond": "^0.6.0",
 		"lowclass": "^5.0.1",
 		"mkdirp": "^1.0.4",
+		"prettier": "3.0.3",
 		"readem": "^0.2.7",
 		"regexr": "^2.0.0",
 		"rimraf": "^3.0.2",
