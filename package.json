@@ -7,7 +7,7 @@
 		"start": "npm run build && npm run dev",
 		"dev": "node --experimental-import-meta-resolve ./dev-server.mjs",
 		"build": "npm run clean && npm run dist:copy && node ./build-api-docs.mjs",
-		"clean": "rimraf _sidebar.md \"global.js*\" \"./api/**/!(.gitkeep)\" \"./guide/includes/**/!(.gitkeep)\"",
+		"clean": "rimraf \"./api/**/!(.gitkeep)\" \"./guide/includes/**/!(.gitkeep)\"",
 		"test": "npm run prettier:check",
 		"prettier": "prettier . --write",
 		"prettier:check": "prettier . --check",
