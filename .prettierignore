@@ -3,6 +3,7 @@ node_modules/
 
 # ignore build output
 api/
+guide/includes/
 _sidebar.md
 
 google*.html
