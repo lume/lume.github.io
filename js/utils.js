@@ -1185,8 +1185,6 @@ const shapesExample = stripIndent(html`
 		}
 	</style>
 
-	<script src="global.js"></script>
-
 	<lume-scene id="scene" perspective="800" webgl fog-mode="none" fog-near="100" fog-far="500" fog-color="white">
 		<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
 
