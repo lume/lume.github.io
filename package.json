@@ -16,7 +16,7 @@
 		"dist:copy:readmes": "cpr node_modules/element-behaviors/README.md ./guide/includes/lume-element-behaviors.md --overwrite && cpr node_modules/@lume/element/README.md ./guide/includes/lume-element.md --overwrite && cpr node_modules/@lume/variable/README.md ./guide/includes/lume-variable.md --overwrite && cpr node_modules/@lume/autolayout/README.md ./guide/includes/lume-autolayout.md --overwrite"
 	},
 	"dependencies": {
-		"@lume/docsify": "^4.9.4-1d3246a2.0",
+		"docsify": "^4.9.4",
 		"@lume/live-code": "^0.4.0",
 		"docsify-copy-code": "^2.1.0",
 		"docsify-pagination": "^2.4.0",
