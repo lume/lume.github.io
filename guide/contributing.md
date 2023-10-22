@@ -423,6 +423,9 @@ npm run build
 
 ### Publishing a new version
 
+> [!Note]
+> Publishing steps currently work in Linux or macOS, but not yet in Windows (help wanted).
+
 When ready to publish a new version, run one of the following depending on
 which part of the version number you want to increment (see
 [SemVer](https://semver.org/) for conventions on patch, minor, and major
@@ -434,7 +437,7 @@ npm run realease:minor
 npm run realease:major
 ```
 
-Any of the three `release:*` scripts will:
+Any of the `release:*` scripts will:
 
 - clean the project of any previous build output.
 - stash any changes in the repo.
