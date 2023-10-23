@@ -1,5 +1,5 @@
 
-# <code>class <b>Line</b> extends [Element3D](../core/Element3D.md)</code> :id=Line
+# <code>class <b>Line</b> extends [Element3D](..\core\Element3D.md)</code> :id=Line
 
 Renders a line based on a sequence of points.
 
@@ -25,13 +25,13 @@ behavior on this element to load a set of points from a file.
 
 
 
-Inherits properties from [Element3D](../core/Element3D.md).
+Inherits properties from [Element3D](..\core\Element3D.md).
 
 
 
 
 
-Inherits methods from [Element3D](../core/Element3D.md).
+Inherits methods from [Element3D](..\core\Element3D.md).
 
 
         

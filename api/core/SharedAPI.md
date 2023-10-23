@@ -1,5 +1,5 @@
 
-# <code>class <b>SharedAPI</b> extends [Settable](../utils/Settable.md), [Transformable](Transformable.md)</code> :id=SharedAPI
+# <code>class <b>SharedAPI</b> extends [Settable](..\utils\Settable.md), [Transformable](Transformable.md)</code> :id=SharedAPI
 
 This is an abstract base class that provides common
 properties and methods for the non-abstract [`Element3D`](./Element3D) and
@@ -14,7 +14,7 @@ methods subclasses inherit from here.
 
 ## Properties
 
-Inherits properties from [Settable](../utils/Settable.md), [Transformable](Transformable.md).
+Inherits properties from [Settable](..\utils\Settable.md), [Transformable](Transformable.md).
 
 
 ### <code>.<b>isScene</b></code> :id=isScene
@@ -129,7 +129,7 @@ world matrices for this element and its sub tree have been calculated.
 
 ## Methods
 
-Inherits methods from [Settable](../utils/Settable.md), [Transformable](Transformable.md).
+Inherits methods from [Settable](..\utils\Settable.md), [Transformable](Transformable.md).
 
 
 ### <code>.<b>recreateThree</b>(): void</code> :id=recreateThree

@@ -1,5 +1,5 @@
 
-# <code>class <b>PerspectiveCamera</b> extends [Element3D](../core/Element3D.md)</code> :id=PerspectiveCamera
+# <code>class <b>PerspectiveCamera</b> extends [Element3D](..\core\Element3D.md)</code> :id=PerspectiveCamera
 
 Defines a viewport into the 3D scene as will be seen on screen.
 
@@ -18,7 +18,7 @@ the camera, while less can fit into view closer to the camera.
 
 ## Properties
 
-Inherits properties from [Element3D](../core/Element3D.md).
+Inherits properties from [Element3D](..\core\Element3D.md).
 
 
 ### <code>.<b>fov</b></code> :id=fov
@@ -92,7 +92,7 @@ cameras are active the scene's default camera will be used.
 
 
 
-Inherits methods from [Element3D](../core/Element3D.md).
+Inherits methods from [Element3D](..\core\Element3D.md).
 
 
         

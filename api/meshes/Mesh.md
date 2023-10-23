@@ -1,5 +1,5 @@
 
-# <code>class <b>Mesh</b> extends [Element3D](../core/Element3D.md)</code> :id=Mesh
+# <code>class <b>Mesh</b> extends [Element3D](..\core\Element3D.md)</code> :id=Mesh
 
 Element: `<lume-mesh>`
 
@@ -30,7 +30,7 @@ For sake of simplicity, `<lume-mesh>` has a `box-geometry` and
 
 ## Properties
 
-Inherits properties from [Element3D](../core/Element3D.md).
+Inherits properties from [Element3D](..\core\Element3D.md).
 
 
 ### <code>.<b>castShadow</b></code> :id=castShadow
@@ -58,7 +58,7 @@ presence of a light such as a
 
 
 
-Inherits methods from [Element3D](../core/Element3D.md).
+Inherits methods from [Element3D](..\core\Element3D.md).
 
 
         

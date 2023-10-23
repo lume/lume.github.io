@@ -1,5 +1,5 @@
 
-# <code>class <b>CubeLayout</b> extends [Element3D](../core/Element3D.md)</code> :id=CubeLayout
+# <code>class <b>CubeLayout</b> extends [Element3D](..\core\Element3D.md)</code> :id=CubeLayout
 
 Element: `<lume-cube-layout>`
 
@@ -17,13 +17,13 @@ Slots:
 
 
 
-Inherits properties from [Element3D](../core/Element3D.md).
+Inherits properties from [Element3D](..\core\Element3D.md).
 
 
 
 ## Methods
 
-Inherits methods from [Element3D](../core/Element3D.md).
+Inherits methods from [Element3D](..\core\Element3D.md).
 
 
 ### <code>.<b>createCubeSide</b>(): void</code> :id=createCubeSide
