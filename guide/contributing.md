@@ -432,9 +432,9 @@ which part of the version number you want to increment (see
 version numbers).
 
 ```bash
-npm run realease:patch
-npm run realease:minor
-npm run realease:major
+npm run release:patch
+npm run release:minor
+npm run release:major
 ```
 
 Any of the `release:*` scripts will:
