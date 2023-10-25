@@ -439,8 +439,8 @@ npm run release:major
 
 Any of the `release:*` scripts will:
 
-- clean the project of any previous build output.
-- stash any changes in the repo.
+- if the repo has changes, fail with a message (ensure the repo is clean first).
+- clean build outputs.
 - build the project in production mode.
 - run the project's tests to ensure everything is okay.
 - increment the version number (according to SemVer rules depending on if you
