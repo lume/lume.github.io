@@ -1,11 +1,11 @@
 
-# <code>class <b>MaterialBehavior</b> extends [GeometryOrMaterialBehavior](..\GeometryOrMaterialBehavior.md)</code> :id=MaterialBehavior
+# <code>class <b>MaterialBehavior</b> extends [GeometryOrMaterialBehavior](../GeometryOrMaterialBehavior.md)</code> :id=MaterialBehavior
 
 Base class for material behaviors.
 
 ## Properties
 
-Inherits properties from [GeometryOrMaterialBehavior](..\GeometryOrMaterialBehavior.md).
+Inherits properties from [GeometryOrMaterialBehavior](../GeometryOrMaterialBehavior.md).
 
 
 ### <code>.<b>alphaTest</b></code> :id=alphaTest
@@ -151,7 +151,7 @@ Returns `true` when either the element's
 
 
 
-Inherits methods from [GeometryOrMaterialBehavior](..\GeometryOrMaterialBehavior.md).
+Inherits methods from [GeometryOrMaterialBehavior](../GeometryOrMaterialBehavior.md).
 
 
         

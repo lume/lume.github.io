@@ -1,0 +1,93 @@
+<!-- GENERATOR CODE ///////////////////////////////////////////////////////////////// -->
+<!doctype html>
+<!-- prettier-ignore -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Untitled</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <!--
+    JSPM Generator Import Map
+    Edit URL: https://generator.jspm.io/#U2NhYGBkDM0rySzJSU1hyCnNTXUw0DPWM9BNzCnISNQzsgAA+3k8OiIA
+  -->
+   <script type="importmap">
+  {
+    "imports": {
+      "lume": "https://ga.jspm.io/npm:lume@0.3.0-alpha.28/dist/index.js"
+    },
+    "scopes": {
+      "https://ga.jspm.io/": {
+        "@lume/autolayout": "https://ga.jspm.io/npm:@lume/autolayout@0.10.1/dist/AutoLayout.js",
+        "@lume/custom-attributes/dist/index.js": "https://ga.jspm.io/npm:@lume/custom-attributes@0.2.1/dist/index.js",
+        "@lume/element": "https://ga.jspm.io/npm:@lume/element@0.10.1/dist/index.js",
+        "@lume/eventful": "https://ga.jspm.io/npm:@lume/eventful@0.3.0/dist/index.js",
+        "@lume/kiwi": "https://ga.jspm.io/npm:@lume/kiwi@0.4.1/dist/kiwi.js",
+        "@lume/three-projected-material/dist/ProjectedMaterial.js": "https://ga.jspm.io/npm:@lume/three-projected-material@0.3.1/dist/ProjectedMaterial.js",
+        "@lume/variable": "https://ga.jspm.io/npm:@lume/variable@0.10.1/dist/index.js",
+        "element-behaviors": "https://ga.jspm.io/npm:element-behaviors@5.0.1/dist/index.js",
+        "james-bond": "https://ga.jspm.io/npm:james-bond@0.7.0/dist/index.js",
+        "lowclass": "https://ga.jspm.io/npm:lowclass@6.0.0/dist/index.js",
+        "regexr": "https://ga.jspm.io/npm:regexr@2.0.2/dist/index.js",
+        "solid-js": "https://ga.jspm.io/npm:solid-js@1.4.8/dist/solid.js",
+        "solid-js/html": "https://ga.jspm.io/npm:solid-js@1.4.8/html/dist/html.js",
+        "solid-js/store": "https://ga.jspm.io/npm:solid-js@1.4.8/store/dist/store.js",
+        "solid-js/web": "https://ga.jspm.io/npm:solid-js@1.4.8/web/dist/web.js",
+        "three": "https://ga.jspm.io/npm:three@0.157.0/build/three.module.js",
+        "three/": "https://ga.jspm.io/npm:three@0.157.0/"
+      }
+    }
+  }
+  </script>
+
+  <!-- ES Module Shims: Import maps polyfill for older browsers without import maps support (eg Safari 16.3) -->
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.8.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
+
+  <script type="module">
+    import * as lume from "lume";
+
+    // Write main module code here, or as a separate file with a "src" attribute on the module script.
+    console.log(lume);
+  </script>
+</body>
+</html>
+
+<!-- ADDED CODE ///////////////////////////////////////////////////////////////// -->
+<!-- prettier-ignore -->
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+		background: #8338ec;
+  }
+</style>
+
+<!-- prettier-ignore -->
+<lume-scene webgl physically-correct-lights perspective="800" fog-mode="linear" fog-color="#8338ec" fog-near="600" fog-far="900">
+  <lume-camera-rig align-point="0.5 0.5" initial-distance="800"></lume-camera-rig>
+
+  <lume-point-light intensity="1200" align-point="0.5 0.5" position="300 -300 300" color="#ff006e">
+    <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#ff006e" has="basic-material"></lume-sphere>
+  </lume-point-light>
+
+  <lume-point-light intensity="1200" align-point="0.5 0.5" position="-300 300 -300" color="#3a86ff">
+    <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#3a86ff" has="basic-material"></lume-sphere>
+  </lume-point-light>
+
+  <lume-point-light intensity="1200" align-point="0.5 0.5" position="-300 300 300" color="#3a86ff">
+    <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#3a86ff" has="basic-material"></lume-sphere>
+  </lume-point-light>
+
+  <lume-point-light intensity="1200" align-point="0.5 0.5" position="300 -300 -300" color="#ff006e">
+    <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#ff006e" has="basic-material"></lume-sphere>
+  </lume-point-light>
+
+  <lume-box id="box" cast-shadow="false" receive-shadow="false" has="physical-material" roughness="0.8" align-point="0.5 0.5" mount-point="0.5 0.5 0.5" size="200 200 200" color="white" position="0 0 -500"></lume-box>
+</lume-scene>
+
+<!-- prettier-ignore -->
+<script type="module">
+  box.rotation = (x, y) => [x+0.5, y+0.5];
+  box.position = (x, y, z) => [x, y, 0.02 * (0 - z) + z]; // lerp
+</script>

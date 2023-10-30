@@ -1,17 +1,17 @@
 
-# <code>class <b>MeshBehavior</b> extends [RenderableBehavior](..\RenderableBehavior.md)</code> :id=MeshBehavior
+# <code>class <b>MeshBehavior</b> extends [RenderableBehavior](../RenderableBehavior.md)</code> :id=MeshBehavior
 
 
 
 
 
-Inherits properties from [RenderableBehavior](..\RenderableBehavior.md).
+Inherits properties from [RenderableBehavior](../RenderableBehavior.md).
 
 
 
 ## Methods
 
-Inherits methods from [RenderableBehavior](..\RenderableBehavior.md).
+Inherits methods from [RenderableBehavior](../RenderableBehavior.md).
 
 
 ### <code>.<b>_createComponent</b>(): undefined</code> :id=_createComponent

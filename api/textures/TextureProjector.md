@@ -1,5 +1,5 @@
 
-# <code>class <b>TextureProjector</b> extends [Element3D](..\core\Element3D.md)</code> :id=TextureProjector
+# <code>class <b>TextureProjector</b> extends [Element3D](../core/Element3D.md)</code> :id=TextureProjector
 
 Element: `<lume-texture-projector>`
 
@@ -27,7 +27,7 @@ texture is used, for now.
 
 ## Properties
 
-Inherits properties from [Element3D](..\core\Element3D.md).
+Inherits properties from [Element3D](../core/Element3D.md).
 
 
 ### <code>.<b>src</b></code> :id=src
@@ -53,7 +53,7 @@ object-fit property, but supporting only "cover" and "contain" fitments.
 
 
 
-Inherits methods from [Element3D](..\core\Element3D.md).
+Inherits methods from [Element3D](../core/Element3D.md).
 
 
         

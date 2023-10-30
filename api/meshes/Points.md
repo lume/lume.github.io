@@ -1,5 +1,5 @@
 
-# <code>class <b>Points</b> extends [Element3D](..\core\Element3D.md)</code> :id=Points
+# <code>class <b>Points</b> extends [Element3D](../core/Element3D.md)</code> :id=Points
 
 Element: `<lume-points>`
 
@@ -18,13 +18,13 @@ behavior on this element to load a set of points from a file for example.
 
 
 
-Inherits properties from [Element3D](..\core\Element3D.md).
+Inherits properties from [Element3D](../core/Element3D.md).
 
 
 
 
 
-Inherits methods from [Element3D](..\core\Element3D.md).
+Inherits methods from [Element3D](../core/Element3D.md).
 
 
         

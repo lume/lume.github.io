@@ -1,5 +1,5 @@
 
-# <code>class <b>Light</b> extends [Element3D](..\core\Element3D.md)</code> :id=Light
+# <code>class <b>Light</b> extends [Element3D](../core/Element3D.md)</code> :id=Light
 
 `abstract`
 
@@ -8,7 +8,7 @@ to all types of light.
 
 ## Properties
 
-Inherits properties from [Element3D](..\core\Element3D.md).
+Inherits properties from [Element3D](../core/Element3D.md).
 
 
 ### <code>.<b>color</b></code> :id=color
@@ -45,7 +45,7 @@ is enabled, the units of intensity depend on the type of light (f.e.
 
 
 
-Inherits methods from [Element3D](..\core\Element3D.md).
+Inherits methods from [Element3D](../core/Element3D.md).
 
 
         
