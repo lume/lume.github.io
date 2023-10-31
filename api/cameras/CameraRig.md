@@ -32,19 +32,25 @@ This is `true` because this element has a `ShadowRoot` with the mentioned
         
 
 
-### <code>.<b>initialPolarAngle</b></code> :id=initialPolarAngle
+### <code>.<b>verticalAngle</b></code> :id=verticalAngle
 
 *attribute*
 
 Default: `0`
 
-The initial vertical rotation of the camera. When the user drags up or
+The vertical angle of the camera (rotation around a horizontal axis). When the user drags up or
 down, the camera will move up and down as it rotates around the center.
 The camera is always looking at the center.
         
 
 
-### <code>.<b>minPolarAngle</b></code> :id=minPolarAngle
+### <code>.<b>initialPolarAngle</b></code> :id=initialPolarAngle
+
+*deprecated*: initialPolarAngle has been renamed to verticalAngle.
+        
+
+
+### <code>.<b>minVerticalAngle</b></code> :id=minVerticalAngle
 
 *attribute*
 
@@ -54,7 +60,13 @@ The lowest angle that the camera will rotate vertically.
         
 
 
-### <code>.<b>maxPolarAngle</b></code> :id=maxPolarAngle
+### <code>.<b>minPolarAngle</b></code> :id=minPolarAngle
+
+*deprecated*: minPolarAngle has been renamed to minVerticalAngle.
+        
+
+
+### <code>.<b>maxVerticalAngle</b></code> :id=maxVerticalAngle
 
 *attribute*
 
@@ -76,6 +88,24 @@ The highest angle that the camera will rotate vertically.
     data: { code: cameraRigVerticalRotationExample },
   })
 </script>
+        
+
+
+### <code>.<b>maxPolarAngle</b></code> :id=maxPolarAngle
+
+*deprecated*: maxPolarAngle has been renamed to maxVerticalAngle.
+        
+
+
+### <code>.<b>horizontalAngle</b></code> :id=horizontalAngle
+
+*attribute*
+
+Default: `0`
+
+The horizontal angle of the camera (rotation around a vertical axis). When the user drags left or
+right, the camera will move left or right as it rotates around the center.
+The camera is always looking at the center.
         
 
 
@@ -103,15 +133,21 @@ laterally around the focus point indefinitely.
         
 
 
-### <code>.<b>initialDistance</b></code> :id=initialDistance
+### <code>.<b>distance</b></code> :id=distance
 
 *attribute*
 
 Default: `1000`
 
-The initial distance that the camera will be away from the center point.
+The distance that the camera will be away from the center point.
 When the performing a scroll gesture, the camera will zoom by moving
 towards or away from the center point (i.e. dollying).
+        
+
+
+### <code>.<b>initialDistance</b></code> :id=initialDistance
+
+*deprecated*: initialDistance has been renamed to distance.
         
 
 
