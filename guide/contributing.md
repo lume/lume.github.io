@@ -77,13 +77,8 @@ First install needed system dependencies.
    will face an [error saying `pngquant pre-build test failed`](https://github.com/gatsbyjs/gatsby/issues/20389).
    - First install [Homebrew](https://brew.sh)
    - then run `brew install libpng pkg-config`.
-4. Install `xvfb` which includes the command `xvfb-run` for running Linux windows headlessly during testing.
-   - In Linux (and WSL), the package is usually has the name `xvfb` in it.
-     - f.e. in Ubuntu: `sudo apt install xvfb`
-     - and in Arch Linux `pacman -S xorg-server-xvfb`.
-   - In macOS
-     - you can install it from https://www.xquartz.org/
-     - or use Homebrew: `brew install XQuartz`
+4. Install [Google Chrome](https://www.google.com/chrome/) which is needed for
+   running tests locally.
 
 ### Local Dependencies
 
