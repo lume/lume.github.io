@@ -19,11 +19,17 @@ class MyElement extends Effectful(HTMLElement) {
   connectedCallback() {
     // Log `foo` and `bar` any time either of them change.
     this.createEffect(() => {
-      console.log('foo:', this.foo)
+      console.log('foo, bar:', this.foo, this.bar)
+    })
+
+    // Log only `bar` any time it changes.
+    this.createEffect(() => {
+      console.log('bar:', this.bar)
     })
   }
 
   disconnectedCallback() {
+    // Stop both of the effects.
     this.stopEffects()
   }
 }
