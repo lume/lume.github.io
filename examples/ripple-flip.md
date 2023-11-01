@@ -9,8 +9,8 @@
       code:
 `
 <base href="${host}" /><script src="./importmap.js"><\/script>
-<script src="${host}modules/tinycolor2/tinycolor.js"><\/script>
-<script src="${host}modules/tween.js/src/Tween.js"><\/script>
+<script src="${host}node_modules/tinycolor2/tinycolor.js"><\/script>
+<script src="${host}node_modules/tween.js/src/Tween.js"><\/script>
 
 <style>
   html, body {
