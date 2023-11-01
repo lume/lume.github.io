@@ -237,9 +237,9 @@ const traditionalButtonExample = stripIndent(html`
 const buttonsWithShadowExample = stripIndent(html`
 	<base href="${host}" />
 	<script src="./importmap.js"></script>
-	<script src="${host}node_modules/vue/dist/vue.js"></script>
+	<script src="${host}modules/vue/dist/vue.js"></script>
 	<!-- Tween.js is a lib for animating numbers based on "easing curves". -->
-	<script src="${host}node_modules/tween.js/src/Tween.js"></script>
+	<script src="${host}modules/tween.js/src/Tween.js"></script>
 
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
@@ -1794,7 +1794,7 @@ const originExample = stripIndent(html`
 const morphingSpiralExample = stripIndent(html`
 	<base href="${host}" />
 	<script src="./importmap.js"></script>
-	<script src="./node_modules/vue/dist/vue.js"></script>
+	<script src="./modules/vue/dist/vue.js"></script>
 
 	<body>
 		<template>

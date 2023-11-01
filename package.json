@@ -6,7 +6,7 @@
 		"// Deploy happens when we push to origin/main, the build.yml file deploys to GitHub Pages.": "",
 		"start": "npm run build && npm run dev",
 		"dev": "node --experimental-import-meta-resolve ./dev-server.mjs",
-		"build": "npm run clean && npm run dist:copy && node ./build-api-docs.mjs",
+		"build": "npm run clean && npm run dist:copy && node ./build-api-docs.mjs && cpr node_modules modules",
 		"clean": "rimraf \"./api/**/!(.gitkeep)\" \"./guide/includes/**/!(.gitkeep)\"",
 		"test": "npm run prettier:check",
 		"prettier": "prettier . --write",
