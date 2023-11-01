@@ -6,7 +6,8 @@
 		"// Deploy happens when we push to origin/main, the build.yml file deploys to GitHub Pages.": "",
 		"start": "npm run build && npm run dev",
 		"dev": "node --experimental-import-meta-resolve ./dev-server.mjs",
-		"build": "npm run clean && npm run dist:copy && node ./build-api-docs.mjs && cpr node_modules modules",
+		"build": "npm run clean && npm run dist:copy && node ./build-api-docs.mjs && symlink-dir node_modules modules",
+		"build:vercel": "cpr node_modules modules",
 		"clean": "rimraf \"./api/**/!(.gitkeep)\" \"./guide/includes/**/!(.gitkeep)\"",
 		"test": "npm run prettier:check",
 		"prettier": "prettier . --write",
@@ -24,6 +25,7 @@
 		"@lume/live-code": "^0.4.0",
 		"@lume/three-projected-material": "^0.3.0",
 		"@lume/variable": "^0.10.0",
+		"cpr": "^3.0.1",
 		"docsify": "^4.9.4",
 		"docsify-copy-code": "^2.1.0",
 		"docsify-pagination": "^2.4.0",
@@ -45,10 +47,10 @@
 	"devDependencies": {
 		"@lume/cli": "lume/cli#v0.9",
 		"browser-sync": "^2.27.11",
-		"cpr": "^3.0.1",
 		"mkdirp": "^1.0.4",
 		"prettier": "3.0.3",
 		"readem": "^0.2.7",
-		"rimraf": "^3.0.2"
+		"rimraf": "^3.0.2",
+		"symlink-dir": "^5.2.0"
 	}
 }
