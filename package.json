@@ -31,7 +31,7 @@
 	},
 	"devDependencies": {
 		"@lume/autolayout": "^0.10.0",
-		"@lume/cli": "^0.9.3",
+		"@lume/cli": "lume/cli#v0.9",
 		"@lume/custom-attributes": "^0.2.0",
 		"@lume/element": "^0.10.0",
 		"@lume/eventful": "^0.3.0",
