@@ -41,15 +41,15 @@ export const PictureFrameScene = element('picture-frame-scene')(
 
 				<lume-cube-layout size="1000 1000 1000" position="0 0 0" mount-point="0.5 0.5" align-point="0.5 0.5">
 					<!-- the light is not assigned to a slot, so it goes to the default slot like a regular child of the cube layout. -->
-					<lume-point-light
-						decay="0.45"
-						power="1000"
-						color="#999"
-						shadow-bias="-0.0005"
+					<flickering-orb
+						color="#c98a19"
+						shadow-bias="-0.0001"
 						shadow-map-width="2024"
 						shadow-map-height="2024"
-						align-point="0.5 0.2 0.5"
-					></lume-point-light>
+						align-point="0.5 0.3 0.2"
+						intensity="2500"
+						flicker-range="1500"
+					></flickering-orb>
 
 					${/*<!-- Walls --------------------------------------------------------->*/ ''}
 					${['front', 'back', 'left', 'right', 'top', 'bottom'].map((side, i) => {
@@ -66,25 +66,26 @@ export const PictureFrameScene = element('picture-frame-scene')(
 								texture=${host + 'textures/stone-brick-wall/diff_2k.jpg'}
 								------
 								has="phong-material"
-								shininess="200"
+								shininess="100"
 								specular="#2e2e2e"
 								bump-map=${host + 'textures/stone-brick-wall/disp_2k.png'}
-								bump-scale="8"
+								bump-scale="12"
 							></lume-plane>
 						`
 					})}
 				</lume-cube-layout>
 
 				${/*<!-- picture frame container -------------------------------->*/ ''}
-				<lume-element3d size="160 200 15" mount-point="0.5 0.5" align-point="0.5 0.5">
+				<lume-element3d size="200 200 15" mount-point="0.5 0.5" align-point="0.5 0.5">
 					<lume-camera-rig
 						active="false"
-						initial-polar-angle="30"
-						min-polar-angle=${() => (this.debug ? -90 : -20)}
-						max-polar-angle=${() => (this.debug ? 90 : 20)}
+						vertical-angle="10"
+						min-vertical-angle=${() => (this.debug ? -90 : -20)}
+						max-vertical-angle=${() => (this.debug ? 90 : 20)}
+						horizontal-angle="-25"
 						min-horizontal-angle=${() => (this.debug ? -Infinity : -35)}
 						max-horizontal-angle=${() => (this.debug ? Infinity : 35)}
-						initial-distance="500"
+						distance="700"
 						max-distance=${() => (this.debug ? Infinity : 900)}
 						min-distance=${() => (this.debug ? 0 : 200)}
 						align-point="0.5 0.5"

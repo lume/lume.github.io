@@ -2347,8 +2347,7 @@ const pictureFrameExample = stripIndent(html`
 		https://mythical-creatures.com/wp-content/uploads/2023/03/Satijn_vampire_with_fangs_452dda35-0cf4-4f8d-b456-63e069ecdf09.png
 	-->
 	<picture-frame-scene
-		picture="${host}images/monalisa-2.jpg"
-		xpicture="${host}images/satijn_vampire.png"
+		picture="${host}images/satijn_vampire.png"
 		frame-texture="${host}images/wood.jpg"
 		frame-shape="m16.1 345c217.1-.3 328.7-.3 335 0 6.3-.3 10-6.3 11-18 3.6-50.8 5.3-78.8 5-84 .3-5.2 1.9-7.9 5-8 27.3.8 42.6 1.2 46 1 3.2.2 5.5-2.5 7.1-8v-23l-27-1c-23.2-22.7-28.2-15.4-28-22-.1-4.9-1.1-9.3-3-13h-31c.1 6.1-1.6 10.4-5 13-5.2 2.7-27.8 3.6-53 0-28.2-5-54.6-21.7-60-24-37.7-18.6-78.3-65.9-106-137-1.2-2.8-3.9-5.1-8-7-3.3-.2-4.9-.9-5-2 .1-.9-.4-8.5-1-9-.7-1.3-2.3-2.3-5-3h-56c.2 10 .2 14.7 0 14 .2-1.1-5.4-1.1-17 0 .2 9 .2 16 0 21-.8 10.4-.4 33.3 2 37 20.5 30.1 24.2 84.5 15 132-4.2 20.1-15.9 48.4-35 85-2.6 20.8-3 34.8-1.1 42 1.6 7.5 6.6 12.2 15 14z"
 	></picture-frame-scene>
@@ -2557,4 +2556,98 @@ const introExample = stripIndent(html`
 			})
 		})
 	</script>
+`)
+
+// prettier-ignore
+const cdnInstallExample = stripIndent(html`
+  <!doctype html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Untitled</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <!--
+      JSPM Generator Import Map
+      Edit URL: https://generator.jspm.io/#U2NhYGBkDM0rySzJSU1hyCnNTXUw0DPWM9BNzCnISNQzsgAA+3k8OiIA
+    -->
+     <script type="importmap">
+    {
+      "imports": {
+        "lume": "https://ga.jspm.io/npm:lume@0.3.0-alpha.28/dist/index.js"
+      },
+      "scopes": {
+        "https://ga.jspm.io/": {
+          "@lume/autolayout": "https://ga.jspm.io/npm:@lume/autolayout@0.10.1/dist/AutoLayout.js",
+          "@lume/custom-attributes/dist/index.js": "https://ga.jspm.io/npm:@lume/custom-attributes@0.2.1/dist/index.js",
+          "@lume/element": "https://ga.jspm.io/npm:@lume/element@0.10.1/dist/index.js",
+          "@lume/eventful": "https://ga.jspm.io/npm:@lume/eventful@0.3.0/dist/index.js",
+          "@lume/kiwi": "https://ga.jspm.io/npm:@lume/kiwi@0.4.1/dist/kiwi.js",
+          "@lume/three-projected-material/dist/ProjectedMaterial.js": "https://ga.jspm.io/npm:@lume/three-projected-material@0.3.1/dist/ProjectedMaterial.js",
+          "@lume/variable": "https://ga.jspm.io/npm:@lume/variable@0.10.1/dist/index.js",
+          "element-behaviors": "https://ga.jspm.io/npm:element-behaviors@5.0.1/dist/index.js",
+          "james-bond": "https://ga.jspm.io/npm:james-bond@0.7.0/dist/index.js",
+          "lowclass": "https://ga.jspm.io/npm:lowclass@6.0.0/dist/index.js",
+          "regexr": "https://ga.jspm.io/npm:regexr@2.0.2/dist/index.js",
+          "solid-js": "https://ga.jspm.io/npm:solid-js@1.4.8/dist/solid.js",
+          "solid-js/html": "https://ga.jspm.io/npm:solid-js@1.4.8/html/dist/html.js",
+          "solid-js/store": "https://ga.jspm.io/npm:solid-js@1.4.8/store/dist/store.js",
+          "solid-js/web": "https://ga.jspm.io/npm:solid-js@1.4.8/web/dist/web.js",
+          "three": "https://ga.jspm.io/npm:three@0.157.0/build/three.module.js",
+          "three/": "https://ga.jspm.io/npm:three@0.157.0/"
+        }
+      }
+    }
+    </script>
+
+    <!-- ES Module Shims: Import maps polyfill for older browsers without import maps support (eg Safari 16.3) -->
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.8.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
+
+    <script type="module">
+      import * as lume from "lume";
+
+      // Write main module code here, or as a separate file with a "src" attribute on the module script.
+      console.log(lume);
+    </script>
+
+    <!-- BEGIN CUSTOM CODE ///////////////////////////////////////////////////////////////// -->
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        background: #8338ec;
+      }
+    </style>
+
+    <lume-scene webgl physically-correct-lights perspective="800" fog-mode="linear" fog-color="#8338ec" fog-near="600" fog-far="900">
+      <lume-camera-rig align-point="0.5 0.5" initial-distance="800"></lume-camera-rig>
+
+      <lume-point-light intensity="1200" align-point="0.5 0.5" position="300 -300 300" color="#ff006e">
+        <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#ff006e" has="basic-material"></lume-sphere>
+      </lume-point-light>
+
+      <lume-point-light intensity="1200" align-point="0.5 0.5" position="-300 300 -300" color="#3a86ff">
+        <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#3a86ff" has="basic-material"></lume-sphere>
+      </lume-point-light>
+
+      <lume-point-light intensity="1200" align-point="0.5 0.5" position="-300 300 300" color="#3a86ff">
+        <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#3a86ff" has="basic-material"></lume-sphere>
+      </lume-point-light>
+
+      <lume-point-light intensity="1200" align-point="0.5 0.5" position="300 -300 -300" color="#ff006e">
+        <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#ff006e" has="basic-material"></lume-sphere>
+      </lume-point-light>
+
+      <lume-box id="box" cast-shadow="false" receive-shadow="false" has="physical-material" roughness="0.8" align-point="0.5 0.5" mount-point="0.5 0.5 0.5" size="200 200 200" color="white" position="0 0 -500"></lume-box>
+    </lume-scene>
+
+    <script type="module">
+      box.rotation = (x, y) => [x+0.5, y+0.5];
+      box.position = (x, y, z) => [x, y, 0.02 * (0 - z) + z]; // lerp
+    </script>
+    <!-- END CUSTOM CODE ///////////////////////////////////////////////////////////////// -->
+
+  </body>
+  </html>
 `)

@@ -1,4 +1,8 @@
 {
+	"// TODO": "",
+	"//   - Figure out why the current setup does not work on Vercel.": "",
+	"//   - Still some funkiness with this vercel config: three-meshline/ hits github and does 404.html redirect, while three-meshline (no slash) does not. Might need to also configure alias in docsify config.": "",
+	"//": {"source": "/three-meshline", "destination": "https://lume.github.io/three-meshline/README.md"},
 	"rewrites": [
 		{"source": "/three-meshline.md", "destination": "https://lume.github.io/three-meshline/README.md"},
 		{"source": "/three-meshline/:path*", "destination": "https://lume.github.io/three-meshline/:path"},

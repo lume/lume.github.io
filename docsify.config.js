@@ -11,6 +11,7 @@
 		return {
 			name: 'LUME',
 			nameLink: '//lume.io',
+			// TODO: fix non-Docsify links broken when routerMode=history, https://github.com/docsifyjs/docsify/issues/1803
 			routerMode: 'history',
 			alias: {
 				// We're using `routerMode: 'history'`, make sure we load the
@@ -62,12 +63,23 @@
 					})
 				},
 
-				// plugin to add target=_self behavior to the LUME logo until docsify#1803 is fixed.
-				hook =>
-					hook.mounted(() => {
+				// plugin to special case some links, f.e. to add target=_self behavior to the LUME logo until docsify#1803 is fixed.
+				function (hook) {
+					hook.ready(() => {
 						const link = document.querySelector('.app-name-link')
 						link.addEventListener('click', () => (globalThis.location = link.href))
-					}),
+
+						if (vm.route.file.includes('making-a-scene')) {
+							const cdnExample = document.querySelector('.cdn-example')
+							cdnExample.addEventListener(
+								'click',
+								// Prevents Docsify from intercepting, allowing the link to use its default behavior.
+								event => event.stopImmediatePropagation(),
+								{capture: true},
+							)
+						}
+					})
+				},
 			]),
 
 			markdown: {
