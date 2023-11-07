@@ -83,9 +83,6 @@
   - [TreeNode](/api/core/TreeNode.md)
   - layouts/
   - [CubeLayout](/api/layouts/CubeLayout.md)
-  - lib/
-  - [TDSLoader](/api/lib/three/examples/jsm/loaders/TDSLoader.js)
-  - [Chunk](/api/lib/three/examples/jsm/loaders/TDSLoader.js)
   - lights/
   - [AmbientLight](/api/lights/AmbientLight.md)
   - [DirectionalLight](/api/lights/DirectionalLight.md)
