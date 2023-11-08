@@ -24,7 +24,7 @@
 		"@lume/kiwi": "^0.4.0",
 		"@lume/live-code": "^0.4.0",
 		"@lume/three-projected-material": "^0.3.0",
-		"@lume/variable": "^0.10.0",
+		"classy-solid": "^0.2.3",
 		"cpr": "^3.0.1",
 		"docsify": "^4.9.4",
 		"docsify-copy-code": "^2.1.0",
