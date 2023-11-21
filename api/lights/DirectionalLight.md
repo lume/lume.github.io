@@ -36,7 +36,7 @@ Inherits properties from [LightWithShadow](LightWithShadow.md).
 
 ### <code>.<b>intensity</b></code> :id=intensity
 
-`attribute`
+`override` `attribute`
 
 Default: `1`
 

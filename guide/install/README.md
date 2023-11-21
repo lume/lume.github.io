@@ -92,6 +92,7 @@ hit enter. This will generate HTML code on the right side of the view that you'l
     JSPM Generator Import Map
     Edit URL: https://generator.jspm.io/#U2VhYGBkDM0rySzJSU1hyCnNTXUw0DPWM9BNzCnISNQzsgAAoYq6VyIA
   -->
+		<!-- CONTINUE update with classy-solid in place instead of lume/variable -->
    <script type="importmap">
   {
     "imports": {
@@ -209,6 +210,8 @@ Next create an HTML file at the root of your project folder, f.e. `index.html`,
 and place the following import map in it to specify dependency locations in
 node_modules:
 
+<!-- CONTINUE update with classy-solid in place instead of lume/variable -->
+
 ```html
 <script type="importmap">
 	{
@@ -216,7 +219,7 @@ node_modules:
 			"lume": "./node_modules/lume/dist/index.js",
 			"lume/": "./node_modules/lume/",
 			"@lume/element": "./node_modules/@lume/element/dist/index.js",
-			"@lume/variable": "./node_modules/@lume/variable/dist/index.js",
+			"classy-solid": "./node_modules/classy-solid/dist/index.js",
 			"@lume/eventful": "./node_modules/@lume/eventful/dist/index.js",
 			"@lume/kiwi": "./node_modules/@lume/kiwi/es/kiwi.js",
 			"@lume/three-projected-material/": "./node_modules/@lume/three-projected-material/",

@@ -30,7 +30,7 @@ Here's a small sample of Lume HTML features:
 > [!Note]
 > The examples are live! Play with code on the left and the output on the right will update.
 
-<div id="introExample"></div>
+<live-code src="./intro-example.html"></live-code>
 
 In that example we
 have a glossy semi-translucent ball with a glow inside of it made with
@@ -60,7 +60,68 @@ CSS to
 in order to give the buttons an almost-convincing 3D look and feel that we've actually
 implemented with 2D graphics. It is pretty neat for fake 3D!
 
-<div id="traditional"></div>
+<live-code>
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+  body,
+  html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: sans-serif;
+    background: #79b59e;
+    background: url(https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_layers_02/concrete_layers_02_diff_2k.jpg);
+    background-size: cover;
+    filter: brightness(1.1);
+  }
+  div {
+    display: flex;
+    gap: 28px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  button {
+    width: 120px;
+    height: 38px;
+    box-shadow: 10px 10px 2px rgba(0, 0, 0, 0.3);
+    transition: all 75ms;
+    white-space: nowrap;
+    border-radius: 10px;
+    border: none;
+    background: #808284;
+    color: #ccc;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  button:focus,
+  button:hover {
+    background: #8da1b8;
+  }
+  button:active {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    transform: scale(0.95);
+  }
+</style>
+
+<form style="display: contents" onsubmit="console.log('Native form submission!'); event.preventDefault()">
+  <div style="width: 100%; height: 100%;">
+    <div>
+      <button>🏖 Have Fun</button>
+      <button>😊 Smi)e</button>
+      <button>🛠 Create</button>
+      <button>♥️ Give Love</button>
+    </div>
+  </div>
+</form>
+</template>
+</live-code>
 
 With Lume we can augment traditional HTML content with real 3D effects.
 
@@ -79,7 +140,7 @@ cement wall -- but notice:
 
 and this gives us a version of the same concept with more realism:
 
-<div id="dynamic"></div>
+<live-code src="./examples/buttons-with-shadow.html"></live-code>
 
 Lume is built as [Custom
 Elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) (also
@@ -97,21 +158,3 @@ or just "elements"), making Lume compatible with popular web frameworks such as
 - and any other library or framework for manipulating HTML elements!
 
 Long live HTML and Custom Elements! 👑
-
-<script>
-  new Vue({
-    el: '#introExample',
-    template: '<live-code :template="code" :autorun="true" mode="html>iframe" />',
-    data: { code: introExample },
-  })
-  new Vue({
-    el: '#traditional',
-    template: '<live-code :template="code" :autorun="true" mode="html>iframe" />',
-    data: { code: traditionalButtonExample },
-  })
-  new Vue({
-    el: '#dynamic',
-    template: '<live-code :template="code" :autorun="true" mode="html>iframe" />',
-    data: { code: buttonsWithShadowExample },
-  })
-</script>

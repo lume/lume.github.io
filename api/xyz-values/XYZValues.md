@@ -15,7 +15,7 @@ The values don't have to be numerical. For example,
 
 ### <code>.<b>x</b></code> :id=x
 
-*reactive*
+*signal*
 
 Default: `undefined`
 
@@ -25,7 +25,7 @@ The X value.
 
 ### <code>.<b>y</b></code> :id=y
 
-*reactive*
+*signal*
 
 Default: `undefined`
 
@@ -35,7 +35,7 @@ The Y value.
 
 ### <code>.<b>z</b></code> :id=z
 
-*reactive*
+*signal*
 
 Default: `undefined`
 

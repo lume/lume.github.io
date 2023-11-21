@@ -15,6 +15,7 @@ browserSync.init(
 		server: {baseDir: '.'},
 	},
 	(err, bs) => {
+		if (err) throw err
 		bs.addMiddleware('*', (req, res) => {
 			// Provides the 404 content without redirect.
 			res.statusCode = 404

@@ -373,7 +373,7 @@ Applies with both CSS and WebGL rendering.
 
 ### <code>.<b>camera</b></code> :id=camera
 
-*readonly*, *reactive*
+*readonly*, *signal*
 
 Returns the currently active camera that is within the scene, or `null`
 if there is none and the scene is using its internal default camera. The
@@ -427,7 +427,7 @@ property to make the default values for the X and Y axes both `1`.
 
 ### <code>.<b>parentSize</b></code> :id=parentSize
 
-`override` `reactive` `readonly`
+`override` `signal` `readonly`
 
 Overrides [`Sizeable.parentSize`](./Sizeable#parentSize) in order to return the size of a Scene's
 non-LUME parent element where the scene is connected.

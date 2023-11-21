@@ -195,6 +195,8 @@ Default: `1`
 
 *attribute*
 
+Default: `true`
+
 When `false`, user interaction (ability to zoom or rotate the camera) is
 disabled, but the camera rig can still be manipulated programmatically.
         

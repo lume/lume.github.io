@@ -12,6 +12,7 @@ export const PictureFrameScene = element('picture-frame-scene')(
 		picture = ''
 		frameTexture = ''
 		frameShape = ''
+		debug = false
 
 		// hasShadow = false // FIXME lume-scene element doesn't load in this case.
 		hasShadow = true
@@ -21,8 +22,6 @@ export const PictureFrameScene = element('picture-frame-scene')(
 			/*TODO: lume-scene sizing when parent is display:content */
 			/*:host {display: contents}*/
 		`
-
-		debug = false
 
 		template = () => html`
 			<lume-scene perspective="800" webgl shadowmap-type="pcfsoft" physically-correct-lights>
@@ -63,12 +62,12 @@ export const PictureFrameScene = element('picture-frame-scene')(
 								mount-point="0.5 0.5"
 								color="white"
 								note="free texture from https://polyhaven.com/a/stone_brick_wall_001"
-								texture=${host + 'textures/stone-brick-wall/diff_2k.jpg'}
+								texture=${new URL('../textures/stone-brick-wall/diff_2k.jpg', import.meta.url).href}
 								------
 								has="phong-material"
 								shininess="100"
 								specular="#2e2e2e"
-								bump-map=${host + 'textures/stone-brick-wall/disp_2k.png'}
+								bump-map=${new URL('../../textures/stone-brick-wall/disp_2k.png', import.meta.url).href}
 								bump-scale="12"
 							></lume-plane>
 						`

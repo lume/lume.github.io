@@ -6,14 +6,11 @@ We recommend trying out [LUME Element](https://github.com/lume/element), LUME's 
 
 ## React JavaScript
 
-To import and use LUME elements in your (JavaScript) React project, enable the LUME elements with
-their default element names.
-
-// CONTINUE defineElements not needed by default now, remove from here.
+To import and use LUME elements in your (JavaScript) React project, `import` the
+`lume` library after you've [installed](./install) it.
 
 ```tsx
-import {defineElements} from 'lume'
-defineElements()
+import /* ... whatever you need from lume ... */ 'lume'
 ```
 
 Then import your React stuff as usual and use the elements in your JSX markup:
@@ -64,17 +61,14 @@ Take the [react](https://github.com/lume/lume/tree/develop/examples/react) examp
 
 This expands on the ideas of the previous "React JavaScript" section.
 
-LUME's HTML elements come with type definitions for TypeScript projects, but
-they aren't perfect yet (help wanted!).
+LUME's HTML elements come with type definitions for TypeScript projects.
 
 To import and use LUME elements with their type definitions in your
-TypeScript-React project, first enable the LUME elements with their default
-element names. Here we also import the `Box` class for use as a type argument
-with `useRef` further below:
+TypeScript-React project, first `import` the `lume` library. Here we also import
+the `Box` class for use as a type argument with `useRef` further below:
 
 ```tsx
-import {defineElements, Box} from 'lume'
-defineElements()
+import {type Box} from 'lume'
 ```
 
 Then import the React JSX type definitions for the elements:
@@ -89,6 +83,7 @@ Finally, import your React stuff as usual and use the elements in your JSX marku
 import {useRef, useEffect} from 'react'
 
 function MyReactComponent() {
+	// Here we use `Box` (the class for <lume-box> elements) as a type argument to useRef.
 	const boxRef = useRef<Box>(null)
 
 	useEffect(() => {
@@ -104,12 +99,7 @@ function MyReactComponent() {
 		<lume-scene webgl>
 			<lume-point-light position="20 -20 20" />
 			<lume-perspective-camera position="0 0 20" active />
-			<lume-box
-				size="10 10 10"
-				mount-point="0.5 0.5 0.5"
-				// @ts-ignore
-				ref={boxRef}
-			/>
+			<lume-box ref={boxRef} size="10 10 10" mount-point="0.5 0.5 0.5" />
 		</lume-scene>
 	)
 }
@@ -122,7 +112,7 @@ ReactDOM.render(<MyReactComponent />, document.body)
 - The same limitations regarding string and boolean props mentioned in the previous "Limitations" subsection of the "React JavaScript" section apply here too.
   - Likewise, all props are of type `string | undefined` or `boolean | string | undefined`.
 - At the moment `ref={}` props may have type errors. Just put `@ts-ignore` on them if they do, for now. Help wanted!
-- `skipLibCheck` currently needs to be set to `true` in `tsconfig.json` to work around a few issues with TypeScript's declaration output (see the [react-typescript](https://github.com/lume/lume/tree/develop/examples/react-typescript) example). Help wanted!
+- Recommended to set `skipLibCheck` to `true` in `tsconfig.json` to work around issues with TypeScript's declaration output (see the [react-typescript](https://github.com/lume/lume/tree/develop/examples/react-typescript) example). Help wanted!
 
 ### Example
 

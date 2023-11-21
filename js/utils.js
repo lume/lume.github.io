@@ -19,6 +19,129 @@ function noop(strings, ...keys) {
 	return strings.slice(0, lastIndex).reduce((p, s, i) => p + s + keys[i], '') + strings[lastIndex]
 }
 
+function WithShadow(Base) {
+	return class WithShadow extends Base {
+		static shadowMode = 'open'
+
+		constructor(...args) {
+			super(...args)
+			this.internals ??= this.attachInternals()
+			if (!this.internals.shadowRoot) this.attachShadow({mode: this.constructor.shadowMode})
+		}
+	}
+}
+
+const leadingEmptyLines = /^\s*[\r\n]+/
+
+class LiveCode extends WithShadow(HTMLElement) {
+	static shadowMode = 'closed'
+
+	constructor() {
+		super()
+		this.makeShadowContent()
+	}
+
+	async connectedCallback() {
+		await this.loadCode()
+		this.augmentDOM()
+	}
+
+	makeShadowContent() {
+		this.internals.shadowRoot.innerHTML = /*html*/ `
+			<style>
+				:host {display: block}
+
+				/* Show only preview (big mode) */
+				:host([editor-hidden]) [for^=live-code-tab-1] {display: none}
+				:host([editor-hidden]) [for^=live-code-tab-2] {width: 100%}
+				/* Show only the preview (small mode) */
+				:host([editor-hidden]) .live-code-preview-area {display: flex !important; top: 0}
+				:host([editor-hidden]) .live-code-tab-label > span {display: none}
+
+				.live-code-buttons {display: flex; justify-content: flex-end; align-items: center; gap: 5px}
+				.live-code {background: white}
+			</style>
+		`
+		this.internals.shadowRoot.append(...Array.from(document.querySelectorAll('link')).map(n => n.cloneNode(true)))
+		this.internals.shadowRoot.append(...Array.from(document.querySelectorAll('style')).map(n => n.cloneNode(true)))
+	}
+
+	async loadCode() {
+		const src = this.getAttribute('src')
+		if (src) await this.loadCodeFromSrc()
+		else await this.loadCodeFromTemplate()
+	}
+
+	async loadCodeFromSrc() {
+		const src = this.getAttribute('src')
+		const relativeUrl = new URL(src, window.location.href)
+		const response = await window.fetch(relativeUrl.href)
+		const code = await response.text()
+		this.applyCode(code)
+	}
+
+	loadCodeFromTemplate() {
+		const template = this.children[0] // only child must be <template>
+		const code = template.innerHTML
+		this.applyCode(code)
+	}
+
+	applyCode(code) {
+		code = code.replaceAll('${host}', host).replaceAll('href="/"', `href="${host}"`)
+		code = stripIndent(code).replace(leadingEmptyLines, '')
+
+		const src = this.getAttribute('src')
+		if (src) {
+			const dirUrl = new URL(src, window.location.href).href
+			code = `<base href="${dirUrl}" />\n` + code
+		}
+
+		const example = document.createElement('div')
+		this.internals.shadowRoot.append(example)
+
+		new Vue({
+			el: example,
+			template: '<live-code :template="code" :autorun="true" mode="html>iframe" :debounce="200" />',
+			data: {code},
+		})
+	}
+
+	augmentDOM() {
+		// Add an extra button that the Vue <live-code> component doesn't have to copy the code.
+		const codeButtons = this.internals.shadowRoot.querySelectorAll('.live-code-buttons')[0]
+		codeButtons.insertAdjacentHTML('beforeend', /*html*/ `<div class="live-code-reset"><button>Copy</button></div>`)
+		let btn = codeButtons.lastElementChild.firstElementChild
+		btn.onclick = event => {
+			event.preventDefault()
+			const range = document.createRange()
+			const codeElm = this.internals.shadowRoot.querySelector('code')
+			range.selectNode(codeElm)
+			const selection = window.getSelection()
+			selection.removeAllRanges()
+			selection.addRange(range)
+			const successful = document.execCommand('copy')
+			selection.removeAllRanges()
+			if (!successful) throw new Error('unsuccessful copy')
+		}
+
+		// Add an extra button that the Vue <live-code> component doesn't have to make it go full screen.
+		const previewButtons = this.internals.shadowRoot.querySelectorAll('.live-code-buttons')[1]
+		const fullscreenEl = this.internals.shadowRoot.querySelector('form')
+		previewButtons.insertAdjacentHTML(
+			'beforeend',
+			/*html*/ `<div class="live-code-rerun"><button>Toggle Full Screen</button></div>`,
+		)
+		btn = previewButtons.lastElementChild.firstElementChild
+		btn.onclick = event => {
+			event.preventDefault()
+			if (document.fullscreenElement) document.exitFullscreen()
+			else fullscreenEl.requestFullscreen()
+		}
+	}
+}
+
+customElements.define('live-code', LiveCode)
+
 const html = noop // useful for syntax highlight and auto-formatting
 
 const host = location.origin + '/'
@@ -91,7 +214,7 @@ const projectedTextureExample = stripIndent(html`
 			scale="1 1 1"
 		></lume-box>
 
-		<lume-element3d id="textureRotator" rotation="0 45 0">
+		<lume-element3d id="textureRotator">
 			<lume-element3d rotation="45 0 0">
 				<lume-texture-projector
 					id="projectedTexture"
@@ -157,306 +280,12 @@ const projectedTextureExample = stripIndent(html`
 	</lume-scene>
 
 	<script type="module">
-		// CONTINUE FIXME, If you change this line to 'import('lume')', rotation below
-		// stops working because it has an issue handling pre-upgrade function
-		// values assigned to the elements before Lume is loaded.
-		// This is niche, always load Lume first before manipulating the
-		// elements.
 		import 'lume'
 
 		scene.classList.remove('hidden')
 		ui.classList.remove('hidden')
 
-		box.rotation = (x, y, z) => [x, y + 0.3, z]
 		textureRotator.rotation = (x, y, z) => [x, y + 0.1, z]
-	</script>
-`)
-
-const traditionalButtonExample = stripIndent(html`
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-		body,
-		html {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-			font-family: sans-serif;
-			background: #79b59e;
-			background: url(https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_layers_02/concrete_layers_02_diff_2k.jpg);
-			background-size: cover;
-			filter: brightness(1.1);
-		}
-		div {
-			display: flex;
-			gap: 28px;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-		}
-		button {
-			width: 120px;
-			height: 38px;
-			box-shadow: 10px 10px 2px rgba(0, 0, 0, 0.3);
-			transition: all 75ms;
-			white-space: nowrap;
-			border-radius: 10px;
-			border: none;
-			background: #808284;
-			color: #ccc;
-			outline: none;
-			font-family: 'Poppins', sans-serif;
-			font-weight: bold;
-			font-size: 16px;
-		}
-		button:focus,
-		button:hover {
-			background: #8da1b8;
-		}
-
-		button:active {
-			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-			transform: scale(0.95);
-		}
-	</style>
-
-	<form style="display: contents" onsubmit="console.log('Native form submission!'); event.preventDefault()">
-		<div style="width: 100%; height: 100%;">
-			<div>
-				<button>🏖 Have Fun</button>
-				<button>😊 Smi)e</button>
-				<button>🛠 Create</button>
-				<button>♥️ Give Love</button>
-			</div>
-		</div>
-	</form>
-`)
-
-const buttonsWithShadowExample = stripIndent(html`
-	<base href="${host}" />
-	<script src="./importmap.js"></script>
-	<script src="${host}modules/vue/dist/vue.js"></script>
-	<!-- Tween.js is a lib for animating numbers based on "easing curves". -->
-	<script src="${host}modules/tween.js/src/Tween.js"></script>
-
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-		body,
-		html {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-			touch-action: none;
-			background: black;
-		}
-		lume-element3d {
-			text-align: center;
-		}
-		button {
-			width: 100%;
-			height: 100%;
-			white-space: nowrap;
-			border-radius: 10px;
-			border: none;
-			background: #595c5e;
-			color: #ccc;
-			outline: none;
-			font-family: 'Poppins', sans-serif;
-			font-weight: bold;
-			font-size: 16px;
-		}
-		button:focus,
-		button:hover {
-			background: #617e9f;
-		}
-	</style>
-
-	<template vue>
-		<form style="display: contents" onsubmit="console.log('Native form submission!'); event.preventDefault()">
-			<div style="width: 100%; height: 100%;">
-				<!-- Lights and shadows are powered by WebGL, but written with HTML: -->
-				<lume-scene
-					webgl="true"
-					id="scene"
-					background-color="black"
-					background-opacity="0"
-					perspective="600"
-					shadowmap-type="pcfsoft"
-					NOTE="one of basic, pcf, pcfsoft"
-					touch-action="none"
-					@pointermove="onmove"
-					@pointerdown="ondown"
-					@pointerup="onup"
-					physically-correct-lights
-				>
-					<lume-ambient-light color="#ffffff" intensity="2"></lume-ambient-light>
-
-					<lume-plane
-						ref="plane"
-						id="background"
-						size-mode="literal literal"
-						size="300 300 0"
-						align-point="0.5 0.5"
-						mount-point="0.5 0.5"
-						has="phong-material"
-						color="white"
-						dithering
-						color="white"
-						comment="free texture from https://polyhaven.com/a/concrete_layers_02"
-						texture="${host}textures/cement-wall/diff_2k.jpg"
-						bump-map="${host}textures/cement-wall/disp_2k.jpg"
-						bump-scale="8"
-						shininess="200"
-						specular="#222"
-					>
-						<lume-element3d
-							id="button-container"
-							position="0 0 20"
-							size="520 38 0"
-							align-point="0.5 0.5 0"
-							mount-point="0.5 0.5 0"
-						>
-							<lume-mixed-plane
-								v-for="(item, i) in buttons"
-								ref="btn"
-								:key="i"
-								size-mode="literal proportional"
-								size="120 1 0"
-								:align-point="\`\${i*0.333} 0 0\`"
-								:mount-point="\`\${i*0.333} 0 0\`"
-								color="#444"
-								has="rounded-rectangle-geometry"
-								corner-radius="10"
-								thickness="1"
-								quadratic-corners="false"
-								roughness="0.48"
-							>
-								<!-- Native button elements! -->
-								<button>{{item}}</button>
-							</lume-mixed-plane>
-						</lume-element3d>
-					</lume-plane>
-
-					<lume-element3d id="lightContainer" size="0 0 0" position="0 0 300">
-						<lume-point-light
-							id="light"
-							color="white"
-							size="0 0 0"
-							position="-50 -50"
-							intensity="1000"
-							shadow-map-width="2048"
-							shadow-map-height="2048"
-							shadow-radius="10"
-							distance="800"
-							shadow-bias="-0.001"
-						>
-							<lume-mesh
-								id="bulb"
-								has="sphere-geometry basic-material"
-								size="10 10 10"
-								mount-point="0.5 0.5 0.5"
-								color="white"
-								receive-shadow="false"
-								cast-shadow="false"
-								style="pointer-events: none"
-							></lume-mesh>
-						</lume-point-light>
-					</lume-element3d>
-				</lume-scene>
-			</div>
-		</form>
-	</template>
-
-	<div id="buttonsRoot"></div>
-
-	<script type="module">
-		import {Motor, Events} from 'lume'
-
-		new Vue({
-			el: '#buttonsRoot',
-			template: document.querySelector('[vue]').innerHTML,
-
-			data: () => ({
-				buttons: ['🏖️ Have Fun', '😊 Smi)e', '🛠️ Create', '♥️ With Love'],
-			}),
-
-			mounted() {
-				const lightContainer = document.querySelector('#lightContainer')
-				const bulb = document.querySelector('#bulb')
-				const plane = this.$refs.plane
-				this.targetPosition = {x: window.innerWidth / 2, y: window.innerHeight / 2}
-
-				Motor.addRenderTask(time => {
-					lightContainer.position.x += (this.targetPosition.x - lightContainer.position.x) * 0.05
-					lightContainer.position.y += (this.targetPosition.y - lightContainer.position.y) * 0.05
-					plane.rotation.y = 10 * (lightContainer.position.x / window.innerWidth) - 5
-					plane.rotation.x = -(10 * (lightContainer.position.y / window.innerHeight) - 5)
-				})
-
-				window.addEventListener('resize', resize)
-				resize()
-				function resize() {
-					const winAspect = window.innerWidth / window.innerHeight
-					if (winAspect < 1) plane.size = [window.innerHeight * 1.3, window.innerHeight * 1.3]
-					else plane.size = [window.innerWidth * 1.3, window.innerWidth * 1.3]
-				}
-			},
-
-			methods: {
-				onmove(e) {
-					e.preventDefault()
-					this.targetPosition.x = e.clientX
-					this.targetPosition.y = e.clientY
-				},
-
-				// On mouse down animate the button downward using Tween.js
-				// https://github.com/tweenjs/tween.js
-				ondown(e) {
-					if (e.target.matches('button')) {
-						this.pressedButton = e.target
-
-						if (this.upTween) {
-							this.upTween.stop()
-							this.upTween = null
-						}
-
-						this.downTween = new TWEEN.Tween(e.target.parentNode.position)
-							.to({z: -16}, 75)
-							.start()
-							.onComplete(() => (this.downTween = null))
-
-						Motor.addRenderTask(time => {
-							if (!this.downTween) return false
-							this.downTween.update(time)
-						})
-					}
-				},
-
-				// On mouse up animate the button upward using Tween.js
-				onup() {
-					if (this.pressedButton) {
-						if (this.downTween) {
-							this.downTween.stop()
-							this.downTween = null
-						}
-
-						this.upTween = new TWEEN.Tween(this.pressedButton.parentNode.position)
-							.to({z: 0}, 75)
-							.start()
-							.onComplete(() => (this.upTween = null))
-
-						Motor.addRenderTask(time => {
-							if (!this.upTween) return false
-							this.upTween.update(time)
-						})
-					}
-				},
-			},
-		})
 	</script>
 `)
 
@@ -983,7 +812,7 @@ function spotLightExample() {
 		</style>
 
 		<script type="module">
-			import {autorun} from 'lume'
+			import {createEffect} from 'lume'
 
 			const pane = new Tweakpane.Pane()
 			const folder = pane.addFolder({title: 'play with options', expanded: false})
@@ -1006,7 +835,7 @@ function spotLightExample() {
 				})
 				.on('change', event => (light2.target = event.value))
 
-			autorun(() => {
+			createEffect(() => {
 				light2.debug = light1.debug
 				light2.penumbra = light1.penumbra
 				light2.angle = light1.angle
@@ -1165,10 +994,6 @@ const lineExample = stripIndent(html`
 	</script>
 `)
 
-// Make SVG path strings at https://yqnn.github.io/svg-path-editor/
-const starPath =
-	'M5.605 12.784c-.294-.052-.556-.222-.718-.466-.098-.147-.08-.095-.455-1.303-.077-.247-.188-.603-.246-.79-.058-.187-.168-.54-.244-.785l-.138-.444-.12-.037c-.137-.043-.721-.224-1.059-.329-.126-.04-.3-.094-.385-.12-1.613-.501-1.572-.487-1.679-.548-.393-.221-.611-.658-.55-1.098.034-.249.148-.468.335-.644.055-.052.488-.363 1.397-1.005l1.318-.93-.006-.255c-.01-.461-.027-2.045-.029-2.58-.001-.552-.001-.55.046-.7.031-.1.111-.246.181-.335.313-.396.86-.525 1.312-.311.117.055.101.044.64.446.248.185.822.613 1.277.953l.826.617.179-.061c.098-.034.324-.11.503-.171.516-.175.807-.273 1.395-.473.94-.319 1.012-.343 1.107-.359.515-.089 1.026.211 1.202.705.064.179.081.368.05.55-.011.064-.074.264-.196.624-.195.574-.322.95-.477 1.407-.054.161-.165.486-.245.721l-.145.429.616.826c.34.455.779 1.043.976 1.307.299.4.367.498.413.59.183.372.14.81-.112 1.141-.155.204-.371.339-.644.406-.043.01-.175.013-.595.012-.53-.002-2.032-.019-2.555-.029l-.265-.005-.93 1.316c-.511.724-.951 1.34-.977 1.37-.25.286-.636.423-1.003.358z'
-
 const shapesExample = stripIndent(html`
 	<base href="${host}" />
 	<script src="./importmap.js"></script>
@@ -1185,7 +1010,7 @@ const shapesExample = stripIndent(html`
 		}
 	</style>
 
-	<lume-scene id="scene" perspective="800" webgl fog-mode="none" fog-near="100" fog-far="500" fog-color="white">
+	<lume-scene id="scene" perspective="800" webgl fog-mode="linear" fog-near="100" fog-far="500" fog-color="white">
 		<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
 
 		<lume-camera-rig id="cam" active initial-distance="200" max-distance="70000" min-distance="100">
@@ -1499,6 +1324,7 @@ const shapesExample = stripIndent(html`
 
 	<script type="module">
 		import * as THREE from 'three'
+		import {starPath} from '${host}js/starPath.js'
 
 		let showSize = false
 		const boxes = Array.from(document.querySelectorAll('lume-box'))
@@ -1543,7 +1369,7 @@ const shapesExample = stripIndent(html`
 				} else if (input.value === 'stars') {
 					// Set an SVG path string (same as the value you'd find in a <path> element's d="" attribute).
 					// Make SVG path strings at https://yqnn.github.io/svg-path-editor/
-					shape.shape = '${starPath}'
+					shape.shape = starPath
 				} else {
 					// Revert back to the default shape
 					shape.shape = null
@@ -2351,303 +2177,4 @@ const pictureFrameExample = stripIndent(html`
 		frame-texture="${host}images/wood.jpg"
 		frame-shape="m16.1 345c217.1-.3 328.7-.3 335 0 6.3-.3 10-6.3 11-18 3.6-50.8 5.3-78.8 5-84 .3-5.2 1.9-7.9 5-8 27.3.8 42.6 1.2 46 1 3.2.2 5.5-2.5 7.1-8v-23l-27-1c-23.2-22.7-28.2-15.4-28-22-.1-4.9-1.1-9.3-3-13h-31c.1 6.1-1.6 10.4-5 13-5.2 2.7-27.8 3.6-53 0-28.2-5-54.6-21.7-60-24-37.7-18.6-78.3-65.9-106-137-1.2-2.8-3.9-5.1-8-7-3.3-.2-4.9-.9-5-2 .1-.9-.4-8.5-1-9-.7-1.3-2.3-2.3-5-3h-56c.2 10 .2 14.7 0 14 .2-1.1-5.4-1.1-17 0 .2 9 .2 16 0 21-.8 10.4-.4 33.3 2 37 20.5 30.1 24.2 84.5 15 132-4.2 20.1-15.9 48.4-35 85-2.6 20.8-3 34.8-1.1 42 1.6 7.5 6.6 12.2 15 14z"
 	></picture-frame-scene>
-`)
-
-const introExample = stripIndent(html`
-	<base href="${host}" />
-	<script src="./importmap.js"></script>
-
-	<lume-scene
-		id="scene"
-		webgl
-		environment="./examples/nasa-astrobee-robot/luna-station.jpg"
-		background="./examples/nasa-astrobee-robot/luna-station.jpg"
-		equirectangular-background="true"
-	>
-		<lume-ambient-light color="white" intensity="0.3"></lume-ambient-light>
-
-		<lume-camera-rig align-point="0.5 0.5 0.5" max-distance="3000" initial-distance="1500">
-			<lume-point-light slot="camera-child" position="500 500 200" intensity="0.4"></lume-point-light>
-		</lume-camera-rig>
-
-		<lume-element3d align-point="0.5 0.5 0.5">
-			<!-- Load a 3D model from an FBX file. We make it have a metallic look down below. -->
-			<lume-fbx-model
-				id="mando"
-				rotation="0 0 0"
-				size="40 40 40"
-				scale="10 10 10"
-				src="./models/mando-helmet.fbx"
-				center-geometry
-			></lume-fbx-model>
-
-			<!-- A sphere with a frosty surface. -->
-			<lume-sphere
-				id="sphere"
-				mount-point="0.5 0.5 0.5"
-				position="-500"
-				has="physical-material"
-				receive-shadow="false"
-				size="400 400 400"
-				sidedness="double"
-				opacity="1"
-				color="white"
-				clearcoat="1"
-				transmission="1"
-				metalness="0.0"
-				roughness="0.55"
-			>
-				<!-- An inner sphere to make the outer sphere seem to glow from inside, using a shader-material for a custom shader. -->
-				<lume-sphere
-					id="innerSphere"
-					align-point="0.5 0.5 0.5"
-					mount-point="0.5 0.5 0.5"
-					has="shader-material"
-					receive-shadow="false"
-					size="360 360 360"
-					sidedness="double"
-					uniforms='{
-						"iTime": { "value": 0 },
-						"iResolution": { "value": {"x": 1, "y": 1, "z": 1} }
-					}'
-				></lume-sphere>
-			</lume-sphere>
-
-			<!-- A star shape, with a shader-material to make its shader be custom. -->
-			<lume-shape
-				id="shape"
-				shape="${starPath}"
-				size="300 300 300"
-				position="500"
-				align-point="0.5 0.5 0.5"
-				mount-point="0.5 0.5 0.5"
-				sidedness="double"
-				receive-shadow="false"
-				color="red"
-				fitment="cover"
-				bevel
-				bevel-thickness="1"
-				has="shader-material"
-				uniforms='{
-					"iTime": { "value": 0 },
-					"iResolution": { "value": {"x": 1, "y": 1, "z": 1} }
-				}'
-			></lume-shape>
-		</lume-element3d>
-	</lume-scene>
-
-	<script type="module">
-		import {html, autorun, Motor} from 'lume'
-		import {MeshPhysicalMaterial} from 'three/src/materials/MeshPhysicalMaterial.js'
-		import {toCreasedNormals} from 'three/examples/jsm/utils/BufferGeometryUtils.js'
-
-		const vertexShader = \`
-			varying vec2 vUv;
-
-			void main() {
-				vUv = uv;
-				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-			}
-		\`
-
-		const fragmentShader = \`
-			#include <common>
-
-			uniform vec3 iResolution;
-			uniform float iTime;
-
-			// The following is the default shader when you start a new shadertoy example.
-			// By iq: https://www.shadertoy.com/user/iq
-			// license: Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
-
-			// BEGIN SHADERTOY CODE {
-
-			void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
-				// Normalized pixel coordinates (from 0 to 1)
-				vec2 uv = fragCoord/iResolution.xy;
-
-				// Time varying pixel color
-				vec3 col = 0.5 + 0.5*cos(iTime+uv.xyx+vec3(0,2,4));
-
-				// Output to screen
-				fragColor = vec4(col,1.0);
-				//fragColor = vec4(1.0, 0.3, 0.1, 1.0);
-			}
-
-			// END SHADERTOY CODE }
-
-			varying vec2 vUv;
-
-			void main() {
-				mainImage(gl_FragColor, vUv / 2.0 * gl_FragCoord.xy);
-			}
-		\`
-
-		// Apply a custom shader to the inner glowing sphere, and the star shape.
-		innerSphere.vertexShader = vertexShader
-		innerSphere.fragmentShader = fragmentShader
-		shape.vertexShader = vertexShader
-		shape.fragmentShader = fragmentShader
-
-		animateShader(innerSphere)
-		animateShader(shape, 2000)
-
-		// Animates
-		async function animateShader(targetBox, timeOffset = 0) {
-			autorun(() => {
-				const mat = targetBox.behaviors.get('shader-material')
-
-				if (!mat?.meshComponent) return
-
-				mat.uniforms.iResolution.value.x = targetBox.calculatedSize.x * 10
-				mat.uniforms.iResolution.value.y = targetBox.calculatedSize.y * 10
-
-				targetBox.needsUpdate()
-			})
-
-			Motor.addRenderTask(t => {
-				const mat = targetBox.behaviors.get('shader-material')
-
-				if (!mat?.meshComponent) return
-
-				mat.uniforms.iTime.value = (t + timeOffset) * 0.001
-				targetBox.needsUpdate()
-			})
-		}
-
-		tiltOnPointerMove(scene, sphere)
-		tiltOnPointerMove(scene, mando)
-		tiltOnPointerMove(scene, shape)
-
-		function tiltOnPointerMove(pointerContext, rotationTarget, rotationAmount = 15) {
-			// Slightly rotate the given element based on pointer movement.
-			pointerContext.addEventListener('pointermove', event => {
-				rotationTarget.rotation.y = (event.clientX / pointerContext.offsetWidth) * (rotationAmount * 2) - rotationAmount
-				rotationTarget.rotation.x = -(
-					(event.clientY / pointerContext.offsetHeight) * (rotationAmount * 2) -
-					rotationAmount
-				)
-			})
-		}
-
-		// Wait for the model to be loaded so we can style metal parts of the
-		// helmet with a metallic material, and the visor with a black
-		// plastic-like material.
-		mando.on('MODEL_LOAD', () => {
-			// Once loaded, let's traverse the tree to visit all the mesh parts.
-			mando.three.traverse(obj => {
-				// Skip non-mesh nodes.
-				if (obj.isMesh) {
-					// Make the parts of the helmet look metallic or plastic.
-					if (obj.material.name.startsWith('Chrome') || obj.material.name.startsWith('Steel')) {
-						// metal
-						obj.material = new MeshPhysicalMaterial({color: 'white', metalness: 1, roughness: 0.15})
-					} else {
-						// black plastic visor
-						obj.material = new MeshPhysicalMaterial({
-							color: '#111111',
-							metalness: 0.2,
-							roughness: 0.2,
-							clearcoat: 1,
-						})
-						obj.geometry = toCreasedNormals(obj.geometry, 360) // smooth out the visor normals (the imported model had strange normals)
-					}
-				}
-			})
-		})
-	</script>
-`)
-
-// prettier-ignore
-const cdnInstallExample = stripIndent(html`
-  <!doctype html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Untitled</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
-    <!--
-      JSPM Generator Import Map
-      Edit URL: https://generator.jspm.io/#U2NhYGBkDM0rySzJSU1hyCnNTXUw0DPWM9BNzCnISNQzsgAA+3k8OiIA
-    -->
-     <script type="importmap">
-    {
-      "imports": {
-        "lume": "https://ga.jspm.io/npm:lume@0.3.0-alpha.28/dist/index.js"
-      },
-      "scopes": {
-        "https://ga.jspm.io/": {
-          "@lume/autolayout": "https://ga.jspm.io/npm:@lume/autolayout@0.10.1/dist/AutoLayout.js",
-          "@lume/custom-attributes/dist/index.js": "https://ga.jspm.io/npm:@lume/custom-attributes@0.2.1/dist/index.js",
-          "@lume/element": "https://ga.jspm.io/npm:@lume/element@0.10.1/dist/index.js",
-          "@lume/eventful": "https://ga.jspm.io/npm:@lume/eventful@0.3.0/dist/index.js",
-          "@lume/kiwi": "https://ga.jspm.io/npm:@lume/kiwi@0.4.1/dist/kiwi.js",
-          "@lume/three-projected-material/dist/ProjectedMaterial.js": "https://ga.jspm.io/npm:@lume/three-projected-material@0.3.1/dist/ProjectedMaterial.js",
-          "@lume/variable": "https://ga.jspm.io/npm:@lume/variable@0.10.1/dist/index.js",
-          "element-behaviors": "https://ga.jspm.io/npm:element-behaviors@5.0.1/dist/index.js",
-          "james-bond": "https://ga.jspm.io/npm:james-bond@0.7.0/dist/index.js",
-          "lowclass": "https://ga.jspm.io/npm:lowclass@6.0.0/dist/index.js",
-          "regexr": "https://ga.jspm.io/npm:regexr@2.0.2/dist/index.js",
-          "solid-js": "https://ga.jspm.io/npm:solid-js@1.4.8/dist/solid.js",
-          "solid-js/html": "https://ga.jspm.io/npm:solid-js@1.4.8/html/dist/html.js",
-          "solid-js/store": "https://ga.jspm.io/npm:solid-js@1.4.8/store/dist/store.js",
-          "solid-js/web": "https://ga.jspm.io/npm:solid-js@1.4.8/web/dist/web.js",
-          "three": "https://ga.jspm.io/npm:three@0.157.0/build/three.module.js",
-          "three/": "https://ga.jspm.io/npm:three@0.157.0/"
-        }
-      }
-    }
-    </script>
-
-    <!-- ES Module Shims: Import maps polyfill for older browsers without import maps support (eg Safari 16.3) -->
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.8.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
-
-    <script type="module">
-      import * as lume from "lume";
-
-      // Write main module code here, or as a separate file with a "src" attribute on the module script.
-      console.log(lume);
-    </script>
-
-    <!-- BEGIN CUSTOM CODE ///////////////////////////////////////////////////////////////// -->
-    <style>
-      html, body {
-        margin: 0;
-        height: 100%;
-        background: #8338ec;
-      }
-    </style>
-
-    <lume-scene webgl physically-correct-lights perspective="800" fog-mode="linear" fog-color="#8338ec" fog-near="600" fog-far="900">
-      <lume-camera-rig align-point="0.5 0.5" initial-distance="800"></lume-camera-rig>
-
-      <lume-point-light intensity="1200" align-point="0.5 0.5" position="300 -300 300" color="#ff006e">
-        <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#ff006e" has="basic-material"></lume-sphere>
-      </lume-point-light>
-
-      <lume-point-light intensity="1200" align-point="0.5 0.5" position="-300 300 -300" color="#3a86ff">
-        <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#3a86ff" has="basic-material"></lume-sphere>
-      </lume-point-light>
-
-      <lume-point-light intensity="1200" align-point="0.5 0.5" position="-300 300 300" color="#3a86ff">
-        <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#3a86ff" has="basic-material"></lume-sphere>
-      </lume-point-light>
-
-      <lume-point-light intensity="1200" align-point="0.5 0.5" position="300 -300 -300" color="#ff006e">
-        <lume-sphere size="20" cast-shadow="false" receive-shadow="false" color="#ff006e" has="basic-material"></lume-sphere>
-      </lume-point-light>
-
-      <lume-box id="box" cast-shadow="false" receive-shadow="false" has="physical-material" roughness="0.8" align-point="0.5 0.5" mount-point="0.5 0.5 0.5" size="200 200 200" color="white" position="0 0 -500"></lume-box>
-    </lume-scene>
-
-    <script type="module">
-      box.rotation = (x, y) => [x+0.5, y+0.5];
-      box.position = (x, y, z) => [x, y, 0.02 * (0 - z) + z]; // lerp
-    </script>
-    <!-- END CUSTOM CODE ///////////////////////////////////////////////////////////////// -->
-
-  </body>
-  </html>
 `)

@@ -62,7 +62,7 @@ mix literal and proportional sizes for the different axes.
 
 ### <code>.<b>calculatedSize</b></code> :id=calculatedSize
 
-*readonly*, *reactive*
+*readonly*, *signal*
 
 Get the actual size of an element as an object with `x`, `y`, and `z`
 properties, each property containing the computed size along its
@@ -76,7 +76,7 @@ at the `.size` value won't tell us the actual size.
 
 ### <code>.<b>parentSize</b></code> :id=parentSize
 
-*reactive* *readonly*
+*signal* *readonly*
 
 Returns an object with `x`, `y`, and `z` properties containing the size
 dimensions of the composed LUME parent. If there is no composed LUME

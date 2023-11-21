@@ -1,13 +1,6 @@
 # Buttons with shadow
 
-<div id="example"></div>
-<script>
-  new Vue({
-    el: '#example',
-    template: '<live-code class="full" :template="code" :autorun="true" mode="html>iframe" />',
-    data: { code: buttonsWithShadowExample },
-  })
-</script>
+<live-code src="./buttons-with-shadow.html"></live-code>
 
 <!-- TODO show demo information without breaking the full height demo view:
 - A ["picked" pen](https://codepen.io/trusktr/pen/rpegZR) on CodePen!

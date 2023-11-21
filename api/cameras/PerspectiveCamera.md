@@ -49,7 +49,7 @@ to unstretch or unsquish the view of the 3d world.
 
 *attribute*
 
-Default: `0.1`
+Default: `1`
 
 Anything closer to the camera than this value will not be rendered.
         

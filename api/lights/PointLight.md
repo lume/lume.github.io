@@ -41,7 +41,7 @@ This light's intensity. Changing the intensity will also change the light's
 
 When [physically correct lighting](../core/Scene#physicallycorrectlights)
 enabled, intensity is the luminous intensity of the light measured in
-candela (cd) with world units in meters.
+candela (cd).
         
 
 

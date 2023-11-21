@@ -3,6 +3,7 @@
   - [Introduction](/)
   - [Install](/guide/install/)
   - [Making a Scene](/guide/making-a-scene)
+  - [Custom Element Names](/guide/custom-element-names)
   - [Scene Graph](/guide/scene-graph)
   - [Common Attributes](/guide/common-attributes)
   - [Positioning](/guide/positioning)
@@ -13,6 +14,7 @@
   - [External Assets](/guide/external-assets)
   - [Making Elements](/guide/making-elements)
   - [Compatibility](/guide/compatibility)
+  - [Debugging](/guide/debugging)
   - [Contributing](/guide/contributing)
 
 - **Examples**

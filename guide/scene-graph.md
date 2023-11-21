@@ -10,9 +10,15 @@ The HTML DOM is a scene graph that has traditionally been used for 2D graphics.
 LUME brings 3D to the DOM, or shall we say, LUME brings the DOM into the
 future.
 
-The following graphic shows the idea of a hierarchical tree. The graphic itself
-is made of a tree of DOM nodes (a scene graph) that specify how to render the
-concept of a tree.
+> :bulb:**Tip**
+>
+> DOM stands for "Document Object Model". The DOM is a tree of HTML elements
+> that are in a web page. Here's Mozilla's [introduction to the
+> DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction).
+
+The following graphic shows this idea of a hierarchical tree. The graphic itself
+is made of a tree of (Lume) DOM nodes (a scene graph) that defines the following
+visual depicting the concept of a scene graph.
 
 <style>
 	html,

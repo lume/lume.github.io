@@ -1,14 +1,8 @@
 # Hello world!
 
-<div id="example"></div>
-
-<script type="application/javascript">
-  new Vue({
-    el: '#example',
-    template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="200" />',
-    data: {
-      code: /*html*/`
-<base href="${host}" /><script src="./importmap.js"><\/script>
+<live-code>
+<template>
+<base href="${host}" /><script src="./importmap.js"></script>
 
 <!-- Do you see the Moon's shadow on Earth's surface when it passes in front of the sun? -->
 
@@ -119,8 +113,6 @@
 
   earth.rotation = (x, y, z, t) => [x, t * 0.01, z];
   clouds.rotation = (x, y, z, t) => [x, -t * 0.003, z];
-<\/script>
-`
-    },
-  })
 </script>
+</template>
+</live-code>

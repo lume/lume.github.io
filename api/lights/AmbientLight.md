@@ -14,7 +14,7 @@ Inherits properties from [Light](Light.md).
 
 ### <code>.<b>intensity</b></code> :id=intensity
 
-`attribute`
+`override` `attribute`
 
 Default: `1`
 

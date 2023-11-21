@@ -43,7 +43,7 @@ The value should be a number from `0` to `1`. `0` is fully transparent, and `1` 
 
 ### <code>.<b>glLoaded</b></code> :id=glLoaded
 
-*readonly*, *reactive*
+*readonly*, *signal*
 
 Returns a boolean indicating whether or not the WebGL rendering features
 of a LUME element are loaded and ready.
@@ -64,7 +64,7 @@ elements in the scene *after* their WebGL APIs have been loaded
 
 ### <code>.<b>cssLoaded</b></code> :id=cssLoaded
 
-*readonly*, *reactive*
+*readonly*, *signal*
 
 Returns a boolean indicating whether or not the CSS rendering features
 of a LUME element are loaded and ready.
@@ -85,7 +85,7 @@ any LUME elements in the scene *after* their CSS APIs have been loaded
 
 ### <code>.<b>scene</b></code> :id=scene
 
-*reactive*, *readonly*
+*signal*, *readonly*
 
 The `<lume-scene>` that the element is a child or grandchild of, `null`
 if the element is not a descendant of a Scene, `null` if the child is a
@@ -118,7 +118,7 @@ APIs. See
 
 ### <code>.<b>version</b></code> :id=version
 
-`reactive`
+`signal`
 
 Default: `0`
 

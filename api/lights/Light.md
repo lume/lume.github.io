@@ -36,6 +36,8 @@ assign it again each time you wish to update the color.
 
 `abstract`
 
+Default: `1`
+
 The intensity of the light.
 
 When [physically correct lighting](../core/Scene#physicallycorrectlights)

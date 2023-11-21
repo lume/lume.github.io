@@ -1,9 +1,13 @@
-const importmap = {
-	imports: {
+{
+	const script = document.currentScript
+	// F.e. the "../../" in "src="../../importmap.js"
+	const base = script.getAttribute('src').split('importmap.js')[0]
+
+	const imports = {
 		lume: './modules/lume/dist/index.js',
 		'lume/': './modules/lume/',
 		'@lume/element': './modules/@lume/element/dist/index.js',
-		'@lume/variable': './modules/@lume/variable/dist/index.js',
+		'classy-solid': './modules/classy-solid/dist/index.js',
 		'@lume/eventful': './modules/@lume/eventful/dist/index.js',
 		'@lume/kiwi': './modules/@lume/kiwi/dist/kiwi.js',
 		'@lume/three-projected-material/': './modules/@lume/three-projected-material/',
@@ -19,10 +23,12 @@ const importmap = {
 		'solid-js/store': './modules/solid-js/store/dist/store.js',
 		three: './modules/three/src/Three.js',
 		'three/': './modules/three/',
-	},
-}
+	}
 
-const importmapScript = document.createElement('script')
-importmapScript.setAttribute('type', 'importmap')
-importmapScript.textContent = JSON.stringify(importmap)
-document.currentScript.after(importmapScript)
+	for (const key in imports) imports[key] = base + imports[key]
+
+	const importmapScript = document.createElement('script')
+	importmapScript.setAttribute('type', 'importmap')
+	importmapScript.textContent = JSON.stringify({imports})
+	script.after(importmapScript)
+}
