@@ -173,8 +173,13 @@
 	tiltOnPointerMove(scene, shape)
 
 	function tiltOnPointerMove(pointerContext, rotationTarget, rotationAmount = 15) {
+		let pointers = new Set()
+		pointerContext.addEventListener('pointerdown', event => pointers.add(event.pointerId))
+		pointerContext.addEventListener('pointerup', event => pointers.delete(event.pointerId))
+
 		// Slightly rotate the given element based on pointer movement.
 		pointerContext.addEventListener('pointermove', event => {
+			if (pointers.size) return
 			rotationTarget.rotation.y = (event.clientX / pointerContext.offsetWidth) * (rotationAmount * 2) - rotationAmount
 			rotationTarget.rotation.x = -(
 				(event.clientY / pointerContext.offsetHeight) * (rotationAmount * 2) -
