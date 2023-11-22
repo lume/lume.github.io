@@ -7,7 +7,7 @@
 		"start": "npm run build && npm run dev",
 		"dev": "node --experimental-import-meta-resolve ./dev-server.mjs",
 		"build": "npm run clean && npm run dist:copy && node ./build-api-docs.mjs && symlink-dir node_modules modules",
-		"build:vercel": "cpr node_modules modules",
+		"build:vercel": "cpr node_modules modules --overwrite",
 		"clean": "rimraf \"./api/**/!(.gitkeep)\" \"./guide/includes/**/!(.gitkeep)\"",
 		"test": "npm run prettier:check",
 		"prettier": "prettier . --write",
