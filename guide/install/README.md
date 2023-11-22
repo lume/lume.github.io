@@ -90,33 +90,32 @@ hit enter. This will generate HTML code on the right side of the view that you'l
 <body>
   <!--
     JSPM Generator Import Map
-    Edit URL: https://generator.jspm.io/#U2VhYGBkDM0rySzJSU1hyCnNTXUw0DPWM9BNzCnISNQzsgAAoYq6VyIA
+    Edit URL: https://generator.jspm.io/#U2NhYGBkDM0rySzJSU1hyCnNTXUw0DPWM9BNzCnISNQzNgQAHvD7WiIA
   -->
-		<!-- CONTINUE update with classy-solid in place instead of lume/variable -->
    <script type="importmap">
   {
     "imports": {
-      "lume": "https://ga.jspm.io/npm:lume@0.3.0-alpha.28/dist/index.js"
+      "lume": "https://ga.jspm.io/npm:lume@0.3.0-alpha.31/dist/index.js"
     },
     "scopes": {
       "https://ga.jspm.io/": {
         "@lume/autolayout": "https://ga.jspm.io/npm:@lume/autolayout@0.10.1/dist/AutoLayout.js",
-        "@lume/custom-attributes/dist/index.js": "https://ga.jspm.io/npm:@lume/custom-attributes@0.2.1/dist/index.js",
-        "@lume/element": "https://ga.jspm.io/npm:@lume/element@0.10.1/dist/index.js",
-        "@lume/eventful": "https://ga.jspm.io/npm:@lume/eventful@0.3.0/dist/index.js",
+        "@lume/custom-attributes/dist/index.js": "https://ga.jspm.io/npm:@lume/custom-attributes@0.2.3/dist/index.js",
+        "@lume/element": "https://ga.jspm.io/npm:@lume/element@0.11.4/dist/index.js",
+        "@lume/eventful": "https://ga.jspm.io/npm:@lume/eventful@0.3.2/dist/index.js",
         "@lume/kiwi": "https://ga.jspm.io/npm:@lume/kiwi@0.4.1/dist/kiwi.js",
         "@lume/three-projected-material/dist/ProjectedMaterial.js": "https://ga.jspm.io/npm:@lume/three-projected-material@0.3.1/dist/ProjectedMaterial.js",
-        "@lume/variable": "https://ga.jspm.io/npm:@lume/variable@0.10.1/dist/index.js",
-        "element-behaviors": "https://ga.jspm.io/npm:element-behaviors@5.0.1/dist/index.js",
-        "james-bond": "https://ga.jspm.io/npm:james-bond@0.7.0/dist/index.js",
-        "lowclass": "https://ga.jspm.io/npm:lowclass@6.0.0/dist/index.js",
-        "regexr": "https://ga.jspm.io/npm:regexr@2.0.2/dist/index.js",
-        "solid-js": "https://ga.jspm.io/npm:solid-js@1.4.8/dist/dev.js",
-        "solid-js/html": "https://ga.jspm.io/npm:solid-js@1.4.8/html/dist/html.js",
-        "solid-js/store": "https://ga.jspm.io/npm:solid-js@1.4.8/store/dist/dev.js",
-        "solid-js/web": "https://ga.jspm.io/npm:solid-js@1.4.8/web/dist/dev.js",
-        "three": "https://ga.jspm.io/npm:three@0.157.0/build/three.module.js",
-        "three/": "https://ga.jspm.io/npm:three@0.157.0/"
+        "classy-solid": "https://ga.jspm.io/npm:classy-solid@0.3.1/dist/index.js",
+        "element-behaviors": "https://ga.jspm.io/npm:element-behaviors@5.0.3/dist/index.js",
+        "james-bond": "https://ga.jspm.io/npm:james-bond@0.7.2/dist/index.js",
+        "lowclass": "https://ga.jspm.io/npm:lowclass@7.0.1/dist/index.js",
+        "regexr": "https://ga.jspm.io/npm:regexr@2.0.4/dist/index.js",
+        "solid-js": "https://ga.jspm.io/npm:solid-js@1.8.5/dist/solid.js",
+        "solid-js/html": "https://ga.jspm.io/npm:solid-js@1.8.5/html/dist/html.js",
+        "solid-js/store": "https://ga.jspm.io/npm:solid-js@1.8.5/store/dist/store.js",
+        "solid-js/web": "https://ga.jspm.io/npm:solid-js@1.8.5/web/dist/web.js",
+        "three": "https://ga.jspm.io/npm:three@0.158.0/build/three.module.js",
+        "three/": "https://ga.jspm.io/npm:three@0.158.0/"
       }
     }
   }
@@ -209,8 +208,6 @@ npm install lume
 Next create an HTML file at the root of your project folder, f.e. `index.html`,
 and place the following import map in it to specify dependency locations in
 node_modules:
-
-<!-- CONTINUE update with classy-solid in place instead of lume/variable -->
 
 ```html
 <script type="importmap">
