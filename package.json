@@ -22,7 +22,7 @@
 		"@lume/element": "^0.11.0",
 		"@lume/eventful": "^0.3.0",
 		"@lume/kiwi": "^0.4.0",
-		"@lume/live-code": "^0.5.0",
+		"@lume/live-code": "^0.5.1",
 		"@lume/three-projected-material": "^0.3.0",
 		"classy-solid": "^0.3.0",
 		"cpr": "^3.0.1",
