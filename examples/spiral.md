@@ -1,12 +1,9 @@
 # Morphing Spiral
 
-<div id="example"></div>
-<script type="application/javascript">
-  new Vue({
-    el: '#example',
-    template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="1000" />',
-    data: { code: morphingSpiralExample }
-  })
+<live-code id="example" class="full" mode="html>iframe"></live-code>
+
+<script>
+  example.code = morphingSpiralExample
 </script>
 
 <!-- TODO show demo information without breaking the full height demo view:

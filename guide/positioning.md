@@ -11,16 +11,13 @@ one of its corners. We placed a dot on the corner where the origin is specified
 to be. When the cubes rotate, we'll see that the cubes rotate around the
 specified point.
 
-<div id="originExample"></div>
+<live-code id="originExample"></live-code>
+
+<script>
+  const example = document.getElementById('originExample')
+  example.content = originExample
+</script>
 
 ## Mount Point
 
 ## Align Point
-
-<script type="application/javascript">
-  new Vue({
-    el: '#originExample',
-    template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="200" />',
-    data: { code: originExample },
-  })
-</script>

@@ -13,13 +13,9 @@ To extrude the shape, set the host element's Z size to the amount of desired
 extrusion. If the host element Z size is zero, the shape will be flat and 2D
 only.
 
-<div id="exampleContainer"></div>
+<live-code id="example"></live-code>
 <script>
-  new Vue({
-    el: '#exampleContainer',
-    template: '<live-code class="full" :template="code" :autorun="true" mode="html>iframe" />',
-    data: { code: shapesExample },
-  })
+  example.code = shapesExample
 </script>
 
 ## Properties

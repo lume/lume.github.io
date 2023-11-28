@@ -10,13 +10,9 @@ Default behaviors:
 - [`shape-geometry`](../behaviors/mesh-behaviors/geometries/ShapeGeometryBehavior.md)
 - [`phong-material`](../behaviors/mesh-behaviors/materials/PhongMaterialBehavior.md)
 
-<div id="example"></div>
+<live-code id="example"></live-code>
 <script>
-  new Vue({
-    el: '#example',
-    template: '<live-code class="full" :template="code" :autorun="true" mode="html>iframe" />',
-    data: { code: shapesExample },
-  })
+  example.code = shapesExample
 </script>
 
 Inherits attribute properties from [`ShapeGeometryBehavior`](../behaviors/geometries/ShapeGeometryBehavior.md).

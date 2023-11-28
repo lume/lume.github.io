@@ -24,7 +24,7 @@ will use its internal default camera (see
 the perspective camera is active then the view will be displayed through the
 lense of that camera, and we can manipulate that camera to control our view.
 
-<div id="perspectiveCamera"></div>
+<live-code id="cameraExample"></live-code>
 
 # Camera Rig
 
@@ -34,20 +34,11 @@ user to rotate and dolly the camera around in physical space more easily, in a
 particular and specific. In the following example, try draging to rotate,
 scrolling to zoom:
 
-<div id="cameraRigExample"></div>
+<live-code id="rigExample"></live-code>
 
 <script>
-  new Vue({
-    el: '#perspectiveCamera',
-    template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
-    data: { code: perspectiveCameraExample },
-  })
-
-  new Vue({
-    el: '#cameraRigExample',
-    template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
-    data: { code: cameraRigExample },
-  })
+  cameraExample.content = perspectiveCameraExample
+  rigExample.content = cameraRigExample
 </script>
 
 See the [`CameraRig`](../api/cameras/CameraRig) class for details on all of its

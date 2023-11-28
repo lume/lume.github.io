@@ -1,7 +1,5 @@
 # NASA Astrobee Robot
 
-<div id="example"></div>
-
 <live-code>
 <template>
 <!--
@@ -29,13 +27,13 @@
 <script type="module">
   import {defineElements, booleanAttribute, Element, element, attribute, html} from 'lume'
 
-  const bodyModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/body.dae'
-  const pmcModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/pmc.dae'
-  const pmcSkinModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/pmc_skin_.dae'
-  const pmcBumperModelUrl = '${host}examples/nasa-astrobee-robot/astrobee/pmc_bumper.dae'
+  const bodyModelUrl = '/examples/nasa-astrobee-robot/astrobee/body.dae'
+  const pmcModelUrl = '/examples/nasa-astrobee-robot/astrobee/pmc.dae'
+  const pmcSkinModelUrl = '/examples/nasa-astrobee-robot/astrobee/pmc_skin_.dae'
+  const pmcBumperModelUrl = '/examples/nasa-astrobee-robot/astrobee/pmc_bumper.dae'
 
   // Find more at https://blog.kuula.co/360-images-ruben-frosali
-  const lunaStation = '${host}examples/nasa-astrobee-robot/luna-station.jpg'
+  const lunaStation = '/examples/nasa-astrobee-robot/luna-station.jpg'
 
   // Registers the LUME elements with their default tag names.
   defineElements()

@@ -7,18 +7,9 @@ The following example shows a button, that when clicked, updates a reactive
 number variable, and this causes the rendering to update any time the number
 value changes.
 
-<div id="reactivityExample"></div>
-
-<script type="application/javascript">
-  new Vue({
-    el: '#reactivityExample',
-    template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
-    data: {
-      code:
-/*html*/`
-<base href="${host}" /><script src="./importmap.js"><\/script>
-
-<body>
+<live-code>
+  <template>
+  <base href="${host}" /><script src="./importmap.js"></script>
 
   <script type="module">
     import {html, Motor} from 'lume'
@@ -44,16 +35,16 @@ value changes.
 
     // Use reactive values in an html template and the DOM elements created by
     // the template will automatically update when those values change.
-    const scene = html\`
+    const scene = html`
       <lume-scene>
         <lume-element3d
           id="node"
-          rotation=\${rotation}
+          rotation=${rotation}
           size="100 100"
           align-point="0.5 0.5 0.5"
           mount-point="0.5 0.5 0.5"
         >
-          <h1 align="center">\${count}</h1>
+          <h1 align="center">${count}</h1>
         </lume-element3d>
 
         <lume-element3d
@@ -63,19 +54,19 @@ value changes.
         >
           <button
             style="transform: translateX(-50%)"
-            onclick=\${buttonClicked}
+            onclick=${buttonClicked}
           >
             Click
           </button>
         </lume-element3d>
       </lume-scene>
-    \`
+    `
 
     // The top-level element in the template was returned:
     console.log(scene instanceof HTMLElement) // true
 
     document.body.append(scene)
-  <\/script>
+  </script>
 
   <style>
     html, body {
@@ -89,10 +80,7 @@ value changes.
       border-radius: 5px;
     }
   </style>
-</body>
-`
-    },
-  })
-</script>
+  </template>
+</live-code>
 
 [classy-solid](./includes/classy-solid.md ':include')

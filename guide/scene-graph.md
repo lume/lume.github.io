@@ -103,7 +103,49 @@ their parent `<lume-element3d>` elements. This is why the parent-most node only
 rotates, while each child not only rotates, but also moves due to the rotation
 of its parent.
 
-<div id="parentTransforms"></div>
+<live-code>
+<template>
+  <base href="${host}" />
+  <script src="./importmap.js"></script>
+
+  <lume-scene>
+    <lume-element3d id="one" position="50 50" size="10 10" rotation="0 0 10">
+      <lume-element3d id="two" position="50 50" size="10 10" rotation="0 0 10">
+        <lume-element3d id="three" position="50 50" size="10 10" rotation="0 0 10">
+          <lume-element3d id="four" position="50 50" size="100 100" rotation="0 0 10">
+            Positioning is relative to parents!
+          </lume-element3d>
+        </lume-element3d>
+      </lume-element3d>
+    </lume-element3d>
+  </lume-scene>
+
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+      background: #333; color: white;
+    }
+    lume-element3d { padding: 5px; }
+    #one { background: coral; }
+    #two { background: yellowgreen; }
+    #three { background: deeppink; }
+    #four { background: royalblue; }
+  </style>
+
+  <script type="module">
+    import 'lume'
+
+    const rotationFunction = (x, y, z, t) => [x, y, 10 * Math.sin(t * 0.002)]
+
+    // Give all nodes the same rotation. Note that each node rotates "inside" of the parent space.
+    one.rotation = rotationFunction
+    two.rotation = rotationFunction
+    three.rotation = rotationFunction
+    three.rotation = rotationFunction
+  </script>
+</template>
+</live-code>
 
 <!-- prettier-ignore -->
 <script>
@@ -111,72 +153,24 @@ of its parent.
   // the import() function instead of regular import syntax.
 	import('lume').then(Lume => {
 
-	document.querySelectorAll('lume-scene *').forEach(n => {
-		if (n instanceof Lume.Element3D) {
-			// FIXME temporary hack to trigger a re-render because transforms are not
-			// updated on the initial paint.
-			n.rotation.y += 0.000000001
-			n.addEventListener('pointerover', event => {
-				console.log('on a node!')
-				n.scale.x = 1.1
-				n.scale.y = 1.1
-				n.scale.z = 1.1
-			})
-			n.addEventListener('pointerout', event => {
-				n.scale.x = 1
-				n.scale.y = 1
-				n.scale.z = 1
-			})
-		}
-	})
+    document.querySelectorAll('lume-scene *').forEach(n => {
+      if (n instanceof Lume.Element3D) {
+        // FIXME temporary hack to trigger a re-render because transforms are not
+        // updated on the initial paint.
+        n.rotation.y += 0.000000001
+        n.addEventListener('pointerover', event => {
+          console.log('on a node!')
+          n.scale.x = 1.1
+          n.scale.y = 1.1
+          n.scale.z = 1.1
+        })
+        n.addEventListener('pointerout', event => {
+          n.scale.x = 1
+          n.scale.y = 1
+          n.scale.z = 1
+        })
+      }
+    })
 
-	new Vue({
-		el: '#parentTransforms',
-		template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
-		data: {
-			code: stripIndent(/*html*/`
-				<base href="${host}" />
-				<script src="./importmap.js"><\/script>
-
-				<lume-scene>
-					<lume-element3d id="one" position="50 50" size="10 10" rotation="0 0 10">
-						<lume-element3d id="two" position="50 50" size="10 10" rotation="0 0 10">
-							<lume-element3d id="three" position="50 50" size="10 10" rotation="0 0 10">
-								<lume-element3d id="four" position="50 50" size="100 100" rotation="0 0 10">
-									Positioning is relative to parents!
-								</lume-element3d>
-							</lume-element3d>
-						</lume-element3d>
-					</lume-element3d>
-				</lume-scene>
-
-				<style>
-					html, body {
-						margin: 0; padding: 0;
-						height: 100%; width: 100%;
-						background: #333; color: white;
-					}
-					lume-element3d { padding: 5px; }
-					#one { background: coral; }
-					#two { background: yellowgreen; }
-					#three { background: deeppink; }
-					#four { background: royalblue; }
-				</style>
-
-    			<script type="module">
-    				import 'lume'
-
-    				const rotationFunction = (x, y, z, t) => [x, y, 10 * Math.sin(t * 0.002)]
-
-    				// Give all nodes the same rotation. Note that each node rotates "inside" of the parent space.
-    				one.rotation = rotationFunction
-    				two.rotation = rotationFunction
-    				three.rotation = rotationFunction
-    				three.rotation = rotationFunction
-    			<\/script>
-      `).trim(),
-    },
-
-})
-})
+  })
 </script>

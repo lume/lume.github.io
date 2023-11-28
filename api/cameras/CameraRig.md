@@ -9,7 +9,7 @@ rotate and dolly the camera around in physical space more easily, in a
 particular and specific. In the following example, try draging to rotate,
 scrolling to zoom:
 
-<div id="cameraRigExample"></div>
+<live-code id="example"></live-code>
 
 ## Slots
 
@@ -74,19 +74,11 @@ Default: `90`
 
 The highest angle that the camera will rotate vertically.
 
-<div id="verticalRotationExample"></div>
+<live-code id="verticalExample"></live-code>
 
 <script>
-  new Vue({
-    el: '#cameraRigExample',
-    template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
-    data: { code: cameraRigExample },
-  })
-  new Vue({
-    el: '#verticalRotationExample',
-    template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
-    data: { code: cameraRigVerticalRotationExample },
-  })
+  example.code = cameraRigExample
+  verticalExample.code = cameraRigVerticalRotationExample
 </script>
         
 

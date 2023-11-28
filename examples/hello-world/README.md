@@ -12,7 +12,7 @@
   <!-- Stars -->
   <lume-sphere
     id="stars"
-    texture="${host}examples/hello-world/galaxy_starfield.png"
+    texture="/examples/hello-world/galaxy_starfield.png"
     receive-shadow="false"
     has="basic-material"
     sidedness="back"
@@ -41,16 +41,16 @@
     <lume-element3d rotation="0 180 0">
       <lume-sphere
         id="earth"
-        texture="${host}examples/hello-world/earthmap1k.jpg"
-        bump-map="${host}examples/hello-world/earthbump1k.jpg"
-        specular-map="${host}examples/hello-world/earthspec1k.jpg"
+        texture="/examples/hello-world/earthmap1k.jpg"
+        bump-map="/examples/hello-world/earthbump1k.jpg"
+        specular-map="/examples/hello-world/earthspec1k.jpg"
         size="120 120 120"
         mount-point="0.5 0.5 0.5"
         color="white"
       >
         <lume-sphere
           id="clouds"
-          texture="${host}examples/hello-world/earthclouds.png"
+          texture="/examples/hello-world/earthclouds.png"
           opacity="0.7"
           size="125 125 125"
           mount-point="0.5 0.5 0.5"
@@ -63,7 +63,7 @@
       <lume-element3d id="moonRotator" rotation="0 0 110">
         <lume-sphere
           id="moon"
-          texture="${host}examples/hello-world/moon.jpg"
+          texture="/examples/hello-world/moon.jpg"
           position="250"
           size="5 5 5"
           mount-point="0.5 0.5 0.5"

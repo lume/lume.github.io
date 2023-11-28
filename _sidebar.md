@@ -76,7 +76,6 @@
   - core/
   - [ChildTracker](/api/core/ChildTracker.md)
   - [ClipPlane](/api/core/ClipPlane.md)
-  - [Effectful](/api/core/Effectful.md)
   - [Element3D](/api/core/Element3D.md)
   - [Scene](/api/core/Scene.md)
   - [SharedAPI](/api/core/SharedAPI.md)

@@ -1,15 +1,8 @@
 # Velodyne Lidar Scan
 
-<div id="example"></div>
-
-<script type="application/javascript">
-  new Vue({
-    el: '#example',
-    template: '<live-code class="full" :template="code" mode="html>iframe" :debounce="200" />',
-    data: {
-      code:
-`
-<base href="${host}" /><script src="./importmap.js"><\/script>
+<live-code class="full" mode="html>iframe" debounce="200">
+<template>
+<base href="${host}" /><script src="./importmap.js"></script>
 
 <loading-icon id="loading"></loading-icon>
 
@@ -17,7 +10,7 @@
   <lume-point-light id="light" position="200 -200 200" intensity="3" color="deeppink"></lume-point-light>
   <lume-ambient-light color="white" intensity="0.6"></lume-ambient-light>
   <lume-camera-rig active rotation="0 -110 0" initial-distance="500" max-distance="1200" min-distance="100" initial-polar-angle="30"></lume-camera-rig>
-  <lume-gltf-model src="${host}examples/velodyne-lidar-scan/puck.gltf"></lume-gltf-model>
+  <lume-gltf-model src="/examples/velodyne-lidar-scan/puck.gltf"></lume-gltf-model>
   <!--
     Use a ply-behavior on an element with geometry (such as <lume-mesh> or
     <lume-points>) to load geometry points from a PLY file.
@@ -25,7 +18,7 @@
   <lume-points
     id="model"
     has="ply-geometry phong-material"
-    src="${host}examples/velodyne-lidar-scan/shelby-scene.ply"
+    src="/examples/velodyne-lidar-scan/shelby-scene.ply"
     rotation="90 0 0"
     position="0 0 60"
     size="0 0 0"
@@ -67,8 +60,7 @@
     scene.classList.remove('hidden')
     loading.classList.add('hidden')
   })
-<\/script>
-`
-},
-})
 </script>
+
+</template>
+</live-code>

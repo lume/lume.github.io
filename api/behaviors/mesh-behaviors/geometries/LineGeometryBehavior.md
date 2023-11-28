@@ -8,13 +8,9 @@ Provides a line geometry (series of points) for mesh elements. The
 default. This is typically paired with
 [`LineBasicMaterialBehavior`](../materials/LineBasicMaterialBehavior.md).
 
-<div id="exampleContainer"></div>
+<live-code id="example"></live-code>
 <script>
-  new Vue({
-    el: '#exampleContainer',
-    template: '<live-code class="full" :template="code" :autorun="true" mode="html>iframe" />',
-    data: { code: lineExample },
-  })
+  example.code = lineExample
 </script>
 
 ## Properties

@@ -60,14 +60,9 @@ Finally, we listen to mouse or finger movement events in order to apply a
 rotation to the root node based on the current mouse or finger position.
 See the [events guide](TODO) for how the event system works.
 
-<div id="example1"></div>
-
-<script type="application/javascript">
-  new Vue({
-    el: '#example1',
-    template: '<live-code :template="code" mode="html>iframe" :debounce="200" />',
-    data: { code: miniGalaxyDemo() },
-  })
+<live-code id="liveExample"></live-code>
+<script>
+  liveExample.code = miniGalaxyDemo()
 </script>
 
 ## Properties
