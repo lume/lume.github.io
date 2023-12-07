@@ -38,7 +38,7 @@
 		"lume": "^0.3.0-alpha.34",
 		"prismjs": "^1.29.0",
 		"regexr": "^2.0.0",
-		"solid-js": "<1.5.0",
+		"solid-js": "^1.0.0",
 		"three": ">=0.139.0",
 		"tinycolor2": "^1.4.1",
 		"tween.js": "^16.6.0",
