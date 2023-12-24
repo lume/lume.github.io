@@ -20,7 +20,7 @@ file. To learn more about how to get started, see the [install guide](../../guid
 
 <live-code id="liveExample"></live-code>
 <script>
-  liveExample.code = sceneExample()
+  liveExample.content = sceneExample()
 </script>
 
 ## Properties
@@ -164,15 +164,28 @@ Applies only if [`webgl`](#webgl) is `true`.
         
 
 
+### <code>.<b>backgroundBlur</b></code> :id=backgroundBlur
+
+*attribute*
+
+Default: `0`
+
+If [`background`](#background) is set, the background will be blurred by
+the given amount.
+
+Applies only if [`webgl`](#webgl) is `true`.
+        
+
+
 ### <code>.<b>equirectangularBackground</b></code> :id=equirectangularBackground
 
 *attribute*
 
 Default: `false`
 
-If the `background`
-is equirectangular, set this to `true` so use it like a skybox,
-otherwise the image will be used as a regular 2D background image.
+If the [`background`](#background) is equirectangular, set this to `true`
+so use it like a skybox, otherwise the image will be used as a regular 2D
+background image.
 
 Applies only if [`webgl`](#webgl) is `true`.
         

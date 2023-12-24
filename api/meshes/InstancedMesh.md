@@ -16,7 +16,7 @@ phong-material by default.
 
 <live-code id="liveExample"></live-code>
 <script>
-  liveExample.code = instancedMeshExample
+  liveExample.content = instancedMeshExample
 </script>
 
 ## Properties

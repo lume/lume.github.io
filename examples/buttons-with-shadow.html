@@ -155,6 +155,7 @@
 			Motor.addRenderTask(time => {
 				lightContainer.position.x += (this.targetPosition.x - lightContainer.position.x) * 0.05
 				lightContainer.position.y += (this.targetPosition.y - lightContainer.position.y) * 0.05
+				console.log(lightContainer.position.x, lightContainer.position.y)
 				plane.rotation.y = 10 * (lightContainer.position.x / window.innerWidth) - 5
 				plane.rotation.x = -(10 * (lightContainer.position.y / window.innerHeight) - 5)
 			})

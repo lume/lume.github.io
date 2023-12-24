@@ -12,7 +12,7 @@ Default behaviors:
 
 <live-code id="example"></live-code>
 <script>
-  example.code = shapesExample
+  example.content = shapesExample
 </script>
 
 Inherits attribute properties from [`ShapeGeometryBehavior`](../behaviors/geometries/ShapeGeometryBehavior.md).

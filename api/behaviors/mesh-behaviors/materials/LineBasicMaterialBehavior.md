@@ -11,7 +11,7 @@ backed by Three.js `LineBasicMaterial` underneath. This is typically paired with
 
 <live-code id="example"></live-code>
 <script>
-  example.code = lineExample
+  example.content = lineExample
 </script>
 
 ## Properties

@@ -80,7 +80,7 @@ specific origin.
 
 <live-code id="example"></live-code>
 <script>
-  example.code = originExample
+  example.content = originExample
 </script>
         
 

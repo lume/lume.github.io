@@ -90,7 +90,7 @@ const projectedTextureExample = stripIndent(html`
 		<lume-box
 			id="box"
 			has="projected-material"
-			projected-textures="#projectedTexture"
+			texture-projectors="#projectedTexture"
 			sidedness="double"
 			cast-shadow="true"
 			receive-shadow="true"
@@ -133,7 +133,7 @@ const projectedTextureExample = stripIndent(html`
 
 		<lume-plane
 			has="projected-material"
-			projected-textures="#projectedTexture"
+			texture-projectors="#projectedTexture"
 			size="800 800"
 			color="cyan"
 			rotation="90"
@@ -149,7 +149,7 @@ const projectedTextureExample = stripIndent(html`
 				<input
 					type="checkbox"
 					checked
-					onchange="box.getAttribute('projected-textures') === 'none' ? box.setAttribute('projected-textures', '#projectedTexture') : box.setAttribute('projected-textures', 'none')"
+					onchange="box.getAttribute('texture-projectors') === 'none' ? box.setAttribute('texture-projectors', '#projectedTexture') : box.setAttribute('texture-projectors', 'none')"
 				/>
 			</label>
 			<br />
@@ -1322,7 +1322,7 @@ const instancedMeshExample = stripIndent(html`
 			position="500 500 500"
 		></lume-camera-rig>
 
-		<!-- FIXME: this works: -->
+		<!-- CONINUE FIXME: this works: -->
 		<!-- <lume-mesh has="sphere-geometry" size="30 30 30"></lume-mesh> -->
 		<!-- this doesn't: -->
 		<!-- <lume-mesh has="sphere-geometry phong-material" size="30 30 30"></lume-mesh> -->

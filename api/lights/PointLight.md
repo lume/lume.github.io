@@ -17,7 +17,7 @@ All mesh elements [receive](../meshes/Mesh#receiveshadow) or
 
 <live-code id="liveExample"></live-code>
 <script>
-  liveExample.code = pointLightExample()
+  liveExample.content = pointLightExample()
 </script>
 
 ## Properties

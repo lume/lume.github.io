@@ -62,7 +62,7 @@ See the [events guide](TODO) for how the event system works.
 
 <live-code id="liveExample"></live-code>
 <script>
-  liveExample.code = miniGalaxyDemo()
+  liveExample.content = miniGalaxyDemo()
 </script>
 
 ## Properties

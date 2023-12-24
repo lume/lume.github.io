@@ -5,9 +5,9 @@
 LUME elements can load various types of external assets.
 
 The following demo shows how to load a 3D model in OBJ format using the
-`<obj-model>` element. It also shows how to use a `<lume-element3d>` element with an
-`obj-model` [behavior](./element-behaviors). The `<obj-model>` element is a
-shortcut for the equivalent of a `<lume-element3d has="obj-model">`.
+`<lume-obj-model>` element. It also shows how to use a `<lume-element3d>` element with an
+`obj-model` [behavior](./element-behaviors). The `<lume-obj-model>` element is simply a
+shortcut for `<lume-element3d has="obj-model">`.
 
 <div id="objModel"></div>
 <live-code>

@@ -148,7 +148,7 @@ export const PictureFrameScene = element('picture-frame-scene')(
 									receive-shadow="false"
 									----material
 									color="#ddd"
-									projected-textures=${'#tex' + i}
+									texture-projectors=${'#tex' + i}
 									xmetalness="0.8"
 									roughness="0.3"
 									clearcoat="1"

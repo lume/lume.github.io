@@ -1,0 +1,538 @@
+<script src="../../importmap.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Lights and shadows are powered by WebGL, but written with HTML: -->
+<div id="sceneContainer">
+	<lume-scene
+		id="scene"
+		webgl="true"
+		enable-css="true"
+		perspective="600"
+		shadowmap-type="pcfsoft"
+		physically-correct-lights
+		perspective="800"
+		environment="https://docs.lume.io/examples/nasa-astrobee-robot/luna-station.jpg"
+		background="https://docs.lume.io/examples/nasa-astrobee-robot/luna-station.jpg"
+		background-blur="0.035"
+		equirectangular-background="true"
+	>
+		<lume-ambient-light color="#ffffff" intensity="0.5"></lume-ambient-light>
+
+		<lume-camera-rig
+			id="rig"
+			align-point="0.5 0.5"
+			dolly-speed="0"
+			distance="800"
+			max-distance="5000"
+			min-distance="0.2"
+			max-vertical-angle="30"
+			min-vertical-angle="-30"
+			max-horizontal-angle="40"
+			min-horizontal-angle="-40"
+		>
+			<lume-point-light
+				id="light"
+				color="white"
+				size="0 0 0"
+				position="800 0 800"
+				intensity="2000"
+				shadow-map-width="2048"
+				shadow-map-height="2048"
+				shadow-radius="10"
+				shadow-bias="-0.001"
+				shadow-camera-far="3000"
+				slot="camera-child"
+			>
+				<lume-mesh
+					id="bulb"
+					has="sphere-geometry basic-material"
+					size="10 10 10"
+					mount-point="0.5 0.5 0.5"
+					color="white"
+					receive-shadow="false"
+					cast-shadow="false"
+					style="pointer-events: none"
+				></lume-mesh>
+			</lume-point-light>
+		</lume-camera-rig>
+
+		<lume-element3d align-point="0.5 0.5">
+			<lume-gltf-model
+				id="skateboardModel"
+				src="./skateboard/scene.gltf"
+				visible="false"
+				xscale="500 500 500"
+				xrotation="90 90 0"
+			></lume-gltf-model>
+
+			<lume-element3d id="skateboard" xvisible="false" xscale="500 500 500" rotation="90 90 0"></lume-element3d>
+
+			<!-- We'll use JS to associate this with the dynamically-generated element in the GLTF model. -->
+			<lume-element3d id="projectorContainer">
+				<lume-texture-projector
+					id="deck-projector"
+					src="./lava-lamp-campanello-boards-maxallure.png"
+					position="0 0 0.3"
+					mount-point="0.5 0.5"
+					scale="0.88 1.015 1"
+				>
+					<!-- visualize the projector plane -->
+					<!-- <lume-plane id="debug" has="basic-material" wireframe size="1 1" size-mode="p p"></lume-plane> -->
+				</lume-texture-projector>
+			</lume-element3d>
+		</lume-element3d>
+	</lume-scene>
+</div>
+
+<div id="ui">
+	<div id="uiInner">
+		<h1>Deck</h1>
+
+		<div id="deckImgs">
+			<div class="row">
+				<img draggable="false" src="lava-lamp-campanello-boards-maxallure.png" />
+				<img draggable="false" src="lava-lamp-montoya-boards-maxallure.png" />
+				<img draggable="false" src="lava-lamp-perez-boards-maxallure.png" />
+				<img draggable="false" src="lava-lamp-thebpanya-boards-maxallure.png" />
+			</div>
+		</div>
+
+		<h1>Trucks</h1>
+
+		<div id="truckBtns">
+			<div class="row">
+				<button gray></button>
+				<button black></button>
+				<button lightpurple></button>
+				<button turquoise></button>
+			</div>
+			<div class="row">
+				<button royalblue></button>
+				<button rebeccapurple></button>
+				<button white></button>
+				<button orange></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	body,
+	html {
+		height: 100%;
+		margin: 0;
+		background: black;
+		overflow: hidden;
+	}
+
+	#sceneContainer {
+		cursor: grab;
+
+		/*
+		 * This emulates CSS perspective-origin for the lume-scene, which is off center to
+		 * the right by uiWidth/2 on desktop, or off center upward by uiHeight/2,
+		 * so that we can center the skateboard in the area that is not covered by
+		 * the UI.
+		 *
+		 * TODO implement `<lume-scene perspective-origin="...">`
+		 */
+		--ui-width: 1px; /*calc'd by JS*/
+		--ui-height: 1px; /*calc'd by JS*/
+		width: calc(100% + var(--ui-width));
+		height: 100%;
+		@media (max-width: 720px) {
+			width: 100%;
+			height: calc(100% + var(--ui-height));
+
+			/* Make the scene shift upward instead of downward because the mobile UI is on bottom. */
+			position: absolute;
+			bottom: 0px;
+		}
+	}
+
+	.grabbing {
+		cursor: grabbing;
+	}
+
+	#ui {
+		--edge-pad: 10px;
+		--ui-outer-pad: 0px;
+		--ui-inner-pad: 10px;
+		--ui-button-size: 100px;
+		--ui-button-radius: 20px;
+		--ui-panel-radius: calc(var(--ui-button-radius) + var(--ui-inner-pad));
+		@media (max-width: 720px) {
+			--ui-button-size: 50px;
+			--ui-button-radius: 10px;
+		}
+
+		user-select: none;
+		/* color: white; */
+		color: #666;
+		font-family: sans-serif;
+		/* background: rgba(255, 255, 255, 0.6); */
+		backdrop-filter: blur(10px);
+		border-radius: var(--ui-panel-radius);
+		padding: var(--ui-outer-pad);
+		position: absolute;
+		top: var(--edge-pad);
+		left: var(--edge-pad);
+		max-height: calc(100% - 2 * var(--edge-pad));
+		max-width: calc(100% - 2 * var(--edge-pad));
+		box-sizing: border-box;
+		scrollbar-gutter: stable;
+		overflow: auto;
+
+		@media (max-width: 720px) {
+			top: unset;
+			bottom: var(--edge-pad);
+
+			& h1 {
+				font-size: 1.4em;
+			}
+
+			& h1:first-of-type {
+				margin-top: 0px;
+			}
+		}
+	}
+
+	#uiInner {
+		background: rgba(255, 255, 255, 0.4);
+		border-radius: calc(var(--ui-panel-radius) - var(--ui-outer-pad));
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		padding: var(--ui-inner-pad);
+
+		/* &[campanello] {
+			background: rgba(81, 103, 176, 0.4);
+		}
+		&[montoya] {
+			background: rgba(169, 44, 174, 0.4);
+		}
+		&[perez] {
+			background: rgba(255, 46, 0, 0.4);
+		}
+		&[thebpanya] {
+			background: rgba(134, 104, 178, 0.4);
+		} */
+
+		/* 81 103 176 0.4
+		169 44 174 0.4
+		255 81 0 0.4
+		134, 104, 178, 0.4 */
+	}
+
+	#deckImgs {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		width: max-content;
+
+		@media (max-width: 720px) {
+			flex-direction: row;
+			max-width: calc(100%);
+			overflow: auto;
+		}
+
+		@media (max-width: 720px) {
+			max-width: calc(100%);
+			overflow: auto;
+		}
+
+		& .row {
+			display: flex;
+			gap: 10px;
+		}
+
+		& img {
+			cursor: pointer;
+
+			touch-action: none;
+			@media (max-width: 720px) {
+				touch-action: auto;
+			}
+
+			pointer-events: auto;
+			display: block;
+			width: var(--ui-button-size);
+			height: var(--ui-button-size);
+			object-fit: cover;
+			border-radius: var(--ui-button-radius);
+		}
+	}
+
+	#truckBtns {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		width: max-content;
+
+		@media (max-width: 720px) {
+			flex-direction: row;
+			max-width: calc(100%);
+			overflow: auto;
+		}
+
+		& .row {
+			display: flex;
+			gap: 10px;
+		}
+
+		& button {
+			cursor: pointer;
+			pointer-events: auto;
+			display: block;
+			width: var(--ui-button-size);
+			height: var(--ui-button-size);
+			border-radius: var(--ui-button-radius);
+			border: none;
+		}
+
+		& button[gray] {
+			background: #aaa;
+		}
+
+		& button[black] {
+			background: black;
+		}
+
+		& button[lightpurple] {
+			background: rgb(168, 100, 192);
+		}
+
+		& button[turquoise] {
+			background: turquoise;
+		}
+
+		& button[royalblue] {
+			background: royalblue;
+		}
+
+		& button[rebeccapurple] {
+			background: rebeccapurple;
+		}
+
+		& button[white] {
+			background: white;
+		}
+
+		& button[orange] {
+			background: tomato;
+		}
+	}
+</style>
+
+<script type="module">
+	import {Motor, Events, setBehaviors} from 'lume'
+	import {createEffect, untrack} from 'solid-js'
+	import {Vector3} from 'three'
+	// import '@solid-devtools/debugger/dist/setup.js'
+	// import {debugComputation} from '@solid-devtools/logger'
+
+	const graphics = [
+		'lava-lamp-campanello-boards-maxallure.png',
+		'lava-lamp-montoya-boards-maxallure.png',
+		'lava-lamp-perez-boards-maxallure.png',
+		'lava-lamp-thebpanya-boards-maxallure.png',
+	]
+
+	const imgs = document.getElementById('deckImgs')
+	const projector = document.getElementById('deck-projector')
+	const projectorContainer = document.getElementById('projectorContainer')
+	const rig = document.getElementById('rig')
+	const camera = rig.shadowRoot.querySelector('lume-perspective-camera')
+	const scene = document.getElementById('scene')
+	const sceneContainer = document.getElementById('sceneContainer')
+	const skateboard = document.getElementById('skateboard')
+	const skateboardModel = document.getElementById('skateboardModel')
+	const ui = document.getElementById('ui')
+
+	camera.near = 0.1
+
+	// projector.position = (x, y, z, t) => [0.1 * Math.sin(t * 0.001), y, z]
+
+	createEffect(() => {
+		// The size of the skateboard is just less than a pixel, hence we can easily scale it based on scene pixel dimensions to fix the screen.
+		const scale = [scene.calculatedSize.y * 1.3, scene.calculatedSize.y * 1.3, scene.calculatedSize.y * 1.3]
+		skateboard.scale = scale
+		projectorContainer.scale = scale
+	})
+
+	createEffect(() => {
+		const modelBehavior = skateboardModel.behaviors.get('gltf-model')
+		if (!modelBehavior) return
+
+		if (modelBehavior.model) onModelLoad()
+		else skateboardModel.on('MODEL_LOAD', onModelLoad)
+	})
+
+	const rad = deg => Math.PI * (deg / 180)
+	const deg = rad => 180 * (rad / Math.PI)
+
+	function onModelLoad() {
+		skateboard.append(toLume(skateboardModel.three))
+
+		setTimeout(() => {
+			const deck = document.getElementById('deck_basic002_0')
+
+			createEffect(() => (projector.size = [deck.size.y, deck.size.x]))
+
+			const trucks = document.getElementById('trucks_basic_0')
+			const truckBtns = document.getElementById('truckBtns')
+
+			handleTruckButtonClick(truckBtns, trucks)
+		}, 10)
+	}
+
+	/**
+	 * Converts a Three.js tree to a Lume element tree.
+	 */
+	function toLume(three) {
+		/** @type {HTMLElement} */
+		let el
+
+		if (three.isMesh) {
+			el = document.createElement('lume-mesh')
+
+			// Replace the geometry after the default geo is loaded
+			createEffect(() => {
+				// TODO glLoaded is deprecated, but remove this and the desired
+				// material gets replaced by behavior material with default
+				// values and looks metallic.
+				if (!el.glLoaded) return
+
+				const newGeometry = three.geometry.clone()
+				const newMaterial = three.material.clone()
+
+				// move geometry center to local origin
+				newGeometry.computeBoundingBox()
+				const box = newGeometry.boundingBox
+				const center = new Vector3()
+				box.getCenter(center)
+				newGeometry.center()
+
+				// move lume element to the previous geometry center instead (Y is down in Lume)
+				el.position.set(center.x, -center.y, center.z)
+				el.mountPoint.set(0.5, 0.5, 0.5)
+
+				// give the Lume element the same size as the geometry
+				// box, useful for seeing the hover reticle in devtools
+				// element inspector
+				const size = new Vector3()
+				box.getSize(size)
+				el.size.set(size.x, size.y, size.z)
+
+				// TODO set behaviors and copy properties over, instead
+				// of setting geometry/material directly on three,
+				// because then these are out of the control of the
+				// behaviors.
+				el.three.geometry = newGeometry
+				el.three.material = newMaterial
+
+				el.needsUpdate()
+
+				untrack(() => {
+					// setTimeout(() => {
+					// TODO should not need a timeout here.
+
+					// VISITOR /////////////////////////////////////
+					setBehaviors(el, {material: 'projected'})
+
+					if (el.id === 'deck_basic002_0') {
+						el.textureProjectors = ['#deck-projector']
+						el.roughness = 0.3
+					} else if (el.id === 'wheels_basic_0') {
+						el.roughness = 0.4
+						el.color = '#ccc'
+					} else {
+						el.roughness = 0.15
+						el.metalness = 1
+						el.color = '#aaa'
+					}
+				})
+			})
+		} else if (three.isGroup || three.isObject3D) {
+			el = document.createElement('lume-element3d')
+			el.three // Read it first so that .__three exists.
+			el.__three = three.clone(false) // TODO make el.three have a setter instead of using private field here?
+		}
+
+		if (three.name) el.id = three.name
+
+		el.rotation.set(-deg(three.rotation.x), deg(three.rotation.y), -deg(three.rotation.z))
+
+		for (const childThree of three.children) el.append(toLume(childThree))
+
+		return el
+	}
+
+	function handleTruckButtonClick(truckBtns, trucks) {
+		truckBtns.addEventListener('click', event => {
+			if (event.target.tagName !== 'BUTTON') return
+			const bg = getComputedStyle(event.target).backgroundColor
+			trucks.color = bg
+			if (['white', 'black', 'lightpurple'].some(color => event.target.hasAttribute(color))) {
+				// trucks.roughness = 0.15
+				trucks.metalness = 0
+			} else {
+				// trucks.roughness = 0.15
+				trucks.metalness = 1
+			}
+		})
+	}
+
+	handleDeckImageClick()
+
+	function handleDeckImageClick() {
+		imgs.addEventListener('click', event => {
+			if (event.target.tagName !== 'IMG') return
+			projector.src = event.target.src
+		})
+	}
+
+	// TODO translate the texture on move.
+	let shift = false
+	document.addEventListener('keydown', event => (shift = event.shiftKey))
+	document.addEventListener('keyup', event => (shift = event.shiftKey))
+	document.addEventListener('pointermove', () => {
+		console.log('shift', shift)
+	})
+
+	let uiWidth = 1
+	let uiHeight = 1
+
+	const ro = new ResizeObserver(observations => {
+		uiWidth = observations[0].contentBoxSize[0].inlineSize
+		uiHeight = observations[0].contentBoxSize[0].blockSize
+		sceneContainer.style.setProperty('--ui-width', uiWidth + 'px')
+		sceneContainer.style.setProperty('--ui-height', uiHeight + 'px')
+
+		resizeScene()
+	})
+
+	ro.observe(ui)
+
+	window.addEventListener('resize', resizeScene)
+
+	function resizeScene() {
+		// Use a timeout to avoid a bug in Chrome/Edge where window.innerWidth
+		// is not accurate until after the ResizeObserver runs. Namely this bug
+		// happens when toggling mobile emulation mode in devtools and the
+		// window resize is not observed. A timeout value of 0 is too low.
+		setTimeout(() => {
+			if (window.innerWidth > 720) rig.distance = 800
+			else rig.distance = 1200
+		}, 10)
+	}
+
+	scene.addEventListener('pointerdown', event => {
+		if (!event.isPrimary) return
+		scene.classList.add('grabbing')
+	})
+
+	scene.addEventListener('pointerup', event => {
+		if (!event.isPrimary) return
+		scene.classList.remove('grabbing')
+	})
+</script>

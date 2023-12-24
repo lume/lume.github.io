@@ -28,11 +28,12 @@ lense of that camera, and we can manipulate that camera to control our view.
 
 # Camera Rig
 
-The [`<lume-camera-rig>`](../api/cameras/CameraRig) element is much like a
-real-life camera rig that contains a camera on it: it has controls to allow the
-user to rotate and dolly the camera around in physical space more easily, in a
-particular and specific. In the following example, try draging to rotate,
-scrolling to zoom:
+The [`<lume-camera-rig>`](../api/cameras/CameraRig) element is similar to a
+real-life camera rig that holds a camera making it easy to move the camera in space using controls for rotating
+the camera around or moving the camera closer or further to or from a focus point.
+
+In the following example, drag to rotate the camera around the camera rig's
+local origin, and scroll or pinch with fingers to zoom:
 
 <live-code id="rigExample"></live-code>
 

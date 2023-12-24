@@ -21,7 +21,7 @@ texture is used, for now.
 
 <live-code id="example"></live-code>
 <script>
-  example.code = projectedTextureExample
+  example.content = projectedTextureExample
 </script>
 
 ## Properties

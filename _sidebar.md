@@ -71,6 +71,7 @@
   - [ProjectedMaterialBehavior](/api/behaviors/mesh-behaviors/materials/ProjectedMaterialBehavior.md)
   - [StandardMaterialBehavior](/api/behaviors/mesh-behaviors/materials/StandardMaterialBehavior.md)
   - cameras/
+  - [Camera](/api/cameras/Camera.md)
   - [CameraRig](/api/cameras/CameraRig.md)
   - [PerspectiveCamera](/api/cameras/PerspectiveCamera.md)
   - core/

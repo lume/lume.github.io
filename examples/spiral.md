@@ -3,7 +3,7 @@
 <live-code id="example" class="full" mode="html>iframe"></live-code>
 
 <script>
-  example.code = morphingSpiralExample
+  example.content = morphingSpiralExample
 </script>
 
 <!-- TODO show demo information without breaking the full height demo view:

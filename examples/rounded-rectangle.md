@@ -4,6 +4,10 @@
   <template>
   <base href="${host}" /><script src="./importmap.js"></script>
 
+  <script>
+    console.log('  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ')
+  </script>
+
   <style>
       body, html {
           width: 100%;

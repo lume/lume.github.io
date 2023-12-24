@@ -16,7 +16,7 @@ behavior on this element to load a set of points from a file.
 
 <live-code id="example"></live-code>
 <script>
-  example.code = lineExample
+  example.content = lineExample
 </script>
 
 

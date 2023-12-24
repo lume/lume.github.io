@@ -77,8 +77,8 @@ The highest angle that the camera will rotate vertically.
 <live-code id="verticalExample"></live-code>
 
 <script>
-  example.code = cameraRigExample
-  verticalExample.code = cameraRigVerticalRotationExample
+  example.content = cameraRigExample
+  verticalExample.content = cameraRigVerticalRotationExample
 </script>
         
 
