@@ -402,7 +402,7 @@
 	const ui = document.getElementById('ui')
 
 	const loadPromises = [
-		fetch('https://docs.lume.io/examples/nasa-astrobee-robot/luna-station.jpg'),
+		fetch('../nasa-astrobee-robot/luna-station-small.jpg'),
 		// window.onload catches the deck image loads because they are in the initial img elements
 		new Promise(resolve => (window.onload = resolve)),
 	]
