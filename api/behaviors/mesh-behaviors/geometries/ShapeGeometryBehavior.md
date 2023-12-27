@@ -15,7 +15,7 @@ only.
 
 <live-code id="example"></live-code>
 <script>
-  example.code = shapesExample
+  example.content = shapesExample
 </script>
 
 ## Properties

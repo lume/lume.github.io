@@ -6,10 +6,14 @@
 
 <loading-icon id="loading"></loading-icon>
 
+<script>
+	import('lume/dist/examples/LoadingIcon.js')
+</script>
+
 <lume-scene id="scene" perspective="800" webgl enable-css="false" class="hidden">
   <lume-point-light id="light" position="200 -200 200" intensity="3" color="deeppink"></lume-point-light>
   <lume-ambient-light color="white" intensity="0.6"></lume-ambient-light>
-  <lume-camera-rig active rotation="0 -110 0" initial-distance="500" max-distance="1200" min-distance="100" initial-polar-angle="30"></lume-camera-rig>
+  <lume-camera-rig active rotation="0 -110 0" distance="500" max-distance="1200" min-distance="100" vertical-angle="30"></lume-camera-rig>
   <lume-gltf-model src="/examples/velodyne-lidar-scan/puck.gltf"></lume-gltf-model>
   <!--
     Use a ply-behavior on an element with geometry (such as <lume-mesh> or

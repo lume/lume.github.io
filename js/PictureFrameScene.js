@@ -23,6 +23,11 @@ export const PictureFrameScene = element('picture-frame-scene')(
 			/*:host {display: contents}*/
 		`
 
+		// TODO make these configurable, with an auto-height option based on aspect.
+		frameWidth = 200
+		frameHeight = 280
+		frameThickness = 15
+
 		template = () => html`
 			<lume-scene perspective="800" webgl shadowmap-type="pcfsoft" physically-correct-lights>
 				<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
@@ -41,13 +46,13 @@ export const PictureFrameScene = element('picture-frame-scene')(
 				<lume-cube-layout size="1000 1000 1000" position="0 0 0" mount-point="0.5 0.5" align-point="0.5 0.5">
 					<!-- the light is not assigned to a slot, so it goes to the default slot like a regular child of the cube layout. -->
 					<flickering-orb
-						color="#c98a19"
+						color="white"
 						shadow-bias="-0.0001"
 						shadow-map-width="2024"
 						shadow-map-height="2024"
 						align-point="0.5 0.3 0.2"
-						intensity="2500"
-						flicker-range="1500"
+						intensity="800"
+						flicker-range="0"
 					></flickering-orb>
 
 					${/*<!-- Walls --------------------------------------------------------->*/ ''}
@@ -75,7 +80,11 @@ export const PictureFrameScene = element('picture-frame-scene')(
 				</lume-cube-layout>
 
 				${/*<!-- picture frame container -------------------------------->*/ ''}
-				<lume-element3d size="200 200 15" mount-point="0.5 0.5" align-point="0.5 0.5">
+				<lume-element3d
+					size=${[this.frameWidth, this.frameHeight, this.frameThickness]}
+					mount-point="0.5 0.5"
+					align-point="0.5 0.5"
+				>
 					<lume-camera-rig
 						active="false"
 						vertical-angle="10"
@@ -85,18 +94,18 @@ export const PictureFrameScene = element('picture-frame-scene')(
 						min-horizontal-angle=${() => (this.debug ? -Infinity : -35)}
 						max-horizontal-angle=${() => (this.debug ? Infinity : 35)}
 						distance="700"
-						max-distance=${() => (this.debug ? Infinity : 900)}
-						min-distance=${() => (this.debug ? 0 : 200)}
+						max-distance=${() => (this.debug ? Infinity : 1200)}
+						min-distance=${() => (this.debug ? 0 : 500)}
 						align-point="0.5 0.5"
 					>
-						<lume-perspective-camera active slot="camera-child" near="80" far="10000"></lume-perspective-camera>
+						<lume-perspective-camera active slot="camera-child" near="80" far="2000"></lume-perspective-camera>
 					</lume-camera-rig>
 
 					${'' /*<!-- picture -------------------------------->*/}
 					<lume-plane
 						id="box"
 						has="physical-material"
-						roughness="0.3"
+						roughness="0.4"
 						color="white"
 						texture=${() => this.picture}
 						size-mode="proportional proportional"
@@ -137,18 +146,18 @@ export const PictureFrameScene = element('picture-frame-scene')(
 								flipClip: true,
 							},
 						].map((frame, i) => {
-							return html`<lume-element3d size="0 0 15" align-point=${frame.alignPoint}>
+							return html`<lume-element3d size=${[0, 0, this.frameThickness]} align-point=${frame.alignPoint}>
 								<lume-shape
 									id=${'shape' + i}
 									has="clip-planes projected-material"
-									size="15 15 240"
+									size=${[this.frameThickness, this.frameThickness, this.frameHeight + this.frameThickness * 2]}
 									rotation=${frame.rotation}
 									align-point="0 0 0.5"
 									mount-point=${frame.mountPoint}
 									receive-shadow="false"
 									----material
 									color="#ddd"
-									projected-textures=${'#tex' + i}
+									texture-projectors=${'#tex' + i}
 									xmetalness="0.8"
 									roughness="0.3"
 									clearcoat="1"
@@ -162,7 +171,7 @@ export const PictureFrameScene = element('picture-frame-scene')(
 								></lume-shape>
 								<lume-texture-projector
 									id=${'tex' + i}
-									size="15 240"
+									size=${[this.frameThickness, this.frameHeight + this.frameThickness * 2]}
 									src=${this.frameTexture}
 									position="0 0 100"
 									mount-point="0.5 0.5"

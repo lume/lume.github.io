@@ -9,7 +9,7 @@ only on elements that have a geometry and material.
 
 <live-code id="example"></live-code>
 <script>
-  example.code = clipPlaneExample
+  example.content = clipPlaneExample
 </script>
 
 ## Properties

@@ -22,6 +22,10 @@
   }
 </style>
 
+<script>
+  import('lume/dist/examples/LoadingIcon.js')
+</script>
+
 <astrobee-app id="astrobee">
 
 <script type="module">
@@ -67,11 +71,11 @@
                 <lume-camera-rig
                   ref=${el => this.cameraRig = el}
                   active=${() => this.view === 'free'}
-                  initial-polar-angle="30"
+                  vertical-angle="30"
                   min-distance="0.4"
-                  max-distance="2"
+                  max-distance="6"
                   dolly-speed="0.002"
-                  initial-distance="1"
+                  distance="2"
                 />
                 <lume-element3d rotation=${() => [this.view === 'top' ? -90 : 0, 0, 0]}>
                   <lume-perspective-camera ref=${el => this.freeCam = el} active=${() => this.view !== 'free'} position="0 0 0.7" />
@@ -234,7 +238,7 @@
         await Promise.all(promises)
 
         this.sceneContainer.classList.remove('hidden')
-        this.loading.classList.add('hidden')
+        this.loading.remove()
       }
     }
 

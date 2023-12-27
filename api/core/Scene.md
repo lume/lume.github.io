@@ -18,10 +18,7 @@ have the appearance of being obscured by a haze.
 The following example shows how to begin making a LUME scene within an HTML
 file. To learn more about how to get started, see the [install guide](../../guide/install.md).
 
-<live-code id="liveExample"></live-code>
-<script>
-  liveExample.code = sceneExample()
-</script>
+<live-code src="../../examples/scene.html"></live-code>
 
 ## Properties
 
@@ -164,15 +161,43 @@ Applies only if [`webgl`](#webgl) is `true`.
         
 
 
+### <code>.<b>backgroundIntensity</b></code> :id=backgroundIntensity
+
+*attribute*
+
+Default: `0`
+
+A number between `0` and `1` that defines the intensity of the
+`background` when WebGL is enabled. If the value is 1, the background
+will be brightest, and if the value is 0 the background will be black.
+
+This applies only if [`webgl`](#webgl) is `true` and the
+[`background`](#background) property is set.
+        
+
+
+### <code>.<b>backgroundBlur</b></code> :id=backgroundBlur
+
+**`experimental`** *attribute*
+
+Default: `0`
+
+If [`background`](#background) is set, the background will be blurred by
+the given amount.
+
+Applies only if [`webgl`](#webgl) is `true`.
+        
+
+
 ### <code>.<b>equirectangularBackground</b></code> :id=equirectangularBackground
 
 *attribute*
 
 Default: `false`
 
-If the `background`
-is equirectangular, set this to `true` so use it like a skybox,
-otherwise the image will be used as a regular 2D background image.
+If the [`background`](#background) is equirectangular, set this to `true`
+so use it like a skybox, otherwise the image will be used as a regular 2D
+background image.
 
 Applies only if [`webgl`](#webgl) is `true`.
         
@@ -331,20 +356,22 @@ infinitely big (respectively) when it comes to CSS rendering.
 
 Default: `400`
 
-This property behaves just like CSS perspective
-when using CSS transforms, but also applies to LUME's WebGL rendering when using a scene's
-default camera. If using a custom camera (for example a `<lume-perspective-camera>` element) then this
-value does not (currently) have any effect.
+This property behaves identical to CSS perspective
+(https://developer.mozilla.org/en-US/docs/Web/CSS/perspective) when using
+a scene's default camera, adjusting its fov and Z position. If using a
+custom camera (for example a `<lume-perspective-camera>`) then this value
+affects only the camera's fov, unless we specify a non-zero fov value for
+the custom camera.
 
 The value sets the default camera's Z position to the given value (relative to the world
 origin, 0,0,0). Note that the default camera points in the -z direction, therefore a value
 of 800 means the camera is at position 0,0,800 looking directly at the world origin
-at 0,0,0. Furthermore, based on the chosen value, the camera's aspect ratio and zoom
+at 0,0,0. Furthermore, based on the chosen value, the camera's aspect ratio and fov
 will be adjusted such that if there were a plane positioned at 0,0,0, perpendicular
 to the camera's line of sight, and having the same dimensions as the scene's viewport
 in screen pixels, then the plane would fit perfectly in the view, and one unit on that
-plane would coincide with one pixel on the screen; essentially that plane would be lined
-up perfectly with the screen surface. This is the same meaning that CSS perspective has.
+plane would coincide with one CSS pixel on the screen; essentially that plane would be lined
+up perfectly with the screen surface.
 
 Applies with both CSS and WebGL rendering.
         
@@ -354,13 +381,22 @@ Applies with both CSS and WebGL rendering.
 
 *readonly*
 
-The current active THREE.Camera being
-used by the scene. It will be a default camera if no camera was manually
-specified by a camera element such as `<lume-perspective-camera>`, in
-which case the scene's `perspective` property is used for configuring the
-default camera. If a manual camera element is set active with an
-`active` attribute, then this property will return the currently
-active THREE.Camera represented by the active camera element.
+The current active `THREE.Camera` being used to render visuals.
+
+If no Lume camera element such as `<lume-perspective-camera>` is active,
+this returns the default `THREE.Camera` that the scene uses internally.
+
+If a camera element is set active with an `active` attribute (f.e.
+`<lume-perspective-camera active>`, then this property will return the
+`THREE.Camera` from the active camera element.
+
+The scene's [`.perspective`](#perspective) property is used for
+configuring the default camera view's fov and Z position to behave
+identical to CSS `perspective` by default. This behavior can be bypassed
+by using a `<lume-perspective-camera>` element manually, and configuring
+its [`.aspect`](../cameras/PerspectiveCamera#aspect) and
+[`fov`](../cameras/PerspectiveCamera#fov) properties or attributes to
+non-zero values.
 
 Applies with both CSS and WebGL rendering.
         
@@ -387,6 +423,16 @@ positioned starting at the top/left.
 
 
 ### <code>.<b>glRenderer</b></code> :id=glRenderer
+
+*readonly*
+
+Returns the scene's underlying
+[THREE.WebGLRenderer](https://threejs.org/docs/index.html#api/en/renderers/WebGLRenderer)
+for custom uses, or `null` when GL rendering is not enabled.
+        
+
+
+### <code>.<b>cssRenderer</b></code> :id=cssRenderer
 
 *readonly*
 

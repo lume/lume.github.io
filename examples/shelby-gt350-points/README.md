@@ -30,12 +30,16 @@
 
 <loading-icon id="loading"></loading-icon>
 
+  <script>
+    import('lume/dist/examples/LoadingIcon.js')
+  </script>
+
   <lume-scene id="scene" perspective="800" webgl class="hidden">
     <lume-element3d position="-250 0 0">
       <lume-point-light id="light" intensity="3" color="limegreen"></lume-point-light>
     </lume-element3d>
     <lume-ambient-light color="white" intensity="0.6"></lume-ambient-light>
-    <lume-camera-rig active rotation="0 -150 0" initial-distance="400" max-distance="700" min-distance="100"></lume-camera-rig>
+    <lume-camera-rig active rotation="0 -150 0" distance="400" max-distance="700" min-distance="100"></lume-camera-rig>
     <!--
     Use a ply-behavior on an element with geometry (such as <lume-mesh> or
     <lume-points>) to load geometry points from a PLY file.

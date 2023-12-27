@@ -11,10 +11,7 @@ light in all directions.
 
 ## Example
 
-<live-code id="liveExample"></live-code>
-<script>
-  liveExample.code = spotLightExample()
-</script>
+<live-code src="../../examples/spotlight.html"></live-code>
 
 ## Properties
 

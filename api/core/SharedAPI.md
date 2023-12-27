@@ -41,45 +41,30 @@ The value should be a number from `0` to `1`. `0` is fully transparent, and `1` 
         
 
 
+### <code>.<b>debug</b></code> :id=debug
+
+`attribute`
+
+Default: `false`
+
+When `true`, show debug visuals for the object. Not all objects implement
+debug visuals yet.
+        
+
+
 ### <code>.<b>glLoaded</b></code> :id=glLoaded
 
-*readonly*, *signal*
+DEPRECATED Now always true. For logic depending on this in an effect (f.e. returning early when false), instead init things when an element is connected, and uninit when an element is disconnected.
 
-Returns a boolean indicating whether or not the WebGL rendering features
-of a LUME element are loaded and ready.
-
-All elements in a `<lume-scene>` have WebGL rendering disabled by
-default.
-
-If a `<lume-scene>` element has its `webgl` attribute set to
-`"false"` (the default), then `glLoaded` will always return `false` for any LUME
-elements in the scene.
-
-If a `<lume-scene>` element has the `webgl` attribute set to
-`"true"`, then `glLoaded` will return `true` for any LUME
-elements in the scene *after* their WebGL APIs have been loaded
-(`false` up until then).
+*readonly*
         
 
 
 ### <code>.<b>cssLoaded</b></code> :id=cssLoaded
 
-*readonly*, *signal*
+DEPRECATED Now always true. For logic depending on this in an effect (f.e. returning early when false), instead init things when an element is connected, and uninit when an element is disconnected.
 
-Returns a boolean indicating whether or not the CSS rendering features
-of a LUME element are loaded and ready.
-
-All elements in a `<lume-scene>` have CSS rendering enabled by
-default.
-
-If a `<lume-scene>` element has its `enable-css` attribute set to
-`"false"`, then `cssLoaded` will always return `false` for any LUME
-elements in the scene.
-
-If a `<lume-scene>` element has its `enable-css` attribute set to
-`"true"` (the default), then `cssLoaded` will return `true` for
-any LUME elements in the scene *after* their CSS APIs have been loaded
-('false' up until then).
+*readonly*
         
 
 

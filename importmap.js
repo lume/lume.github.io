@@ -60,6 +60,28 @@
 		'style-mod': './modules/style-mod/src/style-mod.js',
 		'thememirror/': './modules/thememirror/',
 		'w3c-keyname': './modules/w3c-keyname/index.js',
+
+		// debug
+		'@nothing-but/utils': './modules/@nothing-but/utils/dist/index.js',
+		'@solid-devtools/debugger': './modules/@solid-devtools/debugger/dist/index.js',
+		'@solid-devtools/debugger/types': './modules/@solid-devtools/debugger/dist/types.js',
+		'@solid-devtools/debugger/': './modules/@solid-devtools/debugger/',
+		'@solid-devtools/logger': './modules/@solid-devtools/logger/dist/index.js',
+		'@solid-devtools/shared/primitives': './modules/@solid-devtools/shared/dist/primitives/index.js',
+		'@solid-devtools/shared/utils': './modules/@solid-devtools/shared/dist/utils/index.js',
+		'@solid-primitives/bounds': './modules/@solid-primitives/bounds/dist/index.js',
+		'@solid-primitives/cursor': './modules/@solid-primitives/cursor/dist/index.js',
+		'@solid-primitives/event-bus': './modules/@solid-primitives/event-bus/dist/index.js',
+		'@solid-primitives/event-listener': './modules/@solid-primitives/event-listener/dist/index.js',
+		'@solid-primitives/keyboard': './modules/@solid-primitives/keyboard/dist/index.js',
+		'@solid-primitives/media': './modules/@solid-primitives/media/dist/index.js',
+		'@solid-primitives/platform': './modules/@solid-primitives/platform/dist/index.js',
+		'@solid-primitives/resize-observer': './modules/@solid-primitives/resize-observer/dist/index.js',
+		'@solid-primitives/rootless': './modules/@solid-primitives/rootless/dist/index.js',
+		'@solid-primitives/scheduled': './modules/@solid-primitives/scheduled/dist/index.js',
+		'@solid-primitives/static-store': './modules/@solid-primitives/static-store/dist/index.js',
+		'@solid-primitives/utils': './modules/@solid-primitives/utils/dist/index/index.js',
+		'@solid-primitives/utils/immutable': './modules/@solid-primitives/utils/dist/immutable/index.js',
 	}
 
 	for (const key in imports) imports[key] = base + imports[key]

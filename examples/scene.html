@@ -1,0 +1,25 @@
+<script src="../importmap.js"></script>
+
+<lume-scene id="scene" perspective="200">
+	<lume-element3d size="100 100" align-point="0.5 0.5" mount-point="0.5 0.5" rotation="0 30 0">
+		I am centered in the scene, and I am rotated a bit.
+	</lume-element3d>
+</lume-scene>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		width: 100%;
+	}
+	lume-element3d {
+		padding: 5px;
+		border: 1px solid skyblue;
+	}
+</style>
+
+<script type="module">
+	import 'lume'
+</script>

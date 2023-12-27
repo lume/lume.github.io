@@ -78,10 +78,7 @@ at each origin point on each cube. All cubes are initially oriented the
 same, but as you move the sliders, each cube rotates around their
 specific origin.
 
-<live-code id="example"></live-code>
-<script>
-  example.code = originExample
-</script>
+<live-code src="../../examples/positioning/origin.html"></live-code>
         
 
 

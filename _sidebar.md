@@ -6,12 +6,12 @@
   - [Custom Element Names](/guide/custom-element-names)
   - [Scene Graph](/guide/scene-graph)
   - [Common Attributes](/guide/common-attributes)
-  - [Positioning](/guide/positioning)
+  - [Positioning](/guide/positioning/)
   - [Sizing](/guide/sizing)
   - [Rendering Modes](/guide/rendering-modes)
   - [Reactivity](/guide/reactivity)
-  - [Cameras](/guide/cameras)
-  - [External Assets](/guide/external-assets)
+  - [Cameras](/guide/cameras/)
+  - [External Assets](/guide/external-assets/)
   - [Making Elements](/guide/making-elements)
   - [Compatibility](/guide/compatibility)
   - [Debugging](/guide/debugging)
@@ -22,7 +22,8 @@
   <!-- - [Hello 3D world!](/examples/hello3d.md ':class=no-sublist') -->
 
   - [Hello world!](/examples/hello-world/ ':class=no-sublist')
-  - [🎃🧛‍♂️🔥 Picture Frame](/examples/picture-frame ':class=no-sublist')
+  - [🎄 Skateboard Configurator](/examples/skateboard-configurator/ ':class=no-sublist')
+  - [Picture Frame](/examples/picture-frame ':class=no-sublist')
   - [NASA Astrobee Robot](/examples/nasa-astrobee-robot/ ':class=no-sublist')
   - [Velodyne Lidar Scan](/examples/velodyne-lidar-scan/ ':class=no-sublist')
   - [Shelby GT350 Points](/examples/shelby-gt350-points/ ':class=no-sublist')
@@ -71,6 +72,7 @@
   - [ProjectedMaterialBehavior](/api/behaviors/mesh-behaviors/materials/ProjectedMaterialBehavior.md)
   - [StandardMaterialBehavior](/api/behaviors/mesh-behaviors/materials/StandardMaterialBehavior.md)
   - cameras/
+  - [Camera](/api/cameras/Camera.md)
   - [CameraRig](/api/cameras/CameraRig.md)
   - [PerspectiveCamera](/api/cameras/PerspectiveCamera.md)
   - core/
@@ -82,6 +84,8 @@
   - [Sizeable](/api/core/Sizeable.md)
   - [Transformable](/api/core/Transformable.md)
   - [TreeNode](/api/core/TreeNode.md)
+  - examples/
+  - [LoadingIcon](/api/examples/LoadingIcon.md)
   - layouts/
   - [CubeLayout](/api/layouts/CubeLayout.md)
   - lights/

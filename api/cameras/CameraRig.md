@@ -77,8 +77,8 @@ The highest angle that the camera will rotate vertically.
 <live-code id="verticalExample"></live-code>
 
 <script>
-  example.code = cameraRigExample
-  verticalExample.code = cameraRigVerticalRotationExample
+  example.content = cameraRigExample
+  verticalExample.content = cameraRigVerticalRotationExample
 </script>
         
 
@@ -129,11 +129,15 @@ laterally around the focus point indefinitely.
 
 *attribute*
 
-Default: `1000`
+Default: `-1`
 
 The distance that the camera will be away from the center point.
 When the performing a scroll gesture, the camera will zoom by moving
 towards or away from the center point (i.e. dollying).
+
+A value of `-1` means automatic distance based on the current scene's
+[`.perspective`](../core/Scene#perspective), matching the behavior of
+[CSS `perspective`](https://developer.mozilla.org/en-US/docs/Web/CSS/perspective).
         
 
 
@@ -147,10 +151,13 @@ towards or away from the center point (i.e. dollying).
 
 *attribute*
 
-Default: `200`
+Default: `-1`
 
-The smallest distance the camera can get to the center point when zooming
+The smallest distance (a non-zero value) the camera can get to the center point when zooming
 by scrolling.
+
+A value of `-1` means the value will automatically be half of whatever
+the [`.distance`](#distance) value is.
         
 
 
@@ -158,10 +165,13 @@ by scrolling.
 
 *attribute*
 
-Default: `2000`
+Default: `-1`
 
-The largest distance the camera can get from the center point when
-zooming by scrolling.
+The largest distance (a non-zero value) the camera can get from the
+center point when zooming out by scrolling or with pinch gesture.
+
+A value of `-1` means the value will automatically be double of whatever
+the [`.distance`](#distance) value is.
         
 
 

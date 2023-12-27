@@ -14,9 +14,9 @@ To clip an element, add a
 element with the `has=""` attribute, then assign any number of connected
 `<lume-clip-plane>` elements to the element's `clipPlanes` property.
 
-<live-code id="example"></live-code>
+<live-code id="clipExample"></live-code>
 <script>
-  example.code = clipPlaneExample
+  clipExample.content = clipPlaneExample
 </script>
 
 

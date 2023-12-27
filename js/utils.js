@@ -75,7 +75,7 @@ const projectedTextureExample = stripIndent(html`
 	<lume-scene id="scene" perspective="800" webgl shadowmap-type="pcfsoft" class="hidden">
 		<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
 
-		<lume-camera-rig active initial-polar-angle="30" initial-distance="400" max-distance="7000" min-distance="100">
+		<lume-camera-rig active vertical-angle="30" distance="400" max-distance="7000" min-distance="100">
 			<lume-point-light
 				position="200 -200 200"
 				intensity="0.6"
@@ -90,7 +90,7 @@ const projectedTextureExample = stripIndent(html`
 		<lume-box
 			id="box"
 			has="projected-material"
-			projected-textures="#projectedTexture"
+			texture-projectors="#projectedTexture"
 			sidedness="double"
 			cast-shadow="true"
 			receive-shadow="true"
@@ -133,7 +133,7 @@ const projectedTextureExample = stripIndent(html`
 
 		<lume-plane
 			has="projected-material"
-			projected-textures="#projectedTexture"
+			texture-projectors="#projectedTexture"
 			size="800 800"
 			color="cyan"
 			rotation="90"
@@ -149,7 +149,7 @@ const projectedTextureExample = stripIndent(html`
 				<input
 					type="checkbox"
 					checked
-					onchange="box.getAttribute('projected-textures') === 'none' ? box.setAttribute('projected-textures', '#projectedTexture') : box.setAttribute('projected-textures', 'none')"
+					onchange="box.getAttribute('texture-projectors') === 'none' ? box.setAttribute('texture-projectors', '#projectedTexture') : box.setAttribute('texture-projectors', 'none')"
 				/>
 			</label>
 			<br />
@@ -198,7 +198,7 @@ function meshExample({geometry = 'box', material = 'phong', color = ''} = {}) {
 		<lume-scene id="scene" perspective="800" webgl>
 			<lume-point-light position="200 -200 200" intensity="0.6" color="white"></lume-point-light>
 			<lume-ambient-light color="white" intensity="0.6"></lume-ambient-light>
-			<lume-camera-rig active initial-distance="400" max-distance="700" min-distance="100"></lume-camera-rig>
+			<lume-camera-rig active distance="400" max-distance="700" min-distance="100"></lume-camera-rig>
 
 			<lume-mesh
 				id="mesh"
@@ -214,251 +214,6 @@ function meshExample({geometry = 'box', material = 'phong', color = ''} = {}) {
 			import 'lume'
 
 			mesh.rotation = (x, y, z) => [++x, ++y, z]
-		</script>
-	`)
-}
-
-function miniGalaxyDemo() {
-	return stripIndent(html`
-		<base href="${host}" />
-		<script src="./importmap.js"></script>
-
-		<lume-scene id="scene">
-			<lume-element3d id="container" size="78 78" align-point="0.5 0.5" mount-point="0.5 0.5">
-				<lume-element3d
-					class="sun"
-					size-mode="proportional proportional"
-					size="0.8 0.8"
-					position="0 0 10"
-					align-point="0.5 0.5"
-					mount-point="0.5 0.5"
-				>
-					<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-				</lume-element3d>
-				<lume-element3d class="rotator A" size="60 60" align-point="1 1">
-					<lume-element3d
-						class="sun"
-						size-mode="proportional proportional"
-						size="0.8 0.8"
-						position="0 0 10"
-						align-point="0.5 0.5"
-						mount-point="0.5 0.5"
-					>
-						<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-					</lume-element3d>
-					<lume-element3d class="rotator" size="45 45" align-point="1 1">
-						<lume-element3d
-							class="sun"
-							size-mode="proportional proportional"
-							size="0.8 0.8"
-							position="0 0 10"
-							align-point="0.5 0.5"
-							mount-point="0.5 0.5"
-						>
-							<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-						</lume-element3d>
-						<lume-element3d class="rotator" size="28 28" align-point="1 1">
-							<lume-element3d
-								class="sun"
-								size-mode="proportional proportional"
-								size="0.8 0.8"
-								position="0 0 10"
-								align-point="0.5 0.5"
-								mount-point="0.5 0.5"
-							>
-								<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-							</lume-element3d>
-						</lume-element3d>
-					</lume-element3d>
-				</lume-element3d>
-				<lume-element3d class="rotator A" size="60 60" mount-point="1 1">
-					<lume-element3d
-						class="sun"
-						size-mode="proportional proportional"
-						size="0.8 0.8"
-						position="0 0 10"
-						align-point="0.5 0.5"
-						mount-point="0.5 0.5"
-					>
-						<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-					</lume-element3d>
-					<lume-element3d class="rotator" size="45 45" mount-point="1 1">
-						<lume-element3d
-							class="sun"
-							size-mode="proportional proportional"
-							size="0.8 0.8"
-							position="0 0 10"
-							align-point="0.5 0.5"
-							mount-point="0.5 0.5"
-						>
-							<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-						</lume-element3d>
-						<lume-element3d class="rotator" size="28 28" mount-point="1 1">
-							<lume-element3d
-								class="sun"
-								size-mode="proportional proportional"
-								size="0.8 0.8"
-								position="0 0 10"
-								align-point="0.5 0.5"
-								mount-point="0.5 0.5"
-							>
-								<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-							</lume-element3d>
-						</lume-element3d>
-					</lume-element3d>
-				</lume-element3d>
-				<lume-element3d class="rotator B" size="60 60" align-point="0 1" mount-point="1 0">
-					<lume-element3d
-						class="sun"
-						size-mode="proportional proportional"
-						size="0.8 0.8"
-						position="0 0 10"
-						align-point="0.5 0.5"
-						mount-point="0.5 0.5"
-					>
-						<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-					</lume-element3d>
-					<lume-element3d class="rotator" size="45 45" align-point="0 1" mount-point="1 0">
-						<lume-element3d
-							class="sun"
-							size-mode="proportional proportional"
-							size="0.8 0.8"
-							position="0 0 10"
-							align-point="0.5 0.5"
-							mount-point="0.5 0.5"
-						>
-							<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-						</lume-element3d>
-						<lume-element3d class="rotator" size="28 28" align-point="0 1" mount-point="1 0">
-							<lume-element3d
-								class="sun"
-								size-mode="proportional proportional"
-								size="0.8 0.8"
-								position="0 0 10"
-								align-point="0.5 0.5"
-								mount-point="0.5 0.5"
-							>
-								<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-							</lume-element3d>
-						</lume-element3d>
-					</lume-element3d>
-				</lume-element3d>
-				<lume-element3d class="B" size="60 60" align-point="1 0" mount-point="0 1">
-					<lume-element3d
-						class="sun"
-						size-mode="proportional proportional"
-						size="0.8 0.8"
-						position="0 0 10"
-						align-point="0.5 0.5"
-						mount-point="0.5 0.5"
-					>
-						<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-					</lume-element3d>
-					<lume-element3d class="rotator" size="45 45" align-point="1 0" mount-point="0 1">
-						<lume-element3d
-							class="sun"
-							size-mode="proportional proportional"
-							size="0.8 0.8"
-							position="0 0 10"
-							align-point="0.5 0.5"
-							mount-point="0.5 0.5"
-						>
-							<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-						</lume-element3d>
-						<lume-element3d class="rotator" size="28 28" align-point="1 0" mount-point="0 1">
-							<lume-element3d
-								class="sun"
-								size-mode="proportional proportional"
-								size="0.8 0.8"
-								position="0 0 10"
-								align-point="0.5 0.5"
-								mount-point="0.5 0.5"
-							>
-								<img src="https://momlovesbest.com/wp-content/uploads/2020/03/A-UPF-Rating.png" />
-							</lume-element3d>
-						</lume-element3d>
-					</lume-element3d>
-				</lume-element3d>
-			</lume-element3d>
-		</lume-scene>
-
-		<style>
-			html,
-			body {
-				margin: 0;
-				padding: 0;
-				height: 100%;
-				width: 100%;
-			}
-			lume-scene {
-				background: black;
-				touch-action: none;
-			}
-			lume-element3d {
-				border-radius: 100%;
-				color: white;
-				font-family: sans-serif;
-				font-weight: bold;
-			}
-			lume-element3d:not(.sun) {
-				background: rgba(255, 255, 0, 0.2);
-			}
-			img {
-				width: 100%;
-				height: 100%;
-				display: block;
-			}
-		</style>
-
-		<script type="module">
-			import 'lume'
-
-			document.querySelectorAll('.A, .A .rotator').forEach(n => {
-				n.rotation = (x, y, z, t) => [-65 * Math.sin(t * 0.0005), y, -65 * Math.sin(t * 0.0005)]
-			})
-
-			document.querySelectorAll('.B, .B .rotator').forEach(n => {
-				n.rotation = (x, y, z, t) => [65 * Math.sin(t * 0.0005), 65 * Math.sin(t * 0.0005), z]
-			})
-
-			const rotationAmount = 35
-
-			// Add some interaction so we can see the shine from the light!
-			scene.addEventListener('pointermove', event => {
-				container.rotation.y = (event.clientX / scene.calculatedSize.x) * (rotationAmount * 2) - rotationAmount
-				container.rotation.x = -((event.clientY / scene.calculatedSize.y) * (rotationAmount * 2) - rotationAmount)
-			})
-		</script>
-	`)
-}
-
-function sceneExample() {
-	return stripIndent(html`
-		<base href="${host}" />
-		<script src="./importmap.js"></script>
-
-		<lume-scene id="scene">
-			<lume-element3d size="100 100" align-point="0.5 0.5" mount-point="0.5 0.5" rotation="0 30 0">
-				I am centered in the scene, and I am rotated a bit.
-			</lume-element3d>
-		</lume-scene>
-
-		<style>
-			html,
-			body {
-				margin: 0;
-				padding: 0;
-				height: 100%;
-				width: 100%;
-			}
-			lume-element3d {
-				padding: 5px;
-				border: 1px solid skyblue;
-			}
-		</style>
-
-		<script type="module">
-			import 'lume'
 		</script>
 	`)
 }
@@ -550,7 +305,7 @@ function directionalLightExample() {
 
 					<!-- Add an interactive camera viewpoint. -->
 					<lume-element3d align-point="0.5 0.5" rotation="-90 0 0">
-						<lume-camera-rig initial-polar-angle="30" min-polar-angle="5" initial-distance="500"></lume-camera-rig>
+						<lume-camera-rig vertical-angle="30" min-vertical-angle="5" distance="500"></lume-camera-rig>
 					</lume-element3d>
 				</lume-plane>
 			</lume-element3d>
@@ -571,178 +326,6 @@ function directionalLightExample() {
 			import 'lume'
 
 			box.rotation = (x, y, z) => [x, y, ++z]
-		</script>
-	`)
-}
-
-function spotLightExample() {
-	return stripIndent(html`
-		<base href="${host}" />
-		<script src="./importmap.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/tweakpane@3.1.0/dist/tweakpane.js"></script>
-
-		<lume-scene webgl shadowmap-type="soft">
-			<lume-ambient-light color="white" intensity="0.7"></lume-ambient-light>
-
-			<!-- A sphere to visualize the world origin -->
-			<lume-sphere
-				size="20"
-				position="0 0 20"
-				align-point="0.5 0.5"
-				mount-point="0.5 0.5"
-				color="yellow"
-				has="basic-material"
-			>
-				<lume-mixed-plane size="220 50" rotation="-90 0 0" position="0 0 40" align-point="0 1" mount-point="0 1">
-					world origin
-				</lume-mixed-plane>
-			</lume-sphere>
-
-			<lume-plane color="white" size="20000 20000" mount-point="0.5 0.5" rotation="0 0 30" position="600 600">
-				<!-- For simplicity, let's position the light, and a cube,
-				relative to (as children of) the "floor". -->
-
-				<!-- A point in space that determines direction of a cone-shaped
-				light emission. It will be pointed at (targetted at) the
-				#object1. -->
-				<lume-spot-light
-					id="light1"
-					align-point="0.5 0.5"
-					color="deeppink"
-					position="0 0 400"
-					distance="0"
-					intensity="0.3"
-					angle="30"
-					penumbra="0.2"
-					shadow-map-width="1024"
-					shadow-map-height="1024"
-					target="#object1"
-				>
-					<lume-sphere
-						size="10"
-						color="deeppink"
-						has="basic-material"
-						mount-point="0.5 0.5 0.5"
-						cast-shadow="false"
-						receive-shadow="false"
-					></lume-sphere>
-				</lume-spot-light>
-
-				<!-- A second such light pointed at (targetted at) the #object2. -->
-				<lume-spot-light
-					id="light2"
-					align-point="0.5 0.5"
-					color="royalblue"
-					position="0 0 400"
-					distance="0"
-					intensity="0.4"
-					angle="30"
-					penumbra="0.2"
-					shadow-map-width="1024"
-					shadow-map-height="1024"
-				>
-					<lume-sphere
-						size="10"
-						color="royalblue"
-						has="basic-material"
-						mount-point="0.5 0.5 0.5"
-						cast-shadow="false"
-						receive-shadow="false"
-					></lume-sphere>
-				</lume-spot-light>
-
-				<!-- A box that will cast a shadow onto the floor. -->
-				<lume-element3d id="object1" align-point="0.5 0.5" mount-point="0.5 0.5" position="100 100 60">
-					<lume-gltf-model
-						id="model"
-						src="${host}examples/disco-helmet/DamagedHelmet.glb"
-						color="skyblue"
-						scale="50 50 50"
-						align-point="0.5 0.5"
-						mount-point="0.5 0.5"
-						rotation="-90 0 0"
-					></lume-gltf-model>
-				</lume-element3d>
-
-				<!-- A second such box. -->
-				<lume-box
-					id="object2"
-					color="skyblue"
-					size="50 50 50"
-					align-point="0.5 0.5"
-					mount-point="0.5 0.5"
-					position="-100 -100 20"
-					rotation="0 0 10"
-				></lume-box>
-
-				<!-- Add an interactive camera viewpoint. -->
-				<lume-element3d align-point="0.5 0.5" rotation="-90 0 0" position="0 0 60">
-					<lume-camera-rig initial-polar-angle="30" min-polar-angle="5" initial-distance="500"></lume-camera-rig>
-				</lume-element3d>
-			</lume-plane>
-		</lume-scene>
-
-		<style>
-			html,
-			body {
-				margin: 0;
-				height: 100%;
-				width: 100%;
-				background: #b2b2b2;
-				touch-action: none;
-			}
-
-			lume-mixed-plane {
-				font-size: 40px;
-				padding: 0 10px;
-				background: black;
-				color: skyblue;
-			}
-		</style>
-
-		<script type="module">
-			import {createEffect} from 'lume'
-
-			const pane = new Tweakpane.Pane()
-			const folder = pane.addFolder({title: 'play with options', expanded: false})
-
-			folder.addInput(light1, 'debug')
-			folder.addInput(light1, 'penumbra', {min: 0, max: 1})
-			folder.addInput(light1, 'angle', {min: 10, max: 32})
-
-			folder
-				.addInput({target: '#object1'}, 'target', {
-					label: 'light1 target',
-					options: {'none (world origin)': '', '#object1': '#object1', '#object2': '#object2'},
-				})
-				.on('change', event => (light1.target = event.value))
-
-			folder
-				.addInput({target: '#object2'}, 'target', {
-					label: 'light2 target',
-					options: {'none (world origin)': '', '#object1': '#object1', '#object2': '#object2'},
-				})
-				.on('change', event => (light2.target = event.value))
-
-			createEffect(() => {
-				light2.debug = light1.debug
-				light2.penumbra = light1.penumbra
-				light2.angle = light1.angle
-			})
-
-			light2.target = [object2]
-
-			object1.rotation = (x, y, z) => [x, y, ++z]
-			object2.rotation = (x, y, z) => [x, y, ++z]
-			light1.position = (x, y, z, t) => [x, Math.sin(t * 0.001) * 400, z]
-			light2.position = (x, y, z, t) => [Math.sin(t * 0.001) * 400, y, z]
-
-			model.on('MODEL_LOAD', () => {
-				model.three.traverse(node => {
-					node.castShadow = true
-					console.log('shadow', node, node.castShadow)
-				})
-			})
 		</script>
 	`)
 }
@@ -849,7 +432,7 @@ const lineExample = stripIndent(html`
 		<lume-point-light intensity="0.4" color="white" position="300 400 500"></lume-point-light>
 		<lume-ambient-light intensity="0.5" color="white" position="300 400 500"></lume-ambient-light>
 
-		<lume-camera-rig active initial-distance="1000" max-distance="6000" min-distance="10"></lume-camera-rig>
+		<lume-camera-rig active distance="4000" max-distance="7000" min-distance="10"></lume-camera-rig>
 
 		<lume-line id="line" has="line-geometry line-material" color="deeppink" points=""></lume-line>
 	</lume-scene>
@@ -902,7 +485,7 @@ const shapesExample = stripIndent(html`
 	<lume-scene id="scene" perspective="800" webgl fog-mode="linear" fog-near="100" fog-far="500" fog-color="white">
 		<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
 
-		<lume-camera-rig id="cam" active initial-distance="200" max-distance="70000" min-distance="100">
+		<lume-camera-rig id="cam" active distance="200" max-distance="70000" min-distance="100">
 			<lume-point-light position="200 0 200" intensity="0.7" color="white" slot="camera-child"></lume-point-light>
 			<lume-perspective-camera
 				align-point="0.5 0.5 0.5"
@@ -1316,13 +899,13 @@ const instancedMeshExample = stripIndent(html`
 
 		<lume-camera-rig
 			active
-			initial-distance="1000"
+			distance="1000"
 			max-distance="2500"
 			min-distance="100"
 			position="500 500 500"
 		></lume-camera-rig>
 
-		<!-- FIXME: this works: -->
+		<!-- CONINUE FIXME: this works: -->
 		<!-- <lume-mesh has="sphere-geometry" size="30 30 30"></lume-mesh> -->
 		<!-- this doesn't: -->
 		<!-- <lume-mesh has="sphere-geometry phong-material" size="30 30 30"></lume-mesh> -->
@@ -1363,147 +946,6 @@ const instancedMeshExample = stripIndent(html`
 			// mesh.rotations = mesh.rotations
 		})
 	</script>
-`)
-
-const originExample = stripIndent(html`
-	<body>
-		<base href="${host}" />
-		<script src="./importmap.js"></script>
-
-		<style>
-			html,
-			body {
-				width: 100%;
-				height: 100%;
-				margin: 0;
-				padding: 0;
-				background: #333;
-				touch-action: none; /* prevent touch drag from scrolling */
-				color: #ccc;
-			}
-			lume-scene {
-				position: absolute !important;
-				top: 0;
-				left: 0;
-			}
-			lume-element3d {
-				padding: 15px;
-				pointer-events: all;
-			}
-			#scene2 {
-				pointer-events: none;
-			}
-			#scene2 lume-element3d {
-				pointer-events: auto;
-			}
-		</style>
-
-		<!-- Use the enable-css attribute to disable CSS rendering so that only
-		WebGL rendering is enabled (this saves CPU/Memory if you don't need CSS
-		rendering, and are not debugging in devtools).
-		-->
-		<lume-scene webgl enable-css="false">
-			<lume-ambient-light intensity="0.3"></lume-ambient-light>
-			<lume-point-light
-				align-point="0.5 0.5 0.5"
-				position="-200 -200 400"
-				intensity="0.5"
-				shadow-map-width="1024"
-				shadow-map-height="1024"
-			></lume-point-light>
-
-			<lume-camera-rig
-				align-point="0.5 0.5"
-				active
-				initial-distance="400"
-				max-distance="700"
-				min-distance="100"
-			></lume-camera-rig>
-		</lume-scene>
-
-		<lume-scene id="scene2">
-			<lume-element3d size-mode="proportional literal" size="1 80">
-				<label>
-					X rotation <code id="xRotationVal"></code>:
-					<input id="xRotation" type="range" min="0" max="360" value="0" />
-				</label>
-				<br />
-				<label>
-					Y rotation <code id="yRotationVal"></code>:
-					<input id="yRotation" type="range" min="0" max="360" value="0" />
-				</label>
-				<br />
-				<label>
-					Z rotation <code id="zRotationVal"></code>:
-					<input id="zRotation" type="range" min="0" max="360" value="0" />
-				</label>
-			</lume-element3d>
-		</lume-scene>
-
-		<script type="module">
-			import {html} from 'lume'
-
-			// the following values of origin allow the boxes to rotate around one of
-			// their corners.
-			const origins = [
-				'0 0 0', // left/top/back
-				'1 0 0', // right/top/back
-				'0 1 0', // left/bottom/back
-				'0 0 1', // left/top/front
-				'1 1 0', // right/bottom/back
-				'1 0 1', // right/top/front
-				'0 1 1', // left/bottom/front
-				'1 1 1', // right/bottom/front
-			]
-
-			const makeBox = (origin, i) => html\`
-				${/* Lays the boxes out in a two-row grid, four boxes per row. */ ''}
-				<lume-box
-					origin=\${origin}
-					align-point=\${[0.2 + (i % 4) * 0.2, i < 4 ? 0.4 : 0.6, 0]}
-					size="100 100 100"
-					mount-point="0.5 0.5 0.5"
-					color="skyblue"
-					opacity="0.5"
-				>
-					<lume-sphere align-point=\${origin} size="10 10 10" mount-point="0.5 0.5 0.5" color="deeppink"></lume-sphere>
-				</lume-box>
-			\`
-
-			const scene = document.querySelector('lume-scene')
-			const boxes = []
-
-			let i = 0
-
-			for (const origin of origins) {
-				const box = makeBox(origin, i)
-				boxes.push(box)
-				scene.append(box)
-				i += 1
-			}
-
-			const updateValues = () => {
-				xRotationVal.innerHTML = '(' + xRotation.value.padStart(3).replace(' ', '&nbsp;') + ' deg)'
-				yRotationVal.innerHTML = '(' + yRotation.value.padStart(3).replace(' ', '&nbsp;') + ' deg)'
-				zRotationVal.innerHTML = '(' + zRotation.value.padStart(3).replace(' ', '&nbsp;') + ' deg)'
-			}
-
-			updateValues()
-
-			const onChangeXRotation = () => {
-				for (const box of boxes) box.rotation = [xRotation.value, yRotation.value, zRotation.value]
-
-				updateValues()
-			}
-
-			xRotation.addEventListener('change', onChangeXRotation)
-			xRotation.addEventListener('input', onChangeXRotation)
-			yRotation.addEventListener('change', onChangeXRotation)
-			yRotation.addEventListener('input', onChangeXRotation)
-			zRotation.addEventListener('change', onChangeXRotation)
-			zRotation.addEventListener('input', onChangeXRotation)
-		</script>
-	</body>
 `)
 
 const morphingSpiralExample = stripIndent(html`
@@ -1824,10 +1266,13 @@ const cameraRigExample = stripIndent(html`
 				style="border: 5px solid royalblue;"
 			></lume-element3d>
 
-			<!-- <lume-perspective-camera id="cam" position="0 0 1000" align-point="0.5 0.5"></lume-perspective-camera> -->
+			<!-- The rig's 'distance' is 800, which is the default perspective
+			value of a scene, so the camera rig's initial view will match that
+			of the scene's default camera when a rig or custom camera is not
+			being used. -->
 			<lume-camera-rig
 				id="cam"
-				initial-distance="400"
+				distance="800"
 				min-distance="50"
 				max-distance="1000"
 				align-point="0.5 0.5"
@@ -1894,10 +1339,10 @@ const cameraRigVerticalRotationExample = stripIndent(html`
 		<lume-box size="100 100 100" color="pink">
 			<lume-camera-rig
 				align-point="0.5 0.5 0.5"
-				initial-polar-angle="20"
-				min-polar-angle="-45"
-				max-polar-angle="45"
-				initial-distance="500"
+				vertical-angle="20"
+				min-vertical-angle="-45"
+				max-vertical-angle="45"
+				distance="500"
 			>
 				<lume-point-light slot="camera-child" color="white" intensity="0.9" position="120 120 120"></lume-point-light>
 			</lume-camera-rig>
@@ -1942,7 +1387,7 @@ const clipPlaneExample = stripIndent(html`
 	<lume-scene id="scene" perspective="800" webgl shadowmap-type="pcfsoft">
 		<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
 
-		<lume-camera-rig active initial-polar-angle="30" initial-distance="400" max-distance="7000" min-distance="100">
+		<lume-camera-rig active vertical-angle="30" distance="400" max-distance="7000" min-distance="100">
 			<lume-point-light
 				position="200 -200 200"
 				intensity="0.6"

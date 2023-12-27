@@ -1,3 +1,5 @@
+<script src="../../importmap.js"></script>
+
 <style>
 	html,
 	body {
@@ -23,15 +25,14 @@
 	}
 </style>
 
-<!-- <base href="/" /> -->
-<script src="../../importmap.js"></script>
-
-<!-- See src/examples/LoadingIcon.ts -->
-
 <loading-icon id="loading"></loading-icon>
 
-<lume-scene id="scene" perspective="800" class="hidden" webgl shadowmap-type="pcfsoft">
-	<lume-camera-rig active id="rig" rotation="0 30 0" min-polar-angle="-11"></lume-camera-rig>
+<script>
+	import('lume/dist/examples/LoadingIcon.js')
+</script>
+
+<lume-scene id="scene" perspective="700" class="hidden" webgl shadowmap-type="pcfsoft">
+	<lume-camera-rig active id="rig" distance="1600" min-vertical-angle="-11" vertical-angle="20"></lume-camera-rig>
 	<lume-perspective-camera id="cam" position="0 0 1000"></lume-perspective-camera>
 
 	<!-- See src/examples/FlickeringOrbs.ts -->
@@ -52,6 +53,8 @@
 		rotation="90 0 0"
 		mount-point="0.5 0.5 0.5"
 		position="0 300 0"
+		has="phong-material"
+		shininess="100"
 	></lume-plane>
 </lume-scene>
 
