@@ -114,16 +114,16 @@ TODO:
 
 	let currentMaterial = 'liquid2'
 	let resolution = 60
-
+	const numBlobs = window.innerWidth <= 720 ? 5 : 10
 	cameraRig.distance = cameraRig.minDistance = cameraRig.maxDistance = window.innerWidth <= 720 ? 2000 : 1500
 
 	const effectController = {
 		material: currentMaterial,
 
 		speed: 0.2,
-		numBlobs: 5,
 		resolution,
 		isolation: 15,
+		numblobs,
 
 		floor: false,
 		wallx: false,
