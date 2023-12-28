@@ -21,12 +21,13 @@
 
   <!-- - [Hello 3D world!](/examples/hello3d.md ':class=no-sublist') -->
 
-  - [Hello world!](/examples/hello-world/ ':class=no-sublist')
-  - [🎄 Skateboard Configurator](/examples/skateboard-configurator/ ':class=no-sublist')
-  - [Picture Frame](/examples/picture-frame ':class=no-sublist')
-  - [NASA Astrobee Robot](/examples/nasa-astrobee-robot/ ':class=no-sublist')
-  - [Velodyne Lidar Scan](/examples/velodyne-lidar-scan/ ':class=no-sublist')
-  - [Shelby GT350 Points](/examples/shelby-gt350-points/ ':class=no-sublist')
+  - [🌍 Hello world!](/examples/hello-world/ ':class=no-sublist')
+  - [🛹 Skateboard Configurator](/examples/skateboard-configurator/ ':class=no-sublist')
+  - [🟠 Lava Lamp](/examples/lava-lamp/ ':class=no-sublist')
+  - [🖼️ Picture Frame](/examples/picture-frame ':class=no-sublist')
+  - [🤖 NASA Astrobee Robot](/examples/nasa-astrobee-robot/ ':class=no-sublist')
+  - [✨ Velodyne Lidar Scan](/examples/velodyne-lidar-scan/ ':class=no-sublist')
+  - [🏎️ Shelby GT350 Points](/examples/shelby-gt350-points/ ':class=no-sublist')
   - [Disco Helmet](/examples/disco-helmet/ ':class=no-sublist')
   - [Buttons with shadow](/examples/buttons-with-shadow.md ':class=no-sublist')
   - [Rounded rectangle](/examples/rounded-rectangle.md ':class=no-sublist')

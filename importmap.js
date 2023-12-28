@@ -24,6 +24,8 @@
 		'solid-js/store': './modules/solid-js/store/dist/store.js',
 		three: './modules/three/src/Three.js',
 		'three/': './modules/three/',
+		// For Three.js example modules so we don't have to change their imports.
+		'three/addons/': './modules/three/examples/jsm/',
 
 		// live-code
 		'@lume/live-code': './modules/@lume/live-code/dist/index.js',
