@@ -19,22 +19,7 @@
 		vertical-angle="30"
 	></lume-camera-rig>
 
-	<lume-gltf-model src="/examples/velodyne-lidar-scan/puck.gltf"></lume-gltf-model>
-
-	<!--
-	Use a ply-behavior on an element with geometry (such as <lume-mesh> or
-	<lume-points>) to load geometry points from a PLY file.
-	-->
-	<lume-points
-		id="model"
-		has="ply-geometry phong-material"
-		src="/examples/velodyne-lidar-scan/shelby-scene.ply"
-		rotation="90 0 0"
-		position="0 0 60"
-		size="0 0 0"
-		scale="50 50 50"
-		color="royalblue"
-	></lume-points>
+	<lume-gltf-model id="gltf" src="/examples/velodyne-lidar-scan/puck.gltf"></lume-gltf-model>
 </lume-scene>
 
 <div info align="center">
@@ -46,10 +31,8 @@
 <style>
 	html,
 	body {
-		width: 100%;
 		height: 100%;
 		margin: 0;
-		padding: 0;
 		background: #222;
 		--color: 228, 20, 255 /*vibrant pink*/;
 		color: rgb(var(--color));
@@ -83,19 +66,39 @@
 
 <script type="module">
 	import 'lume'
-	light.position = (x, y, z, t) => [500 * Math.sin(t * 0.001), 500 * Math.cos(t * 0.001), z]
-	model.on('MODEL_LOAD', () => {
-		scene.classList.remove('hidden')
-		loading.classList.add('hidden')
-	})
 
 	const ua = window.navigator.userAgent
 	const is_iOS = ua.match(/iPad/i) || ua.match(/iPhone/i)
-	if (is_iOS) {
-		const info = document.querySelector('[info]')
-		info.insertAdjacentHTML(
-			'beforeend',
-			'⚠️ NOTE! iOS has a WebGL points rendering bug, in case this demo looks glitched out. <a href="https://github.com/mrdoob/three.js/issues/27470">GitHub issue.</a>',
-		)
-	}
+
+	// Rendering shimmering points with a non-points material does not work in
+	// iOS Safari (point sizes are blown up), fallback to points-material on
+	// iOS.
+	const pointsHtml = /*html*/ `
+		<!--
+		Use a ply-behavior on an element with geometry (such as <lume-mesh> or
+		<lume-points>) to load geometry points from a PLY file.
+		-->
+		<lume-points
+			id="model"
+			has="ply-geometry ${is_iOS ? 'points' : 'phong'}-material"
+			src="/examples/velodyne-lidar-scan/shelby-scene.ply"
+			rotation="90 0 0"
+			position="0 0 60"
+			size="0 0 0"
+			scale="50 50 50"
+			color="royalblue"
+		></lume-points>
+	`
+
+	scene.insertAdjacentHTML('beforeend', pointsHtml)
+
+	light.position = (x, y, z, t) => [500 * Math.sin(t * 0.001), 500 * Math.cos(t * 0.001), z]
+
+	Promise.all([
+		new Promise(resolve => gltf.on('MODEL_LOAD', resolve)),
+		new Promise(resolve => model.on('MODEL_LOAD', resolve)),
+	]).then(() => {
+		scene.classList.remove('hidden')
+		loading.classList.add('hidden')
+	})
 </script>
