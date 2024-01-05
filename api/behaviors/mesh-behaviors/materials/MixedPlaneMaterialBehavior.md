@@ -3,7 +3,7 @@
 
 Used as the material for [`<lume-mixed-plane>`](../../../meshes/MixedPlane) elements.
 
-<live-code src="../../../../../examples/buttons-with-shadow.html"></live-code>
+<live-code src="../../../../../examples/buttons-with-shadow/example.html"></live-code>
 
 ## Properties
 

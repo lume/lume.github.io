@@ -16,7 +16,7 @@ content will not receal 3D content that would be expected to be behind them.
 See [`MixedPlaneGeometryBehavior`](../behaviors/mesh-behaviors/geometries/MixedPlaneGeometryBehavior) and [`MixedPlaneMaterialBehavior`](../behaviors/mesh-behaviors/materials/MixedPlaneMaterialBehavior) for
 available properties.
 
-<live-code src="../../../examples/buttons-with-shadow.html"></live-code>
+<live-code src="../../../examples/buttons-with-shadow/example.html"></live-code>
 
 ## Properties
 

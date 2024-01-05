@@ -1,7 +1,7 @@
-<script src="../importmap.js"></script>
-<script src="../modules/vue/dist/vue.js"></script>
+<script src="../../importmap.js"></script>
+<script src="../../modules/vue/dist/vue.js"></script>
 <!-- Tween.js is a lib for animating numbers based on "easing curves". -->
-<script src="../modules/tween.js/src/Tween.js"></script>
+<script src="../../modules/tween.js/src/Tween.js"></script>
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
@@ -43,6 +43,7 @@
 			<!-- Lights and shadows are powered by WebGL, but written with HTML: -->
 			<lume-scene
 				webgl="true"
+				enable-css="true"
 				id="scene"
 				background-color="black"
 				background-opacity="0"
@@ -69,8 +70,8 @@
 					dithering
 					color="white"
 					comment="free texture from https://polyhaven.com/a/concrete_layers_02"
-					texture="../textures/cement-wall/diff_2k.jpg"
-					bump-map="../textures/cement-wall/disp_2k.jpg"
+					texture="../../textures/cement-wall/diff_2k.jpg"
+					bump-map="../../textures/cement-wall/disp_2k.jpg"
 					bump-scale="8"
 					shininess="200"
 					specular="#222"

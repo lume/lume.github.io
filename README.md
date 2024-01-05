@@ -140,7 +140,7 @@ cement wall -- but notice:
 
 and this gives us a version of the same concept with more realism:
 
-<live-code src="./examples/buttons-with-shadow.html"></live-code>
+<live-code src="./examples/buttons-with-shadow/example.html"></live-code>
 
 Lume is built as [Custom
 Elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) (also

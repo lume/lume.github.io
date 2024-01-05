@@ -1,3 +1,3 @@
 # Disco Helmet
 
-<live-code src="./disco-helmet.html"></live-code>
+<live-code src="./example.html"></live-code>

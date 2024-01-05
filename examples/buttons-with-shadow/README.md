@@ -1,6 +1,6 @@
 # Buttons with shadow
 
-<live-code src="./buttons-with-shadow.html"></live-code>
+<live-code src="./example.html"></live-code>
 
 <!-- TODO show demo information without breaking the full height demo view:
 - A ["picked" pen](https://codepen.io/trusktr/pen/rpegZR) on CodePen!

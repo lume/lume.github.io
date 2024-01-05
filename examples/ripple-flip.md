@@ -1,6 +1,6 @@
 # Ripple flip
 
-<live-code class="full" mode="html>iframe" debounce="200" autorun="false">
+<live-code class="full" mode="html>iframe">
   <template>
   <base href="${host}" /><script src="./importmap.js"></script>
   <script src="/modules/tinycolor2/tinycolor.js"></script>

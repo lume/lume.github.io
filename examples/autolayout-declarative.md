@@ -37,7 +37,7 @@
               >
           </lume-mesh>
       </lume-point-light>
-      <lume-autolayout-node
+      <lume-autolayout
           id="layout"
           size="100 100 0" TODO="why do we need Z size 0 here, but not in the imperative example?"
           position="0 0 0"
@@ -57,7 +57,7 @@
           <lume-mixed-plane size="1 1 0" color="deeppink" class="child3">This is a paragraph of text to show that it reflows when the size of the layout changes size so that the awesomeness can be observed in its fullness.</lume-mixed-plane>
           <lume-mixed-plane size="1 1 0" color="deeppink" class="child4">This is a paragraph of text to show that it reflows when the size of the layout changes size so that the awesomeness can be observed in its fullness.</lume-mixed-plane>
           <lume-mixed-plane size="1 1 0" color="deeppink" class="child5">This is a paragraph of text to show that it reflows when the size of the layout changes size so that the awesomeness can be observed in its fullness.</lume-mixed-plane>
-      </lume-autolayout-node>
+      </lume-autolayout>
   </lume-scene>
 
   <script type="module">

@@ -15,7 +15,7 @@
 
   <script type="module">
       import {
-          AutoLayoutNode,
+          Autolayout,
           Scene,
           AmbientLight,
           PointLight,
@@ -73,7 +73,7 @@
           |-[child3(child4,child5)]-[child4]-[child5]-|
       `
 
-      const layout = new AutoLayoutNode().set({
+      const layout = new Autolayout().set({
           size: [600, 400],
           position: "0 0 0",
           alignPoint: " 0.5 0.5 0",

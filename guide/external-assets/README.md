@@ -1,15 +1,27 @@
 # External Assets
 
-> :construction: :hammer: Under construction! :hammer: :construction:
-
 LUME elements can load various types of external assets.
+
+## Model Elements
+
+Lume has various elements that load 3D models from differing file formats:
+
+- [`<lume-gltf-model>`](../../api/models/GltfModel.md) (recommended) - loads a model from a `.gltf` or `.glb` file in [glTF format](https://khronos.org/gltf) (which may in turn reference external files such as `.png` or `.jpg` for textures).
+- [`<lume-collada-model>`](../../api/models/ColladaModel.md) - loads a model from a `.dae` file in [COLLADA format](https://khronos.org/collada).
+- [`<lume-fbx-model>`](../../api//models/FbxModel.md) - loads a model from a `.fbx` file in [FBX format](https://www.autodesk.com/products/fbx/overview).
+- [`<lume-obj-model>`](../../api//models/ObjModel.md) - loads a model from a pair of `.obj` (geometry) and `.mtl` (material) files in [OBJ format](https://en.wikipedia.org/wiki/Wavefront_.obj_file).
+- [`<lume-3ds-model>`](../../api//models/TdsModel.md) - loads a model from a `.3ds` file in [3DS format](https://en.wikipedia.org/wiki/.3ds).
+
+[This article from Godot
+Engine](https://godotengine.org/article/we-should-all-use-gltf-20-export-3d-assets-game-engines/)
+has a nice description of various file formats and why they are outdated and
+unfavorable compared to glTF for graphics engines.
 
 The following demo shows how to load a 3D model in OBJ format using the
 `<lume-obj-model>` element. It also shows how to use a `<lume-element3d>` element with an
 `obj-model` [behavior](./element-behaviors). The `<lume-obj-model>` element is simply a
 shortcut for `<lume-element3d has="obj-model">`.
 
-<div id="objModel"></div>
 <live-code>
   <template>
   <base href="${host}" /><script src="./importmap.js"></script>
@@ -176,11 +188,18 @@ shortcut for `<lume-element3d has="obj-model">`.
   </template>
 </live-code>
 
+## Images and Textures
+
+Various material behaviors (f.e.
+[`PhysicalMaterialBehavior`](../../api/behaviors/mesh-behaviors/materials/PhysicalMaterialBehavior.md))
+provide HTML attributes such as `texture` that accept a path to an image file to
+use as a texture, for use cases like color, normal map, alpha map, etc.
+
 The next example shows how to set a texture onto a mesh element. A texture is
 loaded from an image file like a JPEG or PNG file using the `texture` attribute.
-Similarly to `<obj-model>` being a shortcut for `<lume-element3d
-has="obj-model">`, the following `<lume-box>` element is a shortcut for
+Similar to how `<lume-obj-model>` is a shortcut for `<lume-element3d
+has="obj-model">` above, the following `<lume-box>` element is a shortcut for
 `<lume-mesh has="box-geometry physical-material">` which is a mesh element with
-both geometry behavior and a material behavior.
+both a geometry behavior and a material behavior.
 
 <live-code src="../cameras/default-camera.html"></live-code>

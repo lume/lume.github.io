@@ -18,7 +18,7 @@ DOM in the browser's element inspector.
 > developer tools in
 > Safari](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/Web_Inspector_Tutorial/EnableWebInspector/EnableWebInspector.html)).
 
-<live-code src="../examples/disco-helmet/disco-helmet.html"></live-code>
+<live-code src="../examples/disco-helmet/example.html"></live-code>
 
 We'll see a `<lume-gltf-model>` element in the inspector. When we hover on it,
 we'll see that the browser tells us where it is on the screen, out of the box!

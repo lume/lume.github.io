@@ -73,7 +73,7 @@ top of the WebGL layer instead of below.
         
 
 
-### <code>.<b>shadowmapType</b></code> :id=shadowmapType
+### <code>.<b>shadowMode</b></code> :id=shadowMode
 
 *attribute*
 
@@ -86,6 +86,14 @@ Constants](https://threejs.org/docs/#api/en/constants/Renderer) for
 descriptions.
 
 Applies only if [`webgl`](#webgl) is `true`.
+        
+
+
+### <code>.<b>shadowmapType</b></code> :id=shadowmapType
+
+Deprecated, use [`shadowMode`](#shadowmaptype) instead.
+
+*attribute*
         
 
 

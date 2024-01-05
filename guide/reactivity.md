@@ -83,4 +83,6 @@ value changes.
   </template>
 </live-code>
 
-[classy-solid](./includes/classy-solid.md ':include')
+For more on reactivity and templating, see the
+[`classy-solid`](./includes/classy-solid.md) and
+[`@lume/element`](./includes/lume-element) packages.

@@ -1,0 +1,12 @@
+<!-- This loads the regular example's HTML, but first
+disables WebGL mode before writing the HTML to the DOM. -->
+<script>
+	let html = ''
+	const syncXhr = new XMLHttpRequest()
+	syncXhr.open('GET', './example.html', false)
+	syncXhr.onload = () => (html = syncXhr.responseText)
+	syncXhr.send() // synchronous
+	html = html.replace('webgl="true"', 'webgl="false"')
+	html += `<style>body {background: skyblue}</style>`
+	document.write(html)
+</script>
