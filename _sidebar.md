@@ -15,6 +15,7 @@
   - [Making Elements](/guide/making-elements)
   - [Compatibility](/guide/compatibility)
   - [Debugging](/guide/debugging)
+  - [Custom Rendering](/guide/custom-rendering)
   - [Contributing](/guide/contributing)
 
 - **Examples**
