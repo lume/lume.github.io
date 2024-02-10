@@ -1,0 +1,70 @@
+<script src="../../importmap.js"></script>
+
+<lume-scene webgl id="scene">
+	<lume-camera-rig horizontal-angle="-30" vertical-angle="30"></lume-camera-rig>
+	<lume-box size="100 100 100" mount-point="0.5 0.5 0.5"></lume-box>
+	<lume-point-light position="200 400 500" color="deeppink" intensity="0.6"></lume-point-light>
+	<lume-point-light position="-200 -400 -500" color="royalblue" intensity="0.6"></lume-point-light>
+</lume-scene>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		height: 100%;
+	}
+	lume-element3d {
+		padding: 5px;
+	}
+</style>
+
+<script type="module">
+	import {Motor} from 'lume'
+	import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer.js'
+	import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass.js'
+	import {GlitchPass} from 'three/examples/jsm/postprocessing/GlitchPass.js'
+	import {OutputPass} from 'three/examples/jsm/postprocessing/OutputPass.js'
+
+	const composer = new EffectComposer(scene.glRenderer)
+
+	function setDimensions() {
+		composer.setPixelRatio(window.devicePixelRatio)
+		const resize = () => composer.setSize(scene.clientWidth, scene.clientHeight)
+		const observer = new ResizeObserver(resize)
+		observer.observe(scene)
+	}
+
+	// If you do things manually with Three.js, you need to make sure to set the
+	// proper rendering dimensions. Comment this out and it will still work, but
+	// the demo may be lower resolution and look pixelated.
+	setDimensions()
+
+	const renderPass = new RenderPass(scene.three, scene.threeCamera)
+	composer.addPass(renderPass)
+
+	const glitchPass = new GlitchPass()
+	composer.addPass(glitchPass)
+
+	const outputPass = new OutputPass()
+	composer.addPass(outputPass)
+
+	scene.drawScene = () => {
+		// If there are multiple cameras in the Lume scene, make sure to always
+		// use the currently-active camera.
+		renderPass.camera = scene.threeCamera
+
+		composer.render()
+	}
+
+	// If you need the scene to be continuously rendering for a certain
+	// post-processing effects (for example, the GlitchPass is animated over
+	// time), then make a loop that calls scene.needsUpdate() repeatedly. Here
+	// we do that with Lume's Motor:
+	Motor.addRenderTask(() => scene.needsUpdate())
+
+	// Alternatively, make an rAF loop:
+	// requestAnimationFrame(function loop() {
+	// 	scene.needsUpdate()
+	// 	requestAnimationFrame(loop)
+	// })
+</script>

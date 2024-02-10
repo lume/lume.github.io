@@ -60,5 +60,23 @@ someScene.drawScene = () => {
 }
 ```
 
-Note, the [`postprocessing`](https://npmjs.com/postprocessing) package provides
-an alternative set of post-processing effects.
+> [!Note]
+> The [`postprocessing`](https://npmjs.com/postprocessing) package provides an
+> alternative set of post-processing effects.
+
+# Example
+
+Here's an example that applies glitch effect using Three's built-in
+post-processing classes:
+
+<live-code src="./example.html"></live-code>
+
+> [!Note]
+> The `Motor.addRenderTask` part of the example calls `scene.needsUpdate()`
+> repeatedly because the `GlitchPass` applies an animated effect. If you are using
+> a pass that is not animated and needs to only render for a single frame, then
+> you do not need to make an update loop because the scene will update
+> automatically when any of its content changes. In that example, the scene has
+> no idea the `GlitchPass` exists because we've stepped outside of Lume's control
+> and are wiring in custom Three.js stuff, so the scene will not automatically
+> know that it should update.
