@@ -204,6 +204,66 @@ disabled, but the camera rig can still be manipulated programmatically.
         
 
 
+### <code>.<b>dollyEpsilon</b></code> :id=dollyEpsilon
+
+*attribute*
+
+Default: `0.01`
+
+The threshold for when to stop dolly smoothing animation (lerp). When the
+delta between actual dolly position and target dolly position is below
+this number, animation stops. Set this to a high value to prevent
+smoothing.
+        
+
+
+### <code>.<b>dollyScrollLerp</b></code> :id=dollyScrollLerp
+
+*attribute*
+
+Default: `0.3`
+
+The portion to lerp towards the dolly target position each frame after
+scrolling to dolly the camera. Between 0 and 1.
+        
+
+
+### <code>.<b>dollyPinchSlowdown</b></code> :id=dollyPinchSlowdown
+
+*attribute*
+
+Default: `0.05`
+
+Portion of the dolly speed to remove each frame to slow down the dolly
+animation after pinching to dolly the camera, i.e. how much to lerp
+towards zero motion. Between 0 and 1.
+        
+
+
+### <code>.<b>rotationEpsilon</b></code> :id=rotationEpsilon
+
+*attribute*
+
+Default: `0.01`
+
+The threshold for when to stop intertial rotation slowdown animation.
+When the current frame's change in rotation goes below this number,
+animation stops. Set this to a high value to prevent inertial slowdown.
+        
+
+
+### <code>.<b>rotationSlowdown</b></code> :id=rotationSlowdown
+
+*attribute*
+
+Default: `0.05`
+
+Portion of the rotational speed to remove each frame to slow down the
+rotation after dragging to rotate the camera, i.e. how much to lerp
+towards zero motion. Between 0 and 1.
+        
+
+
 
 
 

@@ -84,6 +84,7 @@
   - [ChildTracker](/api/core/ChildTracker.md)
   - [ClipPlane](/api/core/ClipPlane.md)
   - [Element3D](/api/core/Element3D.md)
+  - [PropertyAnimator](/api/core/PropertyAnimator.md)
   - [Scene](/api/core/Scene.md)
   - [SharedAPI](/api/core/SharedAPI.md)
   - [Sizeable](/api/core/Sizeable.md)
