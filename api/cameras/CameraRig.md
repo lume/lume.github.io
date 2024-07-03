@@ -204,6 +204,40 @@ disabled, but the camera rig can still be manipulated programmatically.
         
 
 
+### <code>.<b>rotationSpeed</b></code> :id=rotationSpeed
+
+*attribute*
+
+Default: `1`
+
+How much the camera rotates while dragging.
+        
+
+
+### <code>.<b>dynamicDolly</b></code> :id=dynamicDolly
+
+*attribute*
+
+Default: `false`
+
+When `true`, the effective dolly speed will be changed based on the
+camera's distance to `minDistance`. Getting closer to `minDistance` will
+lower the effective dolly speed.
+        
+
+
+### <code>.<b>dynamicRotation</b></code> :id=dynamicRotation
+
+*attribute*
+
+Default: `false`
+
+When `true`, the effective rotation speed will be changed based on the
+camera's distance to `minDistance`. Getting closer to `minDistance` will
+lower the effective rotation speed to allow for finer control.
+        
+
+
 ### <code>.<b>dollyEpsilon</b></code> :id=dollyEpsilon
 
 *attribute*
