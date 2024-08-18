@@ -136,7 +136,7 @@
       let lastSize = 'big'
       let size = 'big' // or 'small'
 
-      layout.on('sizechange', ({x, y, z}) => {
+      layout.addEventListener('sizechange', ({target: {calculatedSize: {x, y, z}}}) => {
           if (x <= 600) size = 'small'
           else size = 'big'
 

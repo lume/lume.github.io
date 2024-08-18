@@ -424,17 +424,11 @@
 
 	//
 
-	// Wait for the gltf-model behavior to exist and then for it to load the
-	// model, finally handle the loaded model.
+	// Wait for the gltf-model to load the model, then handle the loaded model.
 
 	createEffect(() => {
-		const modelBehavior = skateboardModel.behaviors.get('gltf-model')
-		if (!modelBehavior) return
-
-		console.log('wait for model load')
-
-		if (modelBehavior.model) onModelLoad()
-		else skateboardModel.on('MODEL_LOAD', onModelLoad)
+		if (!skateboardModel.threeModel) return
+		untrack(() => onModelLoad())
 	})
 
 	function onModelLoad() {

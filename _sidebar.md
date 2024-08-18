@@ -114,8 +114,11 @@
   - [Torus](/api/meshes/Torus.md)
   - models/
   - [ColladaModel](/api/models/ColladaModel.md)
+  - [ErrorEvent](/api/models/ErrorEvent.md)
   - [FbxModel](/api/models/FbxModel.md)
   - [GltfModel](/api/models/GltfModel.md)
+  - [LoadEvent](/api/models/LoadEvent.md)
+  - [Model](/api/models/Model.md)
   - [ObjModel](/api/models/ObjModel.md)
   - [TdsModel](/api/models/TdsModel.md)
   - textures/

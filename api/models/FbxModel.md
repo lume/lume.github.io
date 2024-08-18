@@ -1,5 +1,5 @@
 
-# <code>class <b>FbxModel</b></code> :id=FbxModel
+# <code>class <b>FbxModel</b> extends [Model](Model.md)</code> :id=FbxModel
 
 Defines the `<lume-fbx-model>` element, short for `<lume-element3d
 has="fbx-model">`, for loading 3D models in the FBX format (`.fbx`
@@ -15,7 +15,7 @@ HTML Example:
   <lume-fbx-model id="myModel" src="path/to/model.fbx"></lume-fbx-model>
 </lume-scene>
 <script>
-  myModel.on('MODEL_LOAD', () => console.log('loaded'))
+  myModel.addEventListener('load', () => console.log('loaded'))
 </script>
 ```
 
@@ -27,19 +27,26 @@ scene.webgl = true
 document.body.append(scene)
 const model = new FbxModel
 model.src = 'path/to/model.fbx'
-model.on('MODEL_LOAD', () => console.log('loaded'))
+model.addEventListener('load', () => console.log('loaded'))
 scene.add(model)
 ```
 
+## Properties
+
+Inherits properties from [Model](Model.md).
+
+
+### <code>.<b>threeModel</b></code> :id=threeModel
+
+The loaded FBX model, or null
+when not loaded or while loading.
+
+`signal`
+        
 
 
 
-
-
-
-
-
-
+Inherits methods from [Model](Model.md).
 
 
         

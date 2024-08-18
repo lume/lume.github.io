@@ -191,7 +191,7 @@
 	// Wait for the model to be loaded so we can style metal parts of the
 	// helmet with a metallic material, and the visor with a black
 	// plastic-like material.
-	mando.on('MODEL_LOAD', () => {
+	mando.addEventListener('load', () => {
 		// Once loaded, let's traverse the tree to visit all the mesh parts.
 		mando.three.traverse(obj => {
 			// Skip non-mesh nodes.

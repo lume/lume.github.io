@@ -95,8 +95,8 @@
 	light.position = (x, y, z, t) => [500 * Math.sin(t * 0.001), 500 * Math.cos(t * 0.001), z]
 
 	Promise.all([
-		new Promise(resolve => gltf.on('MODEL_LOAD', resolve)),
-		new Promise(resolve => model.on('MODEL_LOAD', resolve)),
+		new Promise(resolve => gltf.addEventListener('load', resolve)),
+		new Promise(resolve => model.addEventListener('load', resolve)),
 	]).then(() => {
 		scene.classList.remove('hidden')
 		loading.classList.add('hidden')

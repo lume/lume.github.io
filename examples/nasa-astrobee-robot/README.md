@@ -233,7 +233,7 @@
         const promises = []
 
         for (const model of this.models)
-          promises.push(new Promise(resolve => model.on('MODEL_LOAD', resolve)))
+          promises.push(new Promise(resolve => model.addEventListener('load', resolve)))
 
         await Promise.all(promises)
 

@@ -101,7 +101,7 @@
 	})
 
 	// Custom handling of the underlying Three.js tree.
-	model.on('MODEL_LOAD', () => {
+	model.addEventListener('load', () => {
 		model.three.traverse(n => {
 			if ('material' in n) {
 				n.castShadow = true

@@ -132,12 +132,11 @@ shortcut for `<lume-element3d has="obj-model">`.
       })
 
       function smooth(objModelElement) {
-          // Use the 'MODEL_LOAD' event to work with the 'model' once loaded, if
-          // needed. 'model' is an instance of THREE.Group containing THREE.Mesh
-          // objects
-          objModelElement.on(Events.MODEL_LOAD, ({ model }) => {
-            console.log('%%%%%%%%%%%%%%%% modify geometry')
-              centerAndSmoothGeometry(model)
+          // Use the 'load' event to work with the 'model' once loaded, if
+          // needed. 'el.threeModel' is an instance of Three.js THREE.Group
+          // containing THREE.Mesh objects
+          objModelElement.addEventListener('load', () => {
+              centerAndSmoothGeometry(objModelElement.threeModel)
 
               // we modified the internals the element, signal that it
               // needs an update on next render

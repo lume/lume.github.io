@@ -48,14 +48,7 @@ TODO:
 </div>
 
 <div id="lumeSceneWrapper">
-	<lume-scene
-		id="lumeScene"
-		webgl
-		background="./nasa-astrobee-robot/luna-station.jpg"
-		background-intensity="0"
-		equirectangular-background
-		environment="./nasa-astrobee-robot/luna-station.jpg"
-	>
+	<lume-scene id="lumeScene" webgl fog-mode="linear" fog-color="#ffca38" fog-near="200" fog-far="3000">
 		<lume-ambient-light id="ambientLight" color="#ffc700" intensity="10"></lume-ambient-light>
 
 		<lume-element3d align-point="0.5 0.5">

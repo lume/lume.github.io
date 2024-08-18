@@ -1,8 +1,8 @@
 <script src="../importmap.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tweakpane@3.1.0/dist/tweakpane.js"></script>
 
-<lume-scene webgl shadowmap-type="soft">
-	<lume-ambient-light color="white" intensity="0.7"></lume-ambient-light>
+<lume-scene webgl shadowmap-type="soft" environment="/examples/nasa-astrobee-robot/luna-station.jpg">
+	<lume-ambient-light color="white" intensity="0.3"></lume-ambient-light>
 
 	<!-- A sphere to visualize the world origin -->
 	<lume-sphere
@@ -164,7 +164,7 @@
 	light1.position = (x, y, z, t) => [x, Math.sin(t * 0.001) * 400, z]
 	light2.position = (x, y, z, t) => [Math.sin(t * 0.001) * 400, y, z]
 
-	model.on('MODEL_LOAD', () => {
+	model.addEventListener('load', () => {
 		model.three.traverse(node => {
 			node.castShadow = true
 			console.log('shadow', node, node.castShadow)
