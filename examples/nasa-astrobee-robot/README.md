@@ -46,20 +46,22 @@
 
   element('astrobee-app')((() => {
     class App extends Element {
-      constructor() {
-        super()
-
-        this.rotationDirection = 1 // clockwise
-        this.rotationAmount = 0.2 // degrees
-
-        this.rotationEnabled = true
-        this.view = 'free'
-
-        this.astrobee
-        this.sceneContainer
-        this.loading
-        this.models = []
+      static observedAttributeHandlers = {
+        rotationDirection: attribute.number(),
+        rotationAmount: attribute.number(),
+        rotationEnabled: attribute.boolean(),
+        view: attribute.string(),
       }
+
+      rotationDirection = 1 // clockwise
+      rotationAmount = 0.2 // degrees
+      rotationEnabled = true
+      view = 'free'
+
+      astrobee
+      sceneContainer
+      loading
+      models = []
 
       template = () => html`
         <>
@@ -240,13 +242,6 @@
         this.sceneContainer.classList.remove('hidden')
         this.loading.remove()
       }
-    }
-
-    App.observedAttributes = {
-      rotationDirection: attribute.number(1),
-      rotationAmount: attribute.number(1),
-      rotationEnabled: attribute.boolean(true),
-      view: attribute.string('free'),
     }
 
     return App

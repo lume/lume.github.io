@@ -2,7 +2,7 @@ import {html, Element, element, attribute} from 'lume'
 
 export const PictureFrameScene = element('picture-frame-scene')(
 	class PictureFrameScene extends Element {
-		static observedAttributes = {
+		static observedAttributeHandlers = {
 			picture: attribute.string(),
 			frameTexture: attribute.string(),
 			frameShape: attribute.string(),
