@@ -5,7 +5,7 @@
 
 Forwards properties of a specified `observedObject` onto properties of
 `this` object. The properties to be received from `observedObject` are those
-listed in the `static receivedProperties` array, or the ones decorated with
+listed in the `receivedProperties` array, or the ones decorated with
 `
 
 ## Properties
