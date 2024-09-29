@@ -19,7 +19,7 @@
 	"dependencies": {
 		"@lume/autolayout": "^0.10.0",
 		"@lume/custom-attributes": "^0.2.0",
-		"@lume/element": "^0.12.0",
+		"@lume/element": "^0.13.0",
 		"@lume/eventful": "^0.3.0",
 		"@lume/kiwi": "^0.4.0",
 		"@lume/live-code": "^0.6.0",
