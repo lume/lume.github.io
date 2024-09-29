@@ -30,6 +30,8 @@
 
 <script type="module">
   import {defineElements, booleanAttribute, Element, element, attribute, html} from 'lume'
+  import {MeshPhysicalMaterial} from 'three'
+	import {toCreasedNormals} from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 
   const bodyModelUrl = '/examples/nasa-astrobee-robot/astrobee/body.dae'
   const pmcModelUrl = '/examples/nasa-astrobee-robot/astrobee/pmc.dae'
@@ -44,7 +46,7 @@
 
   // Long live HTML elements!
 
-  element('astrobee-app')((() => {
+  element('astrobee-app')(
     class App extends Element {
       static observedAttributeHandlers = {
         rotationDirection: attribute.number(),
@@ -68,7 +70,7 @@
           <loading-icon ref=${el => this.loading = el}></loading-icon>
 
           <div class="sceneContainer hidden" ref=${el => this.sceneContainer = el}>
-            <lume-scene webgl enable-css="false" environment=${() => lunaStation}>
+            <lume-scene webgl enable-css="true" environment=${() => lunaStation}>
               <lume-element3d align-point="0.5 0.5 0.5">
                 <lume-camera-rig
                   ref=${el => this.cameraRig = el}
@@ -84,14 +86,14 @@
                 </lume-element3d>
               </lume-element3d>
 
-              <lume-point-light intensity="0.3" align-point="0.5 0.5 0.5" color="#a3ffff" position="0 90 0" />
-              <lume-point-light intensity="0.3" align-point="0.5 0.5 0.5" color="#a3ffff" position="0 -90 0" />
-              <lume-point-light intensity="0.3" align-point="0.5 0.5 0.5" color="#a3ffff" position="0 0 90" />
-              <lume-point-light intensity="0.3" align-point="0.5 0.5 0.5" color="#a3ffff" position="0 0 -90" />
-              <lume-point-light intensity="0.3" align-point="0.5 0.5 0.5" color="#a3ffff" position="90 80 0" />
-              <lume-point-light intensity="0.3" align-point="0.5 0.5 0.5" color="#a3ffff" position="90 -80 0" />
-              <lume-point-light intensity="0.3" align-point="0.5 0.5 0.5" color="#a3ffff" position="-90 80 0" />
-              <lume-point-light intensity="0.3" align-point="0.5 0.5 0.5" color="#a3ffff" position="-90 -80 0" />
+              <lume-point-light intensity="150" align-point="0.5 0.5 0.5" color="#a3ffff" position="0 90 0" ><lume-sphere has="basic-material" cast-shadow="false" mount-point="0.5 0.5 0.5" sidedness="front" size="2 2 2"/></lume-point-light>
+              <lume-point-light intensity="150" align-point="0.5 0.5 0.5" color="#a3ffff" position="0 -90 0" ><lume-sphere has="basic-material" cast-shadow="false" mount-point="0.5 0.5 0.5" sidedness="front" size="2 2 2"/></lume-point-light>
+              <lume-point-light intensity="150" align-point="0.5 0.5 0.5" color="#a3ffff" position="0 0 90" ><lume-sphere has="basic-material" cast-shadow="false" mount-point="0.5 0.5 0.5" sidedness="front" size="2 2 2"/></lume-point-light>
+              <lume-point-light intensity="150" align-point="0.5 0.5 0.5" color="#a3ffff" position="0 0 -90" ><lume-sphere has="basic-material" cast-shadow="false" mount-point="0.5 0.5 0.5" sidedness="front" size="2 2 2"/></lume-point-light>
+              <lume-point-light intensity="150" align-point="0.5 0.5 0.5" color="#a3ffff" position="90 80 0" ><lume-sphere has="basic-material" cast-shadow="false" mount-point="0.5 0.5 0.5" sidedness="front" size="2 2 2"/></lume-point-light>
+              <lume-point-light intensity="150" align-point="0.5 0.5 0.5" color="#a3ffff" position="90 -80 0" ><lume-sphere has="basic-material" cast-shadow="false" mount-point="0.5 0.5 0.5" sidedness="front" size="2 2 2"/></lume-point-light>
+              <lume-point-light intensity="150" align-point="0.5 0.5 0.5" color="#a3ffff" position="-90 80 0" ><lume-sphere has="basic-material" cast-shadow="false" mount-point="0.5 0.5 0.5" sidedness="front" size="2 2 2"/></lume-point-light>
+              <lume-point-light intensity="150" align-point="0.5 0.5 0.5" color="#a3ffff" position="-90 -80 0" ><lume-sphere has="basic-material" cast-shadow="false" mount-point="0.5 0.5 0.5" sidedness="front" size="2 2 2"/></lume-point-light>
 
               <lume-element3d ref=${el => this.astrobee = el} align-point="0.5 0.5 0.5" rotation=${() => this.astrobeeRotation}>
                 <lume-collada-model ref=${el => this.models.push(el)} src=${() => bodyModelUrl} />
@@ -99,7 +101,7 @@
                 <lume-collada-model ref=${el => this.models.push(el)} src=${() => pmcSkinModelUrl} />
                 <lume-collada-model ref=${el => this.models.push(el)} src=${() => pmcBumperModelUrl} />
 
-                <comment style="display:none">The other side.</comment>
+                <!-- The other side. -->
                 <lume-element3d scale="1 1 -1">
                   <lume-collada-model ref=${el => this.models.push(el)} src=${() => pmcModelUrl} />
                   <lume-collada-model ref=${el => this.models.push(el)} src=${() => pmcSkinModelUrl} />
@@ -113,7 +115,7 @@
                 color="white"
                 align-point="0.5 0.5 0.5"
                 mount-point="0.5 0.5 0.5"
-                size="100 100 100"
+                size="200 200 200"
                 sidedness="double"
                 cast-shadow="false"
                 receive-shadow="false"
@@ -230,7 +232,7 @@
 
         const rigCam = this.cameraRig.shadowRoot.querySelector('lume-perspective-camera')
         rigCam.near = this.freeCam.near = 0.1
-        rigCam.far = this.freeCam.far = 110
+        rigCam.far = this.freeCam.far = 150
 
         const promises = []
 
@@ -239,13 +241,38 @@
 
         await Promise.all(promises)
 
+        for (const model of this.models) {
+          // Here we do some manipulation of the underlying Three.js objects directly.
+          model.three.traverse(node => {
+            if (node.isLight) node.visible = false
+
+            function newMat(oldMat) {
+              return new MeshPhysicalMaterial({
+                metalness: 0.5,
+                roughness: 0.5,
+                ...(oldMat.color ? {color: oldMat.color} : {}),
+                ...(oldMat.map ? {map: oldMat.map.clone()} : {}),
+              })
+            }
+
+            if (node.isMesh) {
+              if (Array.isArray(node.material))
+                for (const [i, mat] of node.material.entries()) node.material[i] = newMat(mat)
+              else
+                node.material = newMat(node.material)
+
+              // smooth out the normals so the rendering is not flat-faced unless angle between faces is greater than 25 deg
+              node.geometry = toCreasedNormals(node.geometry, (25 / 180) * Math.PI)
+            }
+        })
+
+        }
+
         this.sceneContainer.classList.remove('hidden')
         this.loading.remove()
       }
     }
-
-    return App
-  })())
+  )
 </script>
 </template>
 </live-code>

@@ -36,11 +36,12 @@ names, like so:
 
   <script type="module">
     import 'lume'
-    document.getElementById('node').rotation = (x, y, z) => [x, y + 1, z]
+    const node = document.getElementById('node')
+    node.rotation = (x, y, z) => [x, y + 1, z]
   </script>
 
   <style>
-    body, html {width: 100%; height: 100%; padding: 0; margin: 0;}
+    body, html {height: 100%; margin: 0;}
     #node {background: cornflowerblue;}
   </style>
 </template>
@@ -55,11 +56,11 @@ the element names currently being used, like so:
 
   <script type=module>
     // Import two specific classes.
-    import {Scene, Node} from 'lume'
+    import {Scene, Element3D} from 'lume'
 
     const scene = new Scene()
 
-    const node = new Node().set({
+    const node = new Element3D().set({
       position: [50, 50, 0], // X, Y, and Z position
       size: [100, 100, 0], // X, Y, and Z size
     })
@@ -69,16 +70,14 @@ the element names currently being used, like so:
     document.body.append(scene)
     node.rotation = (x, y, z) => [x, y + 1, z]
 
-    // The code outputs these elements to the DOM:
-    // <body>
-    //   <lume-scene>
-    //     <lume-element3d position="50 50 0" size="100 100 0"></lume-element3d>
-    //   </lume-scene>
-    // </body>
+    // The JS code is the same as this HTML:
+    // <lume-scene>
+    //   <lume-element3d position="50 50 0" size="100 100 0"></lume-element3d>
+    // </lume-scene>
   </script>
 
   <style>
-    body, html {width: 100%; height: 100%; padding: 0; margin: 0}
+    body, html {height: 100%; margin: 0}
   </style>
 </template>
 </live-code>
@@ -99,11 +98,11 @@ classes directly, and call `.defineElement()` on the classes like so:
 <script type="module">
 	// Import (and only load code for) two specific classes directly.
 	import {Scene} from 'lume/dist/core/Scene.js'
-	import {Node} from 'lume/dist/core/Node.js'
+	import {Element3D} from 'lume/dist/core/Element3D.js'
 
 	// Define elements only for these two classes:
 	Scene.defineElement('x-scene')
-	Node.defineElement('x-node')
+	Element3D.defineElement('x-node')
 </script>
 ```
 
@@ -152,30 +151,13 @@ not because we haven't defined it:
   cube in the middle of the view: -->
   <lume-scene webgl>
     <lume-ambient-light intensity="0.5"></lume-ambient-light>
-    <lume-point-light color="white" align-point="0.5 0.5" position="0 0 300" size="0 0 0" cast-shadow="true" intensity="0.65"></lume-point-light>
-    <lume-box id="box" size="100 100 100" align-point="0.3 0.3 0.3" mount-point="0.5 0.5 0.5" color="cornflowerblue"> </lume-box>
-    <lume-sphere id="sphere" size="100 100 100" align-point="0.7 0.7 0.7" mount-point="0.5 0.5 0.5" color="rebeccapurple"> </lume-sphere>
+    <lume-point-light color="white" align-point="0.5 0.5" position="0 0 300" size="0 0 0" cast-shadow="true" intensity="600"></lume-point-light>
+    <lume-box id="box" size="100 100 100" align-point="0.3 0.3 0.3" mount-point="0.5 0.5 0.5" color="cornflowerblue"></lume-box>
+    <lume-sphere id="sphere" size="100 100 100" align-point="0.7 0.7 0.7" mount-point="0.5 0.5 0.5" color="rebeccapurple"></lume-sphere>
   </lume-scene>
 
-  <!-- Add default styling to the document: -->
   <style>
-    body,
-    html {
-      /*
-       * Make the root elements take full width/height of the window. Some browsers
-       * don't do this by default, so let's ensure that it we explicitly define
-       * it:
-       */
-      width: 100%;
-      height: 100%;
-
-      /*
-       * Also remove default padding and margin. These changes give you a
-       * consistent experience across browsers, which are quirky.
-       */
-      padding: 0;
-      margin: 0;
-    }
+    body, html { height: 100%; margin: 0; }
   </style>
 </template>
 </live-code>
@@ -195,11 +177,11 @@ class. For example:
 </script>
 
 <script type="module">
-	import {Scene, Node} from 'lume'
+	import {Scene, Element3D} from 'lume'
 
 	// Define custom names, only for these two classes:
 	Scene.defineElement('x-scene')
-	Node.defineElement('x-node')
+	Element3D.defineElement('x-node')
 </script>
 ```
 
@@ -207,7 +189,7 @@ class. For example:
 > If you prevent LUME from auto-defining its elements, you must then separately define
 > each element that you want to use.
 
-Similarly to the previous section, we can write HTML using our own element names:
+Here's an example of using custom naming for Lume elements:
 
 <live-code>
 <template>
@@ -217,41 +199,54 @@ Similarly to the previous section, we can write HTML using our own element names
     <a-node id="node" position="50 50" size="100 100"></a-node>
   </a-scene>
 
+  <script>
+    const $lume = {
+      autoDefineElements: false,
+    }
+  </script>
+
   <script type=module>
     // Import two specific classes.
-    import {Scene, Node} from 'lume'
+    import {Scene, Element3D} from 'lume'
 
     // Define elements only for the imported classes, with custom names:
     Scene.defineElement('a-scene')
-    Node.defineElement('a-node')
+    Element3D.defineElement('a-node')
 
-    document.getElementById('node').rotation = (x, y, z) => [x, y + 1, z]
+    const node = document.getElementById('node')
+    node.rotation = (x, y, z) => [x, y + 1, z]
   </script>
 
   <style>
-    body, html {width: 100%; height: 100%; padding: 0; margin: 0;}
+    body, html {height: 100%; margin: 0;}
     #node {background: cornflowerblue;}
   </style>
 </template>
 </live-code>
 
-And also similarly to the previous section, we can write the scene in JavaScript with custom names:
+Here's an example with custom names but creating the elements with JavaScript:
 
 <live-code>
 <template>
   <base href="${host}" /><script src="./importmap.js"></script>
 
+  <script>
+    const $lume = {
+      autoDefineElements: false,
+    }
+  </script>
+
   <script type=module>
     // Import two specific classes.
-    import {Scene, Node} from 'lume'
+    import {Scene, Element3D} from 'lume'
 
     // Define elements only for the imported classes, with custom names:
-    Scene.defineElement('rad-scene')
-    Node.defineElement('rad-node')
+    Scene.defineElement('bat-man')
+    Element3D.defineElement('robin-hood')
 
     const scene = new Scene()
 
-    const node = new Node().set({
+    const node = new Element3D().set({
       position: [50, 50, 0], // X, Y, and Z position
       size: [100, 100, 0], // X, Y, and Z size
     })
@@ -261,16 +256,46 @@ And also similarly to the previous section, we can write the scene in JavaScript
     document.body.append(scene)
     node.rotation = (x, y, z) => [x, y + 1, z]
 
-    // The code outputs these elements to the DOM:
-    // <body>
-    //   <rad-scene>
-    //     <rad-node position="50 50 0" size="100 100 0"></rad-node>
-    //   </rad-scene>
-    // </body>
+    // The JS code is the same as this HTML:
+    // <bat-man>
+    //   <robin-hood position="50 50 0" size="100 100 0"></robin-hood>
+    // </bat-man>
   </script>
 
   <style>
-    body, html {width: 100%; height: 100%; padding: 0; margin: 0}
+    body, html {height: 100%; margin: 0}
   </style>
 </template>
 </live-code>
+
+Note that `.defineElement()` returns the class that was defined. If the class is
+already associated with an element name, then `.defineElement()` still succeeds
+and returns a _new_ class with the new element name, not the same class. For
+example:
+
+```js
+// Define elements only for the imported classes, with custom names:
+const BatMan = Scene.defineElement('bat-man')
+const RobinHood = Element3D.defineElement('robin-hood')
+
+// true if autoDefineElements set to false because defineElements returns the
+// same class it is not yet associagted with an element name, false if
+// autoDefineElements set to true because then the class is already associated
+// with an element name so it creates a new class
+console.log(Scene === BatMan)
+
+// true if autoDefineElements set to false because defineElements returns the
+// same class it is not yet associagted with an element name, false if
+// autoDefineElements set to true because then the class is already associated
+// with an element name so it creates a new class
+console.log(Element3D === RobinHood)
+
+const SuperMan = Scene.defineElement('super-man')
+const LewisLane = Element3D.defineElement('lewis-lane')
+
+// false (second call, regardless of autoDefineElements, must return a new class)
+console.log(Scene === SuperMan)
+
+// false (second call, regardless of autoDefineElements, must return a new class)
+console.log(Element3D === LewisLane)
+```

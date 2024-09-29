@@ -78,7 +78,7 @@ const projectedTextureExample = stripIndent(html`
 		<lume-camera-rig active vertical-angle="30" distance="400" max-distance="7000" min-distance="100">
 			<lume-point-light
 				position="200 -200 200"
-				intensity="0.6"
+				intensity="1200"
 				color="white"
 				shadow-bias="-0.001"
 				shadow-map-width="2048"
@@ -196,7 +196,7 @@ function meshExample({geometry = 'box', material = 'phong', color = ''} = {}) {
 		<script src="./importmap.js"></script>
 
 		<lume-scene id="scene" perspective="800" webgl>
-			<lume-point-light position="200 -200 200" intensity="0.6" color="white"></lume-point-light>
+			<lume-point-light position="200 -200 200" intensity="1200" color="white"></lume-point-light>
 			<lume-ambient-light color="white" intensity="0.6"></lume-ambient-light>
 			<lume-camera-rig active distance="400" max-distance="700" min-distance="100"></lume-camera-rig>
 
@@ -223,7 +223,7 @@ function pointLightExample() {
 		<base href="${host}" />
 		<script src="./importmap.js"></script>
 
-		<lume-scene webgl shadowmap-type="soft">
+		<lume-scene webgl shadowmap-type="vsm">
 			<lume-ambient-light color="white" intensity="0.7"></lume-ambient-light>
 
 			<!-- We need a plane onto which shadows will land (the "floor"). -->
@@ -231,13 +231,14 @@ function pointLightExample() {
 				<lume-plane color="white" size="1500 1500" align-point="0.5 0.5" mount-point="0.5 0.5" rotation="0 0 30">
 					<!-- For simplicity, let's position the light, and a cube, relative to (as children of) the "floor". -->
 
-					<!-- A point in space where light emanates from. -->
+					<!-- A point in space where light emanates from. Try increasing the shadow map with and height, and changing the radius. -->
 					<lume-point-light
 						color="white"
 						position="500 -500 500"
-						intensity="1"
+						intensity="14000"
 						shadow-map-width="1024"
 						shadow-map-height="1024"
+						shadow-radius="5"
 					></lume-point-light>
 
 					<!-- A box that will cast a shadow onto the floor. -->
@@ -288,7 +289,7 @@ function directionalLightExample() {
 					<lume-directional-light
 						color="white"
 						position="500 -500 500"
-						intensity="1"
+						intensity="8"
 						shadow-map-width="1024"
 						shadow-map-height="1024"
 					></lume-directional-light>
@@ -339,6 +340,7 @@ function perspectiveLayeredImage({bg, fg, bgPosition = {x: 0, y: 0}, fgPosition 
 			<lume-point-light
 				align-point="0.5 0.5"
 				position="0 0 500"
+				intensity="1000"
 				distance="800"
 				shadow-radius="2"
 				shadow-bias="-0.001"
@@ -429,7 +431,7 @@ const lineExample = stripIndent(html`
 	</style>
 
 	<lume-scene id="scene" perspective="800" webgl>
-		<lume-point-light intensity="0.4" color="white" position="300 400 500"></lume-point-light>
+		<lume-point-light intensity="800" color="white" position="300 400 500"></lume-point-light>
 		<lume-ambient-light intensity="0.5" color="white" position="300 400 500"></lume-ambient-light>
 
 		<lume-camera-rig active distance="4000" max-distance="7000" min-distance="10"></lume-camera-rig>
@@ -486,7 +488,7 @@ const shapesExample = stripIndent(html`
 		<lume-ambient-light color="white" intensity="0.4"></lume-ambient-light>
 
 		<lume-camera-rig id="cam" active distance="200" max-distance="70000" min-distance="100">
-			<lume-point-light position="200 0 200" intensity="0.7" color="white" slot="camera-child"></lume-point-light>
+			<lume-point-light position="200 0 200" intensity="1400" color="white" slot="camera-child"></lume-point-light>
 			<lume-perspective-camera
 				align-point="0.5 0.5 0.5"
 				far="200000"
@@ -892,7 +894,7 @@ const instancedMeshExample = stripIndent(html`
 	</style>
 
 	<lume-scene id="scene" perspective="800" webgl>
-		<lume-point-light position="200 -200 200" intensity="0.6" color="white"></lume-point-light>
+		<lume-point-light position="200 -200 200" intensity="1200" color="white"></lume-point-light>
 		<lume-ambient-light color="white" intensity="0.6"></lume-ambient-light>
 
 		<lume-element3d size-mode="proportional proportional" size="1 1" style="border: 5px solid teal"></lume-element3d>
@@ -1112,7 +1114,7 @@ const perspectiveCameraExample = stripIndent(html`
 			<lume-perspective-camera id="cam" position="0 0 1000" align-point="0.5 0.5"></lume-perspective-camera>
 
 			<lume-ambient-light intensity="0.3"></lume-ambient-light>
-			<lume-point-light id="light" color="white" cast-shadow="true" intensity="0.8" position="0 0 300">
+			<lume-point-light id="light" color="white" cast-shadow="true" intensity="1000" position="0 0 300">
 				<lume-mesh
 					has="sphere-geometry basic-material"
 					cast-shadow="false"
@@ -1279,7 +1281,7 @@ const cameraRigExample = stripIndent(html`
 			></lume-camera-rig>
 
 			<lume-ambient-light intensity="0.3"></lume-ambient-light>
-			<lume-point-light id="light" color="white" cast-shadow="true" intensity="0.8" position="0 0 300">
+			<lume-point-light id="light" color="white" cast-shadow="true" intensity="1000" position="0 0 300">
 				<lume-mesh
 					has="sphere-geometry basic-material"
 					cast-shadow="false"
@@ -1344,7 +1346,7 @@ const cameraRigVerticalRotationExample = stripIndent(html`
 				max-vertical-angle="45"
 				distance="500"
 			>
-				<lume-point-light slot="camera-child" color="white" intensity="0.9" position="120 120 120"></lume-point-light>
+				<lume-point-light slot="camera-child" color="white" intensity="1800" position="120 120 120"></lume-point-light>
 			</lume-camera-rig>
 		</lume-box>
 	</lume-scene>
@@ -1390,7 +1392,7 @@ const clipPlaneExample = stripIndent(html`
 		<lume-camera-rig active vertical-angle="30" distance="400" max-distance="7000" min-distance="100">
 			<lume-point-light
 				position="200 -200 200"
-				intensity="0.6"
+				intensity="1200"
 				color="white"
 				shadow-bias="-0.001"
 				shadow-map-width="2048"
