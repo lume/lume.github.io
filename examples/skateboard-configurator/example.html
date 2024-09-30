@@ -414,6 +414,8 @@
 	const getScale = () => [scene.calculatedSize.y * 1.3, scene.calculatedSize.y * 1.3, scene.calculatedSize.y * 1.3]
 
 	createEffect(() => {
+		console.log('skateboard scale effect')
+		// debugger
 		// The size of the skateboard is just less than a pixel, hence we can
 		// easily scale it based on scene pixel dimensions to make it
 		// approximately fit in view.
@@ -421,6 +423,12 @@
 		skateboard.scale = scale
 		projectorContainer.scale = scale
 	})
+	// createEffect(() => {
+	// 	console.log('set skateboard scale')
+	// 	// debugger
+	// 	getScale()
+	// 	// skateboard.scale = [1, 1, 1]
+	// })
 
 	//
 
@@ -428,6 +436,7 @@
 	// model, finally handle the loaded model.
 
 	createEffect(() => {
+		// debugger
 		const modelBehavior = skateboardModel.behaviors.get('gltf-model')
 		if (!modelBehavior) return
 
@@ -464,7 +473,11 @@
 
 		const deck = document.getElementById('deck_basic002_0')
 
-		createEffect(() => (projector.size = [deck.size.y, deck.size.x]))
+		createEffect(() => {
+			console.log('projector size effect')
+			// debugger
+			projector.size = [deck.size.y, deck.size.x]
+		})
 
 		loadPromises.push(waitForTextureLoad())
 		Promise.all(loadPromises).then(revealScene)

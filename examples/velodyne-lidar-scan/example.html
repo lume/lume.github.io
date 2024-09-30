@@ -8,7 +8,7 @@
 
 <lume-scene id="scene" perspective="800" webgl enable-css="false" class="hidden">
 	<lume-point-light id="light" position="200 -200 200" intensity="3" color="deeppink"></lume-point-light>
-	<lume-ambient-light color="white" intensity="0.6"></lume-ambient-light>
+	<lume-ambient-light color="white" intensity="1200"></lume-ambient-light>
 
 	<lume-camera-rig
 		active
@@ -67,8 +67,7 @@
 <script type="module">
 	import 'lume'
 
-	const ua = window.navigator.userAgent
-	const is_iOS = ua.match(/iPad/i) || ua.match(/iPhone/i)
+	const shimmerEffect = false // nice effect but only on Firefox right now.
 
 	// Rendering shimmering points with a non-points material does not work in
 	// iOS Safari (point sizes are blown up), fallback to points-material on
@@ -80,7 +79,7 @@
 		-->
 		<lume-points
 			id="model"
-			has="ply-geometry ${is_iOS ? 'points' : 'phong'}-material"
+			has="ply-geometry ${shimmerEffect ? 'phong' : 'points'}-material"
 			src="/examples/velodyne-lidar-scan/shelby-scene.ply"
 			rotation="90 0 0"
 			position="0 0 60"

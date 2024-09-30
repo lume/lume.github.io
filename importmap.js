@@ -14,6 +14,7 @@
 		'@lume/three-projected-material/': './modules/@lume/three-projected-material/',
 		'@lume/autolayout': './modules/@lume/autolayout/dist/AutoLayout.js',
 		lowclass: './modules/lowclass/dist/index.js',
+		'lowclass/': './modules/lowclass/',
 		'james-bond': './modules/james-bond/dist/index.js',
 		regexr: './modules/regexr/dist/index.js',
 		'element-behaviors': './modules/element-behaviors/dist/index.js',

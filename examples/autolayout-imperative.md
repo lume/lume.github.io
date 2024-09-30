@@ -40,7 +40,7 @@
           position: "300 300 120",
           size: "0 0 0",
           castShadow: "true",
-          intensity: "0.5",
+          intensity: "300",
           shadowRadius: 2,
           distance: 800,
           shadowBias: -0.01,
