@@ -22,6 +22,11 @@ associating it with the `texture-projectors` attribute:
 ></lume-box>
 ```
 
+<live-code id="example"></live-code>
+<script>
+  example.content = projectedTextureExample
+</script>
+
 ## Properties
 
 Inherits properties from [PhysicalMaterialBehavior](PhysicalMaterialBehavior.md).
