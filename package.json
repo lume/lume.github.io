@@ -48,7 +48,7 @@
 		"@babel/runtime": "^7.15.4",
 		"@codemirror/lang-html": "^6.0.0",
 		"@codemirror/lang-javascript": "^6.0.0",
-		"@lume/cli": "^0.13.0",
+		"@lume/cli": "^0.14.0",
 		"@solid-devtools/logger": "^0.8.3",
 		"@uiw/codemirror-theme-noctis-lilac": "^4.0.0",
 		"browser-sync": "^2.27.11",
