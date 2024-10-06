@@ -77,9 +77,41 @@ values of zero (black). If it has more than `this.count` colors, those
 colors are ignored.
         
 
-
+## Methods
 
 Inherits methods from [Mesh](Mesh.md).
 
 
+### <code>.<b>setInstancePosition</b>(): void</code> :id=setInstancePosition
+
+Set the position of a specific instance at
+the given index. Use this instead of the [`positions`](#positions)
+attribute when you only need to update a small number of instances for
+optimization.
+        
+
+
+### <code>.<b>setInstanceScale</b>(): void</code> :id=setInstanceScale
+
+Set the scale of a specific instance at the
+given index. Use this instead of the [`scales`](#scales) attribute when
+you only need to update a small number of instances for optimization.
+        
+
+
+### <code>.<b>setInstanceRotation</b>(): void</code> :id=setInstanceRotation
+
+Set the rotation of a specific instance at
+the given index. Use this instead of the [`rotations`](#rotations)
+attribute when you only need to update a small number of instances for
+optimization.
+        
+
+
+### <code>.<b>setInstanceColor</b>(): void</code> :id=setInstanceColor
+
+Set the color of a specific instance at the
+given index. Use this instead of the [`colors`](#colors) attribute when
+you only need to update a small number of instances for optimization.
+        
         

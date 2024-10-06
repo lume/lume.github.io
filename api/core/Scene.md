@@ -309,21 +309,6 @@ Applies only if [`webgl`](#webgl) is `true`.
         
 
 
-### <code>.<b>physicallyCorrectLights</b></code> :id=physicallyCorrectLights
-
-`attribute`
-
-Default: `false`
-
-Whether to use physically correct lighting mode or not. This affects only
-[`PointLight`](../lights/PointLight) <!-- and `SpotLight` --> elements
-<!-- ; `RectArea` lights do this automatically -->. See the [lights /
-physical example](https://threejs.org/examples/#webgl_lights_physical)
-from Three.js and "physicallyCorrectLights" in the Three.js manual's
-[Lights](https://threejs.org/manual/?q=lig#en/lights) doc.
-        
-
-
 ### <code>.<b>cameraNear</b></code> :id=cameraNear
 
 *attribute*
