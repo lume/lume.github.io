@@ -46,7 +46,7 @@ by 100, and rotated a bit so we can see multiple faces of the box:
 
   <lume-scene webgl>
     <lume-ambient-light intensity="0.3"></lume-ambient-light>
-    <lume-point-light position="250 250 250"></lume-point-light>
+    <lume-point-light position="250 250 250" intensity="1000"></lume-point-light>
     <lume-box size="100 100 100" position="100 100" rotation="30 10 30" color="#fc8eac"></lume-box>
   </lume-scene>
 
@@ -109,7 +109,7 @@ the blue box transparent to more easily see what's going on:
 
   <lume-scene webgl>
     <lume-ambient-light intensity="0.3"></lume-ambient-light>
-    <lume-point-light position="250 250 250"></lume-point-light>
+    <lume-point-light position="250 250 250" intensity="1000"></lume-point-light>
     <lume-box size="100 100 100" position="100 100" rotation="30 10 30" color="#fc8eac" opacity="0.7">
       <lume-box size-mode="p l p" size="0.75 150 0.25" color="cornflowerblue"></lume-box>
     </lume-box>
@@ -142,7 +142,7 @@ visible content, with a border to visualize the boundaries:
   <div style="width: 250px; height: 200px; border: 1px solid teal;">
     <lume-scene webgl>
       <lume-ambient-light intensity="0.3"></lume-ambient-light>
-      <lume-point-light position="250 250 250"></lume-point-light>
+      <lume-point-light position="250 250 250" intensity="1000"></lume-point-light>
       <lume-box size="100 100 100" position="100 100" rotation="30 10 30" color="#fc8eac" opacity="0.7">
         <lume-box size-mode="p l p" size="0.75 150 0.25" color="cornflowerblue"></lume-box>
       </lume-box>

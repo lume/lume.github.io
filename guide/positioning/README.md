@@ -295,8 +295,8 @@ it easier to see.
 
   <lume-scene webgl>
     <lume-ambient-light intensity="0.3"></lume-ambient-light>
-    <lume-point-light align-point="0.5 0.5" position="250 250 250"></lume-point-light>
-    <lume-box id="myBox" size="100 100 100" align-point="0.5 0.5" mount-point="0.5 0.5 0.5" rotation="45 45 0" color="deeppink" opacity="0.5" sidedness="double" cast-shadow="false">
+    <lume-point-light align-point="0.5 0.5" position="250 250 250" intensity="1000"></lume-point-light>
+    <lume-box id="myBox" size="100 100 100" align-point="0.5 0.5" mount-point="0.5 0.5 0.5" rotation="45 45 0" color="deeppink" opacity="0.85" sidedness="double" cast-shadow="false">
       <lume-sphere size="10 10 10" mount-point="0.5 0.5 0.5" color="blue" align-point="0.5 0.5 0.5"></lume-sphere>
       <lume-sphere size="10 10 10" mount-point="0.5 0.5 0.5" color="blue" align-point="0 0 0"></lume-sphere>
       <lume-sphere size="10 10 10" mount-point="0.5 0.5 0.5" color="blue" align-point="1 0 0"></lume-sphere>
@@ -342,7 +342,7 @@ of the scene, then translated with `position`:
 
   <lume-scene webgl>
     <lume-ambient-light intensity="0.3"></lume-ambient-light>
-    <lume-point-light align-point="0.5 0.5" position="250 250 250"></lume-point-light>
+    <lume-point-light align-point="0.5 0.5" position="250 250 250" intensity="1000"></lume-point-light>
     <lume-box size="100 100 100" align-point="0.5 0.5" mount-point="0.5 0.5 0.5" rotation="45 45 0" color="#fc8eac"></lume-box>
   </lume-scene>
 

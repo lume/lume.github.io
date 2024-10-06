@@ -21,16 +21,15 @@
   </style>
 
   <lume-scene id="scene" webgl>
-      <lume-ambient-light intensity="0.3"></lume-ambient-light>
+      <lume-ambient-light intensity="1"></lume-ambient-light>
       <lume-point-light
           id="light"
           color="white"
           position="300 300 300"
           size="0 0 0"
           cast-shadow="true"
-          intensity="0.8"
+          intensity="800"
           shadow-radius="2"
-          distance="800"
           shadow-bias="-0.001"
           >
       </lume-point-light>

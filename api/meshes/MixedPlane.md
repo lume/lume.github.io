@@ -18,17 +18,11 @@ available properties.
 
 <live-code src="../../../examples/buttons-with-shadow/example.html"></live-code>
 
-## Properties
+
 
 Inherits properties from [Mesh](Mesh.md).
 
 
-### <code>.<b>isMixedPlane</b></code> :id=isMixedPlane
-
-An always-`true` property signaling that
-this element is a `MixedPlane`. Useful for duck typing, especially in
-plain JavaScript as opposed to TypeScript.
-        
 
 
 

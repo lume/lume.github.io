@@ -63,6 +63,7 @@ shortcut for `<lume-element3d has="obj-model">`.
           position="300 300 600"
           size="0 0 0"
           cast-shadow="true"
+          intensity="1000"
           >
           <lume-sphere
               has="basic-material"
