@@ -56,7 +56,6 @@
 		codemirror: './modules/codemirror/dist/index.js',
 		crelt: './modules/crelt/index.js',
 		'lodash-es/': './modules/lodash-es/',
-		lowclass: './modules/lowclass/dist/index.js',
 		'solid-js': './modules/solid-js/dist/solid.js',
 		'solid-js/html': './modules/solid-js/html/dist/html.js',
 		'solid-js/web': './modules/solid-js/web/dist/web.js',
