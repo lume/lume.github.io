@@ -1,4 +1,7 @@
 {
+	const isDev = location.host.includes('localhost')
+	const meteorRoot = isDev ? 'http://localhost:8765' : 'https://lume.io'
+
 	const script = document.currentScript
 	// F.e. the "../../" in "src="../../importmap.js"
 	const base = script.getAttribute('src').split('importmap.js')[0]
@@ -27,6 +30,9 @@
 		'three/': './modules/three/',
 		// For Three.js example modules so we don't have to change their imports.
 		'three/addons/': './modules/three/examples/jsm/',
+
+		// Tween
+		'@tweenjs/tween.js': 'https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@25.0.0/dist/tween.esm.js',
 
 		// live-code
 		'@lume/live-code': './modules/@lume/live-code/dist/index.js',
@@ -84,9 +90,25 @@
 		'@solid-primitives/static-store': './modules/@solid-primitives/static-store/dist/index.js',
 		'@solid-primitives/utils': './modules/@solid-primitives/utils/dist/index/index.js',
 		'@solid-primitives/utils/immutable': './modules/@solid-primitives/utils/dist/immutable/index.js',
+
+		// Meteor
+		'meteor/meteor': meteorRoot + '/meteor-packages.js',
+		'meteor/tracker': meteorRoot + '/meteor-packages.js',
+		'meteor/blaze': meteorRoot + '/meteor-packages.js',
+		'meteor/templating': meteorRoot + '/meteor-packages.js',
+		'meteor/mongo': meteorRoot + '/meteor-packages.js',
+		'meteor/session': meteorRoot + '/meteor-packages.js',
+		'meteor/reactive-var': meteorRoot + '/meteor-packages.js',
+		'meteor/accounts-base': meteorRoot + '/meteor-packages.js',
 	}
 
-	for (const key in imports) imports[key] = base + imports[key]
+	// Map relative imports to the base URL, so that examples in deeper folders work.
+	for (const key in imports) {
+		const isFullUrl = ['http://', 'https://', '//'].some(v => imports[key].startsWith(v))
+
+		// Only map relative URLs.
+		if (!isFullUrl) imports[key] = base + imports[key]
+	}
 
 	const importmapScript = document.createElement('script')
 	importmapScript.setAttribute('type', 'importmap')

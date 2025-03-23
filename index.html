@@ -6,6 +6,17 @@
 		<link rel="icon" href="./images/logo-icon.svg" />
 		<meta name="theme-color" content="#0043fa" />
 
+		<!-- Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-5B93FS5P5X"></script>
+		<script>
+			window.dataLayer = window.dataLayer || []
+			function gtag() {
+				dataLayer.push(arguments)
+			}
+			gtag('js', new Date())
+			gtag('config', 'G-5B93FS5P5X')
+		</script>
+
 		<!-- Start Single Page Apps for GitHub Pages -->
 		<!-- Copied/adapted as instructed from https://github.com/rafgraph/spa-github-pages. -->
 		<script type="text/javascript">
@@ -79,5 +90,8 @@
 			import 'lume'
 			import '@lume/live-code'
 		</script>
+
+		<!-- Connect the static docs site to the lume.io's Meteor server. -->
+		<script src="./load-meteor.js"></script>
 	</body>
 </html>
