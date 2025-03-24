@@ -56,6 +56,9 @@
 		<link rel="stylesheet" href="/modules/prismjs/plugins/line-numbers/prism-line-numbers.css" />
 
 		<link rel="stylesheet" href="/styles/index.css" />
+
+		<!-- Connect the static docs site to the lume.io's Meteor server. -->
+		<script src="./load-meteor.js"></script>
 	</head>
 	<body class="line-numbers">
 		<div id="app"></div>
@@ -91,7 +94,15 @@
 			import '@lume/live-code'
 		</script>
 
-		<!-- Connect the static docs site to the lume.io's Meteor server. -->
-		<script src="./load-meteor.js"></script>
+		<blaze-component id="loginButtons" tmpl="loginButtons" data='{"align": "right"}'></blaze-component>
+		<style>
+			blaze-component {
+				display: block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				z-index: 888;
+			}
+		</style>
 	</body>
 </html>
