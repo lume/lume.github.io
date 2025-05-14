@@ -1,6 +1,6 @@
 {
 	const isDev = location.host.includes('localhost')
-	const meteorRoot = isDev ? 'http://localhost:8765' : 'https://lume.io'
+	const mainOrigin = (globalThis.mainOrigin = isDev ? 'http://localhost:8765' : 'https://lume.io')
 
 	const script = document.currentScript
 	// F.e. the "../../" in "src="../../importmap.js"
@@ -92,14 +92,17 @@
 		'@solid-primitives/utils/immutable': './modules/@solid-primitives/utils/dist/immutable/index.js',
 
 		// Meteor
-		'meteor/meteor': meteorRoot + '/meteor-packages.js',
-		'meteor/tracker': meteorRoot + '/meteor-packages.js',
-		'meteor/blaze': meteorRoot + '/meteor-packages.js',
-		'meteor/templating': meteorRoot + '/meteor-packages.js',
-		'meteor/mongo': meteorRoot + '/meteor-packages.js',
-		'meteor/session': meteorRoot + '/meteor-packages.js',
-		'meteor/reactive-var': meteorRoot + '/meteor-packages.js',
-		'meteor/accounts-base': meteorRoot + '/meteor-packages.js',
+		'meteor/meteor': mainOrigin + '/meteor-packages.js',
+		'meteor/tracker': mainOrigin + '/meteor-packages.js',
+		'meteor/blaze': mainOrigin + '/meteor-packages.js',
+		'meteor/templating': mainOrigin + '/meteor-packages.js',
+		'meteor/mongo': mainOrigin + '/meteor-packages.js',
+		'meteor/session': mainOrigin + '/meteor-packages.js',
+		'meteor/reactive-var': mainOrigin + '/meteor-packages.js',
+		'meteor/accounts-base': mainOrigin + '/meteor-packages.js',
+
+		// For easily importing frontend files from the main site.
+		'lume.io/': mainOrigin + '/',
 	}
 
 	// Map relative imports to the base URL, so that examples in deeper folders work.

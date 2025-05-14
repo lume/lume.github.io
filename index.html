@@ -57,16 +57,18 @@
 
 		<link rel="stylesheet" href="/styles/index.css" />
 
+		<script src="/importmap.js"></script>
+
 		<!-- Connect the static docs site to the lume.io's Meteor server. -->
-		<script src="./load-meteor.js"></script>
+		<script src="/load-meteor.js"></script>
 	</head>
 	<body class="line-numbers">
 		<div id="app"></div>
 
 		<script src="/docsify.config.js"></script>
 
-		<!-- <script src="/modules/docsify/lib/docsify.min.js"></script> -->
-		<script src="/modules/docsify/lib/docsify.js"></script>
+		<script src="/modules/docsify/lib/docsify.min.js"></script>
+		<!-- <script src="/modules/docsify/lib/docsify.js"></script> -->
 		<!-- TODO FIXME emoji plugin doesn't seem to do anything. -->
 		<!-- <script src="/modules/docsify/lib/plugins/emoji.min.js"></script> -->
 		<script src="/modules/docsify/lib/plugins/search.min.js"></script>
@@ -88,21 +90,11 @@
 		<script>
 			document.write(/*html*/ `<base href="${location.origin}" />`)
 		</script>
-		<script src="./importmap.js"></script>
+
 		<script type="module">
 			import 'lume'
 			import '@lume/live-code'
+			import 'lume.io/elements/BlazeComponent.js'
 		</script>
-
-		<blaze-component id="loginButtons" tmpl="loginButtons" data='{"align": "right"}'></blaze-component>
-		<style>
-			blaze-component {
-				display: block;
-				position: absolute;
-				top: 0;
-				right: 0;
-				z-index: 888;
-			}
-		</style>
 	</body>
 </html>
