@@ -19,7 +19,7 @@
 	"dependencies": {
 		"@lume/autolayout": "^0.10.0",
 		"@lume/custom-attributes": "^0.2.0",
-		"@lume/element": "^0.13.0",
+		"@lume/element": "^0.16.0",
 		"@lume/eventful": "^0.3.0",
 		"@lume/kiwi": "^0.4.0",
 		"@lume/live-code": "^0.6.0",
@@ -35,7 +35,7 @@
 		"element-behaviors": "^5.0.0",
 		"james-bond": "^0.7.0",
 		"lowclass": "^8.0.0",
-		"lume": "^0.3.0-alpha.44",
+		"lume": "^0.3.0-alpha.46",
 		"prismjs": "^1.29.0",
 		"regexr": "^2.0.0",
 		"solid-js": "^1.0.0",
@@ -43,6 +43,10 @@
 		"tinycolor2": "^1.4.1",
 		"tween.js": "^16.6.0",
 		"vue": "^2.6.10"
+	},
+	"overrides": {
+		"@lume/element": "$@lume/element",
+		"vue": "$vue"
 	},
 	"devDependencies": {
 		"@babel/runtime": "^7.15.4",
