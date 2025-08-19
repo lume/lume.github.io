@@ -25,6 +25,7 @@
   - [🌍 Hello world!](/examples/hello-world/ ':class=no-sublist')
   - [🛹 Skateboard Configurator](/examples/skateboard-configurator/ ':class=no-sublist')
   - [🟠 Lava Lamp](/examples/lava-lamp/ ':class=no-sublist')
+  - [💬 Chat Widget](/examples/chat-widget/ ':class=no-sublist')
   - [🖼️ Picture Frame](/examples/picture-frame ':class=no-sublist')
   - [🤖 NASA Astrobee Robot](/examples/nasa-astrobee-robot/ ':class=no-sublist')
   - [✨ Velodyne Lidar Scan](/examples/velodyne-lidar-scan/ ':class=no-sublist')

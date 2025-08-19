@@ -1,0 +1,512 @@
+<script src="../../importmap.js"></script>
+
+<style>
+	body,
+	html {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	/* Optional 3D scene background */
+	#background-scene {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		opacity: 0.3;
+	}
+
+	.demo-container {
+		max-width: 800px;
+		width: 90%;
+		margin: 20px;
+	}
+
+	.demo-header {
+		text-align: center;
+		color: white;
+		margin-bottom: 30px;
+	}
+
+	.demo-header h1 {
+		font-size: 2.5rem;
+		margin: 0 0 10px 0;
+		font-weight: 700;
+	}
+
+	.demo-header p {
+		font-size: 1.2rem;
+		opacity: 0.9;
+		margin: 0;
+	}
+
+	/* Chat widget will style itself */
+</style>
+
+<!-- Optional 3D background scene -->
+<lume-scene id="background-scene" webgl enable-css="false">
+	<lume-ambient-light intensity="0.3"></lume-ambient-light>
+	
+	<!-- Animated floating spheres for visual interest -->
+	<lume-sphere
+		id="sphere1"
+		size="20 20 20"
+		position="-100 -50 -200"
+		color="#ffffff"
+		has="basic-material"
+		opacity="0.6"
+	></lume-sphere>
+	
+	<lume-sphere
+		id="sphere2" 
+		size="15 15 15"
+		position="80 60 -150"
+		color="#ffffff"
+		has="basic-material"
+		opacity="0.4"
+	></lume-sphere>
+	
+	<lume-sphere
+		id="sphere3"
+		size="12 12 12"
+		position="-80 80 -100"
+		color="#ffffff"
+		has="basic-material"
+		opacity="0.5"
+	></lume-sphere>
+</lume-scene>
+
+<div class="demo-container">
+	<div class="demo-header">
+		<h1>💬 Chat Widget Demo</h1>
+		<p>Built with @lume/element and powered by Meteor</p>
+	</div>
+	
+	<!-- The custom chat widget element -->
+	<chat-widget></chat-widget>
+</div>
+
+<script type="module">
+	import {Element, element, css} from '@lume/element'
+	import {createSignal, createEffect, For, Show} from 'solid-js'
+	import html from 'solid-js/html'
+
+	// Simple animation for background spheres
+	import {Motor} from 'lume'
+	
+	Motor.addRenderTask(time => {
+		const sphere1 = document.getElementById('sphere1')
+		const sphere2 = document.getElementById('sphere2') 
+		const sphere3 = document.getElementById('sphere3')
+		
+		if (sphere1) {
+			sphere1.rotation.x = time * 0.0005
+			sphere1.rotation.y = time * 0.0003
+			sphere1.position.z = -200 + Math.sin(time * 0.001) * 30
+		}
+		
+		if (sphere2) {
+			sphere2.rotation.x = time * 0.0008
+			sphere2.rotation.z = time * 0.0004
+			sphere2.position.z = -150 + Math.cos(time * 0.0012) * 25
+		}
+		
+		if (sphere3) {
+			sphere3.rotation.y = time * 0.0006
+			sphere3.rotation.z = time * 0.0005
+			sphere3.position.z = -100 + Math.sin(time * 0.0008) * 20
+		}
+	})
+
+	// Mock data for demonstration (in real app, this would use Meteor)
+	let mockMessages = [
+		{id: 1, text: "Welcome to the chat! 👋", username: "System", createdAt: new Date(Date.now() - 300000)},
+		{id: 2, text: "This is a demo of the chat widget built with @lume/element!", username: "Demo User", createdAt: new Date(Date.now() - 200000)},
+		{id: 3, text: "Feel free to join and test it out!", username: "Demo User", createdAt: new Date(Date.now() - 100000)}
+	]
+
+	// Define the chat-widget custom element (without decorators for compatibility)
+	class ChatWidget extends Element {
+		static elementName = 'chat-widget'
+		
+		constructor() {
+			super()
+		}
+
+		// Template function using Solid.js html template
+		template = () => {
+			const [messages, setMessages] = createSignal(mockMessages)
+			const [currentUser, setCurrentUser] = createSignal(null)
+			const [username, setUsername] = createSignal('')
+			const [message, setMessage] = createSignal('')
+
+			// Login handler
+			const handleLogin = (e) => {
+				e.preventDefault()
+				const user = username().trim()
+				if (!user) return
+
+				// Simple demo authentication
+				setCurrentUser({username: user, id: Date.now()})
+				
+				// Add welcome message
+				const welcomeMsg = {
+					id: Date.now(),
+					text: `${user} joined the chat! 🎉`,
+					username: "System",
+					createdAt: new Date()
+				}
+				setMessages([...messages(), welcomeMsg])
+				this.scrollToBottom()
+			}
+
+			// Send message handler
+			const handleSendMessage = (e) => {
+				e.preventDefault()
+				const msg = message().trim()
+				if (!msg || !currentUser()) return
+
+				const newMessage = {
+					id: Date.now(),
+					text: msg,
+					username: currentUser().username,
+					createdAt: new Date()
+				}
+				
+				setMessages([...messages(), newMessage])
+				setMessage('')
+				this.scrollToBottom()
+			}
+
+			// Logout handler  
+			const handleLogout = () => {
+				const user = currentUser()
+				setCurrentUser(null)
+				setUsername('')
+				
+				// Add goodbye message
+				const goodbyeMsg = {
+					id: Date.now(),
+					text: `${user.username} left the chat. 👋`,
+					username: "System",
+					createdAt: new Date()
+				}
+				setMessages([...messages(), goodbyeMsg])
+				this.scrollToBottom()
+			}
+
+			return html`
+				<div class="chat-widget">
+					<${Show} when=${() => currentUser()}>
+						<div class="chat-container">
+							<div class="chat-header">
+								<h3>💬 Global Chat</h3>
+								<div class="user-info">
+									<span>Welcome, ${() => currentUser()?.username}!</span>
+									<button onclick=${handleLogout} class="logout-btn">Logout</button>
+								</div>
+							</div>
+							
+							<div class="messages-container" ref=${(el) => this.messagesContainer = el}>
+								<${For} each=${messages}>
+									${(msg) => html`
+										<div class="message ${() => msg.username === currentUser()?.username ? 'own-message' : msg.username === 'System' ? 'system-message' : ''}">
+											<div class="message-header">
+												<strong class="username">${msg.username}</strong>
+												<span class="timestamp">${() => new Date(msg.createdAt).toLocaleTimeString()}</span>
+											</div>
+											<div class="message-text">${msg.text}</div>
+										</div>
+									`}
+								<//>
+							</div>
+							
+							<form class="message-form" onsubmit=${handleSendMessage}>
+								<input
+									type="text"
+									placeholder="Type your message..."
+									value=${message}
+									oninput=${(e) => setMessage(e.target.value)}
+									class="message-input"
+								/>
+								<button type="submit" class="send-btn" disabled=${() => !message().trim()}>
+									Send
+								</button>
+							</form>
+						</div>
+					<//>
+					
+					<${Show} when=${() => !currentUser()}>
+						<div class="login-container">
+							<h3>Join the Chat</h3>
+							<p>Enter a username to start chatting:</p>
+							<form onsubmit=${handleLogin} class="login-form">
+								<input
+									type="text"
+									placeholder="Enter username"
+									value=${username}
+									oninput=${(e) => setUsername(e.target.value)}
+									class="username-input"
+									required
+								/>
+								<button type="submit" class="login-btn">Join Chat</button>
+							</form>
+							<div class="demo-note">
+								<p><em>This is a demo implementation. In a real app, this would connect to a Meteor backend for live updates across all users.</em></p>
+							</div>
+						</div>
+					<//>
+				</div>
+			`
+		}
+
+		// Helper method to scroll to bottom
+		scrollToBottom() {
+			setTimeout(() => {
+				const container = this.shadowRoot?.querySelector('.messages-container')
+				if (container) {
+					container.scrollTop = container.scrollHeight
+				}
+			}, 100)
+		}
+
+		// Styling for the chat widget
+		static css = css`
+			:host {
+				display: block;
+				max-width: 600px;
+				margin: 0 auto;
+			}
+
+			.chat-widget {
+				background: rgba(255, 255, 255, 0.95);
+				border-radius: 15px;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+				overflow: hidden;
+				backdrop-filter: blur(10px);
+			}
+
+			.chat-container {
+				display: flex;
+				flex-direction: column;
+				height: 500px;
+			}
+
+			.chat-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 20px;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+			}
+
+			.chat-header h3 {
+				margin: 0;
+				font-size: 1.3rem;
+			}
+
+			.user-info {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				font-size: 0.9rem;
+			}
+
+			.logout-btn {
+				background: rgba(255, 255, 255, 0.2);
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				color: white;
+				padding: 5px 12px;
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: 12px;
+				transition: all 0.2s;
+			}
+
+			.logout-btn:hover {
+				background: rgba(255, 255, 255, 0.3);
+			}
+
+			.messages-container {
+				flex: 1;
+				overflow-y: auto;
+				padding: 20px;
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+				scroll-behavior: smooth;
+			}
+
+			.message {
+				max-width: 80%;
+				padding: 12px 16px;
+				border-radius: 12px;
+				background: #f1f3f5;
+				align-self: flex-start;
+			}
+
+			.message.own-message {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+				align-self: flex-end;
+			}
+
+			.message.system-message {
+				background: #e8f5e8;
+				color: #2d5a2d;
+				align-self: center;
+				max-width: 90%;
+				text-align: center;
+				border-left: 3px solid #4caf50;
+			}
+
+			.message-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 5px;
+				gap: 10px;
+			}
+
+			.username {
+				font-size: 0.9rem;
+				opacity: 0.8;
+				font-weight: 600;
+			}
+
+			.timestamp {
+				font-size: 0.75rem;
+				opacity: 0.6;
+			}
+
+			.message-text {
+				word-wrap: break-word;
+				line-height: 1.4;
+			}
+
+			.message-form {
+				display: flex;
+				padding: 20px;
+				border-top: 1px solid #e9ecef;
+				gap: 10px;
+			}
+
+			.message-input {
+				flex: 1;
+				padding: 12px 16px;
+				border: 2px solid #e9ecef;
+				border-radius: 25px;
+				font-size: 14px;
+				outline: none;
+				transition: border-color 0.2s;
+			}
+
+			.message-input:focus {
+				border-color: #667eea;
+			}
+
+			.send-btn {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+				border: none;
+				padding: 12px 20px;
+				border-radius: 25px;
+				cursor: pointer;
+				font-weight: 600;
+				min-width: 70px;
+				transition: all 0.2s;
+			}
+
+			.send-btn:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
+
+			.send-btn:not(:disabled):hover {
+				transform: translateY(-1px);
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+			}
+
+			.login-container {
+				text-align: center;
+				padding: 40px;
+			}
+
+			.login-container h3 {
+				margin: 0 0 10px 0;
+				color: #333;
+				font-size: 1.5rem;
+			}
+
+			.login-container p {
+				margin: 0 0 30px 0;
+				color: #666;
+			}
+
+			.login-form {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+				max-width: 300px;
+				margin: 0 auto;
+			}
+
+			.username-input {
+				padding: 15px 20px;
+				border: 2px solid #e9ecef;
+				border-radius: 25px;
+				font-size: 16px;
+				text-align: center;
+				outline: none;
+				transition: border-color 0.2s;
+			}
+
+			.username-input:focus {
+				border-color: #667eea;
+			}
+
+			.login-btn {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+				border: none;
+				padding: 15px 30px;
+				border-radius: 25px;
+				cursor: pointer;
+				font-weight: 600;
+				font-size: 16px;
+				transition: all 0.2s;
+			}
+
+			.login-btn:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+			}
+
+			.demo-note {
+				margin-top: 30px;
+				padding: 15px;
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 10px;
+				font-size: 0.9rem;
+			}
+
+			.demo-note p {
+				margin: 0;
+				opacity: 0.8;
+			}
+		`
+	}
+	
+	// Register the custom element
+	customElements.define('chat-widget', ChatWidget)
+</script>
