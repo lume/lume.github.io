@@ -15,6 +15,7 @@
   "></blaze-component>
 
 <style>
+  /* TEMPORARY: hide Sign in in Safari while Safari auth iframe flow is disabled due to freezes. */
   html.is-safari #loginButtons {
     display: none !important;
   }

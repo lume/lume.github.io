@@ -10,6 +10,7 @@ mainOriginFrame.src = mainOrigin
 
 async function getLoginCredentials() {
 	// TEMPORARY: disabled in Safari because loading the auth iframe freezes Safari.
+	// Remove this guard once Safari no longer freezes with the iframe auth flow.
 	// Add ?testSafariAuthIframe to the URL to bypass this guard for testing.
 	if (isSafari && !bypassSafariIframeDisable) return
 	document.body.append(mainOriginFrame)
@@ -54,6 +55,7 @@ async function getLoginCredentials() {
 
 async function setLoginCredentials(token) {
 	// TEMPORARY: disabled in Safari because loading the auth iframe freezes Safari.
+	// Remove this guard once Safari no longer freezes with the iframe auth flow.
 	// Add ?testSafariAuthIframe to the URL to bypass this guard for testing.
 	if (isSafari && !bypassSafariIframeDisable) return
 	document.body.append(mainOriginFrame)
