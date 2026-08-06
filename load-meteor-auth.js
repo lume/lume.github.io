@@ -1,11 +1,14 @@
 import {Accounts} from 'meteor/accounts-base'
 
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
 /** The main origin is where the Meteor server is hosted. */
 const mainOriginFrame = document.createElement('iframe')
 mainOriginFrame.style.display = 'none'
 mainOriginFrame.src = mainOrigin
 
 async function getLoginCredentials() {
+	if (isSafari) return
 	document.body.append(mainOriginFrame)
 
 	const ctrl = new AbortController()
@@ -47,6 +50,7 @@ async function getLoginCredentials() {
 }
 
 async function setLoginCredentials(token) {
+	if (isSafari) return
 	document.body.append(mainOriginFrame)
 
 	const ctrl = new AbortController()
