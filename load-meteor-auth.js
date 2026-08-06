@@ -1,6 +1,7 @@
 import {Accounts} from 'meteor/accounts-base'
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+const bypassSafariIframeDisable = new URLSearchParams(location.search).has('testSafariAuthIframe')
 
 /** The main origin is where the Meteor server is hosted. */
 const mainOriginFrame = document.createElement('iframe')
@@ -8,7 +9,9 @@ mainOriginFrame.style.display = 'none'
 mainOriginFrame.src = mainOrigin
 
 async function getLoginCredentials() {
-	if (isSafari) return
+	// TEMPORARY: disabled in Safari because loading the auth iframe freezes Safari.
+	// Add ?testSafariAuthIframe to the URL to bypass this guard for testing.
+	if (isSafari && !bypassSafariIframeDisable) return
 	document.body.append(mainOriginFrame)
 
 	const ctrl = new AbortController()
@@ -50,7 +53,9 @@ async function getLoginCredentials() {
 }
 
 async function setLoginCredentials(token) {
-	if (isSafari) return
+	// TEMPORARY: disabled in Safari because loading the auth iframe freezes Safari.
+	// Add ?testSafariAuthIframe to the URL to bypass this guard for testing.
+	if (isSafari && !bypassSafariIframeDisable) return
 	document.body.append(mainOriginFrame)
 
 	const ctrl = new AbortController()
