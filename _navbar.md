@@ -15,6 +15,10 @@
   "></blaze-component>
 
 <style>
+  html.is-safari #loginButtons {
+    display: none !important;
+  }
+
   #loginButtons {
     user-select: none;
 

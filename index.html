@@ -48,6 +48,14 @@
 		</script>
 		<!-- End Single Page Apps for GitHub Pages -->
 
+		<script>
+			// TEMPORARY: mark Safari so CSS can hide auth UI while Safari iframe auth is disabled.
+			;(function () {
+				const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+				if (isSafari) document.documentElement.classList.add('is-safari')
+			})()
+		</script>
+
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="description" content="3D HTML elements for performant animated experiences." />
 		<meta
